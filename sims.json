@@ -1,0 +1,168 @@
+{
+	"Pot": {
+		"NitrogenResponseOn": false,
+		"WaterDeficitResponseOn": false,
+		"UseAutomaticIrrigation": false,
+		"UseNMinMineralFertilisingMethod": false,
+		"output": [
+			"yearly", [
+				"Year", 
+				["SOC", [1, 3, "AVG"], "FIRST"], 
+				["SOC", [1, 3, "AVG"], "LAST"], 
+				["Rh", "SUM"], 
+				["NEP", "SUM"], 
+				["Act_ET", "SUM"]
+			],
+			"crop", [
+				["Year", "LAST"], 
+				"Crop", 
+				["Date", "FIRST"], 
+				["Date", "LAST"], 
+				["SOC", [1, 3, "AVG"], "FIRST"], 
+				["SOC", [1, 3, "AVG"], "LAST"], 
+				["Rh", "SUM"], 
+				["NEP", "SUM"], 
+				["Yield", "LAST"], 
+				["Act_ET", "SUM"]
+			]
+		]
+	},
+	"WL.NL.irr": {
+		"NitrogenResponseOn": true,
+		"WaterDeficitResponseOn": true,
+		"UseAutomaticIrrigation": true,
+		"UseNMinMineralFertilisingMethod": true,
+		"output": [
+			"yearly", [
+				"Year", 
+				["SOC", [1, 3, "AVG"], "FIRST"], 
+				["SOC", [1, 3, "AVG"], "LAST"], 
+				["Rh", "SUM"], 
+				["NEP", "SUM"], 
+				["NLeach", "SUM"], 
+				["ActNup", "SUM"], 
+				["NFert", "SUM"], 
+				["N2O", "SUM"], 
+				["Irrig", "SUM"]
+			],
+			"crop", [
+				["Year", "LAST"], 
+				"Crop", 
+				["Date", "FIRST"], 
+				["Date", "LAST"], 
+				["SOC", [1, 3, "AVG"], "FIRST"], 
+				["SOC", [1, 3, "AVG"], "LAST"], 
+				["Rh", "SUM"], 
+				["NEP", "SUM"], 
+				["Yield", "LAST"], 
+				["NLeach", "SUM"], 
+				["ActNup", "SUM"], 
+				["NFert", "SUM"], 
+				["N2O", "SUM"], 
+				["Nstress", "AVG"], 
+				["Irrig", "SUM"]
+			]
+		]
+	},
+	"WL.NL.rain": {
+		"NitrogenResponseOn": true,
+		"WaterDeficitResponseOn": true,
+		"UseAutomaticIrrigation": false,
+		"UseNMinMineralFertilisingMethod": true,
+		"output": [
+			"yearly", [
+				"Year", 
+				["SOC", [1, 3, "AVG"], "FIRST"], 
+				["SOC", [1, 3, "AVG"], "LAST"], 
+				["Rh", "SUM"], 
+				["NEP", "SUM"], 
+				["NLeach", "SUM"], 
+				["ActNup", "SUM"], 
+				["NFert", "SUM"], 
+				["N2O", "SUM"]
+			],
+			"crop", [
+				["Year", "LAST"], 
+				"Crop", 
+				["Date", "FIRST"], 
+				["Date", "LAST"], 
+				["SOC", [1, 3, "AVG"], "FIRST"], 
+				["SOC", [1, 3, "AVG"], "LAST"],
+				["Rh", "SUM"], 
+				["NEP", "SUM"], 
+				["Yield", "LAST"], 
+				["NLeach", "SUM"], 
+				["ActNup", "SUM"], 
+				["NFert", "SUM"], 
+				["N2O", "SUM"], 
+				["Nstress", "AVG"]
+			]
+		]
+	},
+	"WL.irr": {
+		"NitrogenResponseOn": false,
+		"WaterDeficitResponseOn": true,
+		"UseAutomaticIrrigation": true,
+		"UseNMinMineralFertilisingMethod": false,
+		"output": [
+			"yearly", [
+				"Year", 
+				["SOC", [1, 3, "AVG"], "FIRST"], 
+				["SOC", [1, 3, "AVG"], "LAST"], 
+				["Rh", "SUM"], 
+				["NEP", "SUM"], 
+				["Act_ET", "SUM"], 
+				["Act_Ev", "SUM"], 
+				["PercolationRate", 20, "SUM"], 
+				["Irrig", "SUM"]
+			],
+			"crop", [
+				["Year", "LAST"], 
+				"Crop", 
+				["Date", "FIRST"], 
+				["Date", "LAST"], 
+				["SOC", [1, 3, "AVG"], "FIRST"], 
+				["SOC", [1, 3, "AVG"], "LAST"], 
+				["Rh", "SUM"], 
+				["NEP", "SUM"], 
+				["Yield", "LAST"], 
+				["Act_ET", "SUM"], 
+				["Act_Ev", "SUM"], 
+				["PercolationRate", 20, "SUM"], 
+				["Irrig", "SUM"]
+			]
+		]
+	},
+	"WL.rain": {
+		"NitrogenResponseOn": false,
+		"WaterDeficitResponseOn": true,
+		"UseAutomaticIrrigation": false,
+		"UseNMinMineralFertilisingMethod": false,
+		"output": [
+			"yearly", [
+				"Year", 
+				["SOC", [1, 3, "AVG"], "FIRST"], 
+				["SOC", [1, 3, "AVG"], "LAST"], 
+				["Rh", "SUM"], 
+				["NEP", "SUM"], 
+				["Act_ET", "SUM"],
+				["Act_Ev", "SUM"], 
+				["PercolationRate", 20, "SUM"]
+			],
+			"crop", [
+				["Year", "LAST"], 
+				"Crop", 
+				["Date", "FIRST"], 
+				["Date", "LAST"], 
+				["SOC", [1, 3, "AVG"], "FIRST"], 
+				["SOC", [1, 3, "AVG"], "LAST"], 
+				["Rh", "SUM"], 
+				["NEP", "SUM"], 
+				["Yield", "LAST"], 
+				["Act_ET", "SUM"], 
+				["Act_Ev", "SUM"], 
+				["PercolationRate", 20, "SUM"]
+			]
+		]
+	}
+}
