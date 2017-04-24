@@ -1,0 +1,55 @@
+    {
+        "crops": {
+            "CC": {
+                "cropParams": {
+                    "species": ["include-from-file", "monica-parameters/crops/mustard.json"],
+                    "cultivar": ["include-from-file", "monica-parameters/crops/mustard/.json"]
+                },
+                "residueParams": ["include-from-file", "monica-parameters/crop-residues/mustard.json"]
+            }
+        },
+        
+        "fert-params": {
+            "AN": ["include-from-file", "monica-parameters/mineral-fertilisers/AN.json"],
+            "CADLM": ["include-from-file", "monica-parameters/organic-fertilisers/CADLM.json"]
+        }, 	
+
+        "cropRotation": [
+            {
+                "is-cover-crop": true,
+                "can-be-skipped": true,
+                "worksteps": [
+                    { 
+                        "type": "AutomaticSowing", 
+                        "crop": ["ref", "crops", "CC"],
+                        "earliest-date": "0000-08-20",
+                        "latest-date": "0000-09-20",
+                        "min-temp": 22,
+                        "days-in-temp-window": 10,
+                        "min-%-asw": 0,
+                        "max-%-asw": 97,
+                        "max-3d-precip-sum": 2,
+                        "max-curr-day-precip": 0.1,
+                        "temp-sum-above-base-temp": 0,
+                        "base-temp": 0
+                    },
+                    { 
+                        "type": "AutomaticHarvest", 
+                        "latest-date": "0001-03-20",
+                        "min-%-asw": 0,
+                        "max-%-asw": 100,
+                        "max-3d-precip-sum": 2,
+                        "max-curr-day-precip": 0.1,
+                        "harvest-time": "maturity",
+                        "exported": false
+                    }
+                ]
+            }            
+        ],	
+        
+
+        "CropParameters": {
+            "DEFAULT": ["include-from-file", "monica-parameters/user-parameters/hermes-crop.json"]
+        }
+}
+    

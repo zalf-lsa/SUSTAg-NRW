@@ -76,15 +76,17 @@ def main():
     with open("crop.json") as _:
         crop = json.load(_)
 
+    with open("cover-crop.json") as _:
+        cover_crop = json.load(_)
+
     with open("sims.json") as _:
         sims = json.load(_)
 
     with open("rotations.json") as _:
         rotations = json.load(_)
+    
 
-    sim["include-file-base-path"] = PATHS[USER]["INCLUDE_FILE_BASE_PATH"]
-    #sim["climate.csv"] = "35_120_v1.csv"
-    #sim["climate.csv"] = "C:/Users/stella/MONICA/Examples/Hohenfinow2/climate.csv"
+    sim["include-file-base-path"] = PATHS[USER]["INCLUDE_FILE_BASE_PATH"]    
 
     def read_general_metadata(path_to_file):
         "read metadata file"
@@ -114,34 +116,80 @@ def main():
         site["Latitude"] = general_metadata[(row, col)]["latitude"]
         site["HeightNN"] = [general_metadata[(row, col)]["elevation"], "m"]
         site["SiteParameters"]["SoilProfileParameters"] = soil_io.soil_parameters(soil_db_con, soil_ids[(row, col)])
+    
+    def read_ascii_grid(path_to_file, include_no_data=False, row_offset=0, col_offset=0):
+        "read an ascii grid into a map, without the no-data values"
+        def int_or_float(s):
+            try:
+                return int(s)
+            except ValueError:
+                return float(s)
+        
+        with open(path_to_file) as file_:
+            data = {}
+            #skip the header (first 6 lines)
+            for _ in range(0, 6):
+                file_.next()
+            row = 0
+            for line in file_:
+                col = 0
+                for col_str in line.strip().split(" "):
+                    if not include_no_data and int_or_float(col_str) == -9999:
+                        continue
+                    data[(row_offset+row, col_offset+col)] = int_or_float(col_str)
+                    col += 1
+                row += 1
+            return data
 
-    soil_ids = ascii_io.read_ascii_grid("soil-profile-id_nrw_gk3.asc", row_offset=282)
-    bkr_ids = ascii_io.read_ascii_grid("bkr_nrw_gk3.asc", row_offset=282)
+    soil_ids = read_ascii_grid("soil-profile-id_nrw_gk3.asc", row_offset=282)
+    bkr_ids = read_ascii_grid("bkr_nrw_gk3.asc", row_offset=282)
+    lu_ids = read_ascii_grid("lu_resampled.asc", row_offset=282)
 
     def rotate(crop_rotation):
         "rotate the crops in the rotation"
         crop_rotation.insert(0, crop_rotation.pop())
+    
+    def insert_cc(crop_rotation):
+        "insert cover crops in the rotation"
+        insert_cover_before = ["maize", "barley", "potato", "sugar beet"]
+        insert_cover_here = []
+        for cultivation_method in range(len(crop_rotation)):
+            for workstep in crop_rotation[cultivation_method]["worksteps"]:
+                if workstep["type"] == "Sowing" and workstep["crop"]["cropParams"]["species"]["SpeciesName"] in insert_cover_before:
+                    insert_cover_here.append(cultivation_method)
+                    break
+        for position in reversed(insert_cover_here):
+            crop_rotation.insert(position, cc_data)
+
+    def remove_cc(crop_rotation):
+        "remove cover crops from the rotation"
+        for cultivation_method in reversed(range(len(crop_rotation))):
+            if "is-cover-crop" in crop_rotation[cultivation_method]:
+                del crop_rotation[cultivation_method]
+    
+    #env built only to have structured data for cover crop
+    cover_env = monica_io.create_env_json_from_json_config({
+        "crop": cover_crop,
+        "site": site,
+        "sim": sim,
+        "climate": ""
+        })
+    cc_data = cover_env["cropRotation"][0]
 
     read_climate_data_locally = False
     i = 0
     start_send = time.clock()
-    for (row, col), gmd in general_metadata.iteritems():
-        #if not (row == 365 and col == 120):
-        #    continue
+    for (row, col), gmd in general_metadata.iteritems():        
 
-        if (row, col) in soil_ids and (row, col) in bkr_ids:
+        if (row, col) in soil_ids and (row, col) in bkr_ids and (row, col) in lu_ids:
             update_soil_crop_dates(row, col)
 
             bkr_id = bkr_ids[(row, col)]
-            #if bkr_id != 191:
-            #    continue
-            soil_id = soil_ids[(row, col)]
+            soil_id = soil_ids[(row, col)]            
 
             for rot_id, rotation in rotations[str(bkr_id)].iteritems():
-                #if rot_id != "6130":
-                #    continue
-                #rot_id, rotation = ("9110", rotations["9110"])
-                crop["cropRotation"] = rotation
+
+                crop["cropRotation"] = rotation                
 
                 env = monica_io.create_env_json_from_json_config({
                     "crop": crop,
@@ -149,6 +197,8 @@ def main():
                     "sim": sim,
                     "climate": ""
                 })
+
+                insert_cc(env["cropRotation"])
 
                 #read climate data on client and send them with the env
                 if read_climate_data_locally:
@@ -172,17 +222,17 @@ def main():
                     env["params"]["simulationParameters"]["UseAutomaticIrrigation"] = sim_["UseAutomaticIrrigation"]
                     env["params"]["simulationParameters"]["UseNMinMineralFertilisingMethod"] = sim_["UseNMinMineralFertilisingMethod"]
 
-                    for rot in range(0, len(rotation)):
+                    for rot in range(0, len(env["cropRotation"])):
                         env["customId"] = rot_id \
                                         + "|" + sim_id \
                                         + "|" + str(soil_id) \
                                         + "|(" + str(row) + "/" + str(col) + ")" \
                                         + "|" + str(bkr_id) \
                                         + "|" + str(rot)
-                        socket.send_json(env) #TODO uncomment this
+                        #socket.send_json(env) #TODO uncomment this
                         print "sent env ", i, " customId: ", env["customId"]
-                        i += 1
-                        rotate(env["cropRotation"])
+                        i += 1                        
+                        rotate(env["cropRotation"]) 
 
 
     stop_send = time.clock()
