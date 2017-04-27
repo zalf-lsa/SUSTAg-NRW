@@ -16,8 +16,8 @@
 # Copyright (C: Leibniz Centre for Agricultural Landscape Research (ZALF)
 
 import sys
-sys.path.insert(0, "C:\\Users\\berg.ZALF-AD\\GitHub\\monica\\project-files\\Win32\\Release")
-sys.path.insert(0, "C:\\Users\\berg.ZALF-AD\\GitHub\\monica\\src\\python")
+#sys.path.insert(0, "C:\\Users\\berg.ZALF-AD\\GitHub\\monica\\project-files\\Win32\\Release")
+#sys.path.insert(0, "C:\\Users\\berg.ZALF-AD\\GitHub\\monica\\src\\python")
 #print sys.path
 
 #import ascii_io
@@ -31,6 +31,7 @@ from collections import defaultdict
 import zmq
 #print zmq.pyzmq_version()
 import monica_io
+import re
 
 
 def create_year_output(oids, row, col, rotation, prod_level, values):
@@ -115,6 +116,10 @@ def create_crop_output(oids, row, col, rotation, prod_level, values):
                     vals.get("Rh", "NA"),
                     vals.get("NEP", "NA"),
                     vals.get("Yield", "NA"),
+                    vals.get("AbBiom", "NA"),
+                    vals.get("LAI", "NA"),
+                    vals.get("Stage", "NA"),
+                    vals.get("RelDev", "NA"),
                     vals.get("Act_ET", "NA"),
                     vals.get("Act_Ev", "NA"),
                     vals.get("PercolationRate", "NA"),
@@ -123,16 +128,39 @@ def create_crop_output(oids, row, col, rotation, prod_level, values):
                     vals.get("ActNup", "NA"),
                     vals.get("NFert", "NA"),
                     vals.get("N2O", "NA"),
-                    vals.get("Nstress", "NA")
+                    vals.get("Nstress", "NA"),
+                    vals.get("TraDef", "NA")
                 ])
 
     return out
 
-def write_data(region_id, year_data, crop_data):
+def update_pheno_output(oids, row, col, rotation, prod_level, values, pheno_data, region_id):
+    "create phenological related output lines"
+    row_col = "{}{:03d}".format(row, col)
+    if len(values) > 0:
+        for kkk in range(0, len(values[0])):
+            vals = {}
+            for iii in range(0, len(oids)):
+                oid = oids[iii]
+                val = values[iii][kkk]
+                if oid["displayName"] != "":
+                    oid_name = oid["displayName"]
+                else:
+                    oid_name = oid["name"]
+                #oid_name = oid["displayName"] if oid["displayName"] != "" else oid_name = oid["name"]
+                if isinstance(val, types.ListType):
+                    for val_ in val:
+                        vals[oid_name] = val_
+                else:
+                    vals[oid_name] = val
+            pheno_data[region_id][vals.get("Crop")][vals.get("Year")].update(vals)
+
+def write_data(region_id, year_data, crop_data, pheno_data):
     "write data"
 
     path_to_crop_file = "out/" + str(region_id) + "_crop.csv"
     path_to_year_file = "out/" + str(region_id) + "_year.csv"
+    path_to_pheno_file = "out/" + str(region_id) + "_pheno.csv"
 
     if not os.path.isfile(path_to_year_file):
         with open(path_to_year_file, "w") as _:
@@ -146,13 +174,32 @@ def write_data(region_id, year_data, crop_data):
 
     if not os.path.isfile(path_to_crop_file):
         with open(path_to_crop_file, "w") as _:
-            _.write("ID.cell,rotation,crop,prod.level,year,cycle.length,delta.OC,CO2.emission,NEP,yield,ET,EV,water.perc,irr,N.leach,N.up,N.fert,N2O.em,N.stress\n")
+            _.write("ID.cell,rotation,crop,prod.level,year,cycle.length,delta.OC,CO2.emission,NEP,yield,agb,LAImax,Stage.harv,RelDev,ET,EV,water.perc,irr,N.leach,N.up,N.min.fert,N2O.em,N.stress,Wstress\n")
 
     with open(path_to_crop_file, 'ab') as _:
         writer = csv.writer(_, delimiter=",")
         for row_ in crop_data[region_id]:
             writer.writerow(row_)
         crop_data[region_id] = []
+    
+    #if not os.path.isfile(path_to_pheno_file):
+    #    with open(path_to_pheno_file, "w") as _:
+    #        _.write("crop,year,anthesis,maturity,harvest\n")
+
+    #with open(path_to_pheno_file, 'ab') as _:
+    #    writer = csv.writer(_, delimiter=",")
+    #    for crop in pheno_data[region_id]:
+    #        for year in pheno_data[region_id][crop]:
+    #           row = [    
+    #                crop,
+    #                year,
+    #                pheno_data[region_id][crop][year].get("anthesis", "NA"),
+    #                pheno_data[region_id][crop][year].get("maturity", "NA"),
+    #                pheno_data[region_id][crop][year].get("harvest", "NA")
+    #            ]
+    #            writer.writerow(row)
+    #    pheno_data.clear()
+    pheno_data.clear() 
 
 
 def collector():
@@ -160,11 +207,12 @@ def collector():
 
     year_data = defaultdict(list)
     crop_data = defaultdict(list)
+    pheno_data = defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))
 
     i = 0
     context = zmq.Context()
     socket = context.socket(zmq.PULL)
-    socket.bind("tcp://*:7777")
+    socket.connect("tcp://cluster2:7777")
     socket.RCVTIMEO = 1000
     leave = False
     write_normal_output_files = False
@@ -176,7 +224,7 @@ def collector():
         except:
             for region_id in year_data.keys():
                 if len(year_data[region_id]) > 0:
-                    write_data(region_id, year_data, crop_data)
+                    write_data(region_id, year_data, crop_data, pheno_data)
             continue
 
         if result["type"] == "finish":
@@ -205,10 +253,13 @@ def collector():
                     elif orig_spec == '"crop"':
                         res = create_crop_output(output_ids, row, col, rotation, prod_level, results)
                         crop_data[region_id].extend(res)
+                    if re.search('anthesis', orig_spec) or re.search('maturity', orig_spec) or re.search('Harvest', orig_spec):
+                        update_pheno_output(output_ids, row, col, rotation, prod_level, results, pheno_data, region_id)
+
 
             for region_id in year_data.keys():
                 if len(year_data[region_id]) > start_writing_lines_threshold:
-                    write_data(region_id, year_data, crop_data)
+                    write_data(region_id, year_data, crop_data, pheno_data)
 
             i = i + 1
 

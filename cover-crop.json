@@ -1,9 +1,9 @@
     {
         "crops": {
-            "CC": {
+            "CC-M": {
                 "cropParams": {
-                    "species": ["include-from-file", "monica-parameters/crops/mustard.json"],
-                    "cultivar": ["include-from-file", "monica-parameters/crops/mustard/.json"]
+                    "species": ["include-from-file", "monica-parameters/projects/sustag/mustard.json"],
+                    "cultivar": ["include-from-file", "monica-parameters/projects/sustag/mustard-cv.json"]
                 },
                 "residueParams": ["include-from-file", "monica-parameters/crop-residues/mustard.json"]
             }
@@ -21,7 +21,7 @@
                 "worksteps": [
                     { 
                         "type": "AutomaticSowing", 
-                        "crop": ["ref", "crops", "CC"],
+                        "crop": ["ref", "crops", "CC-M"],
                         "earliest-date": "0000-08-20",
                         "latest-date": "0000-09-20",
                         "min-temp": 22,
@@ -49,7 +49,7 @@
         
 
         "CropParameters": {
-            "DEFAULT": ["include-from-file", "monica-parameters/user-parameters/hermes-crop.json"]
+            "DEFAULT": ["include-from-file", "monica-parameters/general/crop.json"]
         }
 }
     

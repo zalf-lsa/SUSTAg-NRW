@@ -1,61 +1,61 @@
-Angaben in kg N ha-1,,,,,,,,,,
-Kreis code,Kreis,Anfall in der Tierhaltung,Import (NL+ andere BL),Biogasanlagen (pflanzicher Anteil),Klärschlamm,Netto-Export (aus d. Kreisen),Verbleib in NRW,,,
-111,Düsseldorf,25.9,5,9.2,0,-10.6,51,,,DÃ¼sseldorf               Duisburg                  Essen                     Krefeld                  
-112,Duisburg,27.8,11.9,0,0,-46,86,,, [5] MÃ¶nchengladbach          MÃ¼lheim a.d. Ruhr        Oberhausen                Remscheid                
-113,Essen,41.1,0,18.2,1.8,9,52,,, [9] Solingen                  Wuppertal                 Kreis Kleve               Mettmann                 
-114,Krefeld,56.4,7.2,6.4,0,-21.2,91,,,[13] Neuss                     Viersen                   Wesel                     Aachen                   
-116,Mönchengladbach,36.7,65.6,0,5.7,-18,126,,,[17] Bonn                      KÃ¶ln                     Leverkusen                Kreis Aachen             
-117,Mülheim,40.3,39.2,0,1.6,33.9,47,,,[21] DÃ¼ren                    Erftkreis                 Euskirchen                Heinsberg                
-119,Oberhausen,62.5,0,0,0,-40.2,103,,,[25] Oberbergischer Kreis      Rhein.-Berg. Kreis        Rhein-Sieg-Kreis          Bottrop                  
-120,Remscheid,132.1,0,0,0,39.8,92,,,[29] Gelsenkirchen             MÃ¼nster                  Borken                    Coesfeld                 
-122,Solingen,59.8,0.1,25.6,1.2,6.5,80,,,[33] Recklinghausen            Steinfurt                 Warendorf                 Bielefeld                
-124,Wuppertal,77,0.5,0,3.5,-4.2,85,,,[37] GÃ¼tersloh                Herford                   HÃ¶xter                   Lippe                    
-154,Kleve,157.2,27.5,17.8,0.2,9.3,193,,,[41] Minden-LÃ¼bbecke          Paderborn                 Bochum                    Dortmund                 
-158,Mettmann,34.2,5.4,4.8,3.7,-1.7,50,,,[45] Hagen                     Hamm                      Herne                     Ennepe-Ruhr-Kreis        
-162,Rhein-Kreis Neuss,20.3,29.7,7.6,2.3,-1.9,62,,,[49] Hochsauerlandkreis        MÃ¤rkischer Kreis         Kreis Olpe                Kreis Siegen-Wittgenstein
-166,Viersen,98,48.8,14.4,0,29.5,132,,,[53] Soest                     Unna                     
-170,Wesel,111.3,13.4,4,0.1,-11.5,140,,,
-1,Reg.-Bez. Düsseldorf,100.4,25,10.5,0.9,2.7,134,,,
-314,Bonn,39.9,0,0,5,3,42,,,
-315,Köln,8.6,21.9,17.3,0.1,-1.5,49,,,
-316,Leverkusen,53.9,5.5,0,0,1,58,,,
-334,Aachen,78.9,14.2,6.1,0.6,0.6,99,,,
-358,Düren,22.1,21.6,16.8,3.6,-6.4,70,,,
-362,Rhein-Erft-Kreis,10.6,30,0.6,2.3,1.1,42,,,
-366,Euskirchen,51.8,21.6,9.8,4.5,-3.3,91,,,
-370,Heinsberg,65.5,59.2,7.7,2.6,-1.7,137,,,
-374,Oberbergischer Kreis,117.2,0.1,0,0,0.1,117,,,
-378,Rheinisch-Berg. Kreis,107.8,0.9,5.9,0,-1.4,116,,,
-382,Rhein-Sieg-Kreis,65.5,3.8,3.5,0.3,-2.4,76,,,
-3,Reg.-Bez. Köln,55.7,21.1,7.3,2.1,-2.1,88,,,
-512,Bottrop,149.3,0.9,10.8,0,24.3,137,,,
-513,Gelsenkirchen,99.7,0,0,0,6.3,93,,,
-515,Münster,86.7,0,14.2,0.2,-1.1,102,,,
-554,Borken,192.2,0.1,26.7,0,27.6,191,,,
-558,Coesfeld,151.8,0.4,13.9,0.2,11.6,155,,,
-562,Recklinghausen,117.5,0.5,6.3,0.3,3.6,121,,,
-566,Steinfurt,127.5,1.2,14.9,0.2,8.9,135,,,
-570,Warendorf,121.1,0.6,10,0,2.4,129,,,
-5,Reg.-Bez. Münster,143,0.6,15.7,0.1,11.6,148,,,
-711,Bielefeld,45.4,9.1,25.8,0.5,-7.4,88,,,
-754,Gütersloh,107.2,0.5,14.2,0.1,5.9,116,,,
-758,Herford,51.1,15.5,20.4,3,-2,92,,,
-762,Höxter,64,1.5,19.9,3.2,-1.1,90,,,
-766,Lippe,37.3,3.9,17.7,3.8,-2.2,65,,,
-770,Minden-Lübbecke,74.5,8.3,20.7,0.2,2.8,101,,,
-774,Paderborn,92.1,0.7,20,0.8,2.2,111,,,
-7,Reg.-Bez. Detmold,72.6,4,18.9,1.7,1.1,96,,,
-911,Bochum,31.1,0,0,0.4,-19.4,51,,,
-913,Dortmund,32.7,4.5,0,0.9,-58.4,96,,,
-914,Hagen,67.2,6.4,0,0,0,74,,,
-915,Hamm,83.4,0,8.8,3.3,-7.8,103,,,
-916,Herne,72.4,0,0,0,-10.2,83,,,
-954,Ennepe-Ruhr-Kreis,74.3,3.1,5.2,0.3,1.9,81,,,
-958,Hochsauerlandkreis,92.9,1.8,7.2,0,0,102,,,
-962,Märkischer Kreis,89.6,4,6.3,0,-5.7,106,,,
-966,Olpe,94.2,1.4,2.6,0,-2.8,101,,,
-970,Siegen-Wittgenstein,66.8,0,0.1,0,0.2,67,,,
-974,Soest,73.7,6,18.5,1.7,-7.3,107,,,
-978,Unna,76.2,0.8,9.3,2,-8.1,96,,,
-9,Reg.-Bez. Arnsberg,79.8,3.1,9.7,0.9,-5.5,99,,,
-0,NRW,"93,5",9.4,13,1.1,2.4,115,,,
+Angaben in kg N ha-1,,,,,,,,,,,
+Kreis code (LKW),Kreis code (asc grid),Kreis,Anfall in der Tierhaltung,Import (NL+ andere BL),Biogasanlagen (pflanzicher Anteil),Klärschlamm,Netto-Export (aus d. Kreisen),Verbleib in NRW,,,from shapefile
+111,1,Düsseldorf,25.9,5,9.2,0,-10.6,51,,,DÃ¼sseldorf               Duisburg                  Essen                     Krefeld                  
+112,2,Duisburg,27.8,11.9,0,0,-46,86,,, [5] MÃ¶nchengladbach          MÃ¼lheim a.d. Ruhr        Oberhausen                Remscheid                
+113,3,Essen,41.1,0,18.2,1.8,9,52,,, [9] Solingen                  Wuppertal                 Kreis Kleve               Mettmann                 
+114,4,Krefeld,56.4,7.2,6.4,0,-21.2,91,,,[13] Neuss                     Viersen                   Wesel                     Aachen                   
+116,5,Mönchengladbach,36.7,65.6,0,5.7,-18,126,,,[17] Bonn                      KÃ¶ln                     Leverkusen                Kreis Aachen             
+117,6,Mülheim,40.3,39.2,0,1.6,33.9,47,,,[21] DÃ¼ren                    Erftkreis                 Euskirchen                Heinsberg                
+119,7,Oberhausen,62.5,0,0,0,-40.2,103,,,[25] Oberbergischer Kreis      Rhein.-Berg. Kreis        Rhein-Sieg-Kreis          Bottrop                  
+120,8,Remscheid,132.1,0,0,0,39.8,92,,,[29] Gelsenkirchen             MÃ¼nster                  Borken                    Coesfeld                 
+122,9,Solingen,59.8,0.1,25.6,1.2,6.5,80,,,[33] Recklinghausen            Steinfurt                 Warendorf                 Bielefeld                
+124,10,Wuppertal,77,0.5,0,3.5,-4.2,85,,,[37] GÃ¼tersloh                Herford                   HÃ¶xter                   Lippe                    
+154,11,Kleve,157.2,27.5,17.8,0.2,9.3,193,,,[41] Minden-LÃ¼bbecke          Paderborn                 Bochum                    Dortmund                 
+158,12,Mettmann,34.2,5.4,4.8,3.7,-1.7,50,,,[45] Hagen                     Hamm                      Herne                     Ennepe-Ruhr-Kreis        
+162,13,Rhein-Kreis Neuss,20.3,29.7,7.6,2.3,-1.9,62,,,[49] Hochsauerlandkreis        MÃ¤rkischer Kreis         Kreis Olpe                Kreis Siegen-Wittgenstein
+166,14,Viersen,98,48.8,14.4,0,29.5,132,,,[53] Soest                     Unna                     
+170,15,Wesel,111.3,13.4,4,0.1,-11.5,140,,,
+1,,Reg.-Bez. Düsseldorf,100.4,25,10.5,0.9,2.7,134,,,
+314,17,Bonn,39.9,0,0,5,3,42,,,
+315,18,Köln,8.6,21.9,17.3,0.1,-1.5,49,,,
+316,19,Leverkusen,53.9,5.5,0,0,1,58,,,
+334,13|20,Aachen,78.9,14.2,6.1,0.6,0.6,99,,,
+358,21,Düren,22.1,21.6,16.8,3.6,-6.4,70,,,
+362,22,Rhein-Erft-Kreis,10.6,30,0.6,2.3,1.1,42,,,
+366,23,Euskirchen,51.8,21.6,9.8,4.5,-3.3,91,,,
+370,24,Heinsberg,65.5,59.2,7.7,2.6,-1.7,137,,,
+374,25,Oberbergischer Kreis,117.2,0.1,0,0,0.1,117,,,
+378,26,Rheinisch-Berg. Kreis,107.8,0.9,5.9,0,-1.4,116,,,
+382,27,Rhein-Sieg-Kreis,65.5,3.8,3.5,0.3,-2.4,76,,,
+3,,Reg.-Bez. Köln,55.7,21.1,7.3,2.1,-2.1,88,,,
+512,28,Bottrop,149.3,0.9,10.8,0,24.3,137,,,
+513,29,Gelsenkirchen,99.7,0,0,0,6.3,93,,,
+515,30,Münster,86.7,0,14.2,0.2,-1.1,102,,,
+554,31,Borken,192.2,0.1,26.7,0,27.6,191,,,
+558,32,Coesfeld,151.8,0.4,13.9,0.2,11.6,155,,,
+562,33,Recklinghausen,117.5,0.5,6.3,0.3,3.6,121,,,
+566,34,Steinfurt,127.5,1.2,14.9,0.2,8.9,135,,,
+570,35,Warendorf,121.1,0.6,10,0,2.4,129,,,
+5,,Reg.-Bez. Münster,143,0.6,15.7,0.1,11.6,148,,,
+711,36,Bielefeld,45.4,9.1,25.8,0.5,-7.4,88,,,
+754,37,Gütersloh,107.2,0.5,14.2,0.1,5.9,116,,,
+758,38,Herford,51.1,15.5,20.4,3,-2,92,,,
+762,39,Höxter,64,1.5,19.9,3.2,-1.1,90,,,
+766,40,Lippe,37.3,3.9,17.7,3.8,-2.2,65,,,
+770,41,Minden-Lübbecke,74.5,8.3,20.7,0.2,2.8,101,,,
+774,42,Paderborn,92.1,0.7,20,0.8,2.2,111,,,
+7,,Reg.-Bez. Detmold,72.6,4,18.9,1.7,1.1,96,,,
+911,43,Bochum,31.1,0,0,0.4,-19.4,51,,,
+913,44,Dortmund,32.7,4.5,0,0.9,-58.4,96,,,
+914,45,Hagen,67.2,6.4,0,0,0,74,,,
+915,46,Hamm,83.4,0,8.8,3.3,-7.8,103,,,
+916,47,Herne,72.4,0,0,0,-10.2,83,,,
+954,48,Ennepe-Ruhr-Kreis,74.3,3.1,5.2,0.3,1.9,81,,,
+958,49,Hochsauerlandkreis,92.9,1.8,7.2,0,0,102,,,
+962,50,Märkischer Kreis,89.6,4,6.3,0,-5.7,106,,,
+966,51,Olpe,94.2,1.4,2.6,0,-2.8,101,,,
+970,52,Siegen-Wittgenstein,66.8,0,0.1,0,0.2,67,,,
+974,53,Soest,73.7,6,18.5,1.7,-7.3,107,,,
+978,54,Unna,76.2,0.8,9.3,2,-8.1,96,,,
+9,,Reg.-Bez. Arnsberg,79.8,3.1,9.7,0.9,-5.5,99,,,
+0,,NRW,"93,5",9.4,13,1.1,2.4,115,,,

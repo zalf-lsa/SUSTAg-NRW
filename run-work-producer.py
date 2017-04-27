@@ -39,6 +39,8 @@ import zmq
 import monica_io
 import soil_io
 import ascii_io
+from datetime import date, timedelta
+import copy
 
 #print "pyzmq version: ", zmq.pyzmq_version()
 #print "sys.path: ", sys.path
@@ -54,8 +56,7 @@ PATHS = {
     }
 }
 
-PATH_TO_NRW_METADATA_CSV_FILE = "NRW_General_Metadata.csv"
-PATH_TO_CLIMATE_DATA_DIR = "/archiv-daten/md/projects/sustag/MACSUR_WP3_NRW_1x1/"
+PATH_TO_CLIMATE_DATA_DIR = "/archiv-daten/md/projects/sustag/MACSUR_WP3_NRW_1x1/" #"Z:/projects/sustag/MACSUR_WP3_NRW_1x1/"
 
 def main():
     "main function"
@@ -63,7 +64,7 @@ def main():
     context = zmq.Context()
     socket = context.socket(zmq.PUSH)
     port = 6666 if len(sys.argv) == 1 else sys.argv[1]
-    socket.bind("tcp://*:" + str(port))
+    socket.connect("tcp://cluster2:" + str(port))
 
     soil_db_con = sqlite3.connect("soil.sqlite")
 
@@ -104,7 +105,22 @@ def main():
                 }
             return data
 
-    general_metadata = read_general_metadata(PATH_TO_NRW_METADATA_CSV_FILE)
+    general_metadata = read_general_metadata("NRW_General_Metadata.csv")
+
+    def read_orgN_kreise(path_to_file):
+        "read organic N info for kreise"
+        with open(path_to_file) as file_:
+            data = {}
+            reader = csv.reader(file_, delimiter=",")
+            reader.next()
+            reader.next()
+            for row in reader:
+                for kreis_code in row[1].split("|"):
+                    if kreis_code != "":
+                        data[int(kreis_code)] = float(row[8])
+        return data
+
+    orgN_kreise = read_orgN_kreise("NRW_orgN_balance.csv")
 
     def update_soil_crop_dates(row, col):
         "in place update the env"
@@ -116,6 +132,8 @@ def main():
         site["Latitude"] = general_metadata[(row, col)]["latitude"]
         site["HeightNN"] = [general_metadata[(row, col)]["elevation"], "m"]
         site["SiteParameters"]["SoilProfileParameters"] = soil_io.soil_parameters(soil_db_con, soil_ids[(row, col)])
+        for layer in site["SiteParameters"]["SoilProfileParameters"]:
+            layer["SoilBulkDensity"][0] = max(layer["SoilBulkDensity"][0], 600)
     
     def read_ascii_grid(path_to_file, include_no_data=False, row_offset=0, col_offset=0):
         "read an ascii grid into a map, without the no-data values"
@@ -140,10 +158,12 @@ def main():
                     col += 1
                 row += 1
             return data
-
+    
+    #offset is used to match info in general metadata and soil database
     soil_ids = read_ascii_grid("soil-profile-id_nrw_gk3.asc", row_offset=282)
     bkr_ids = read_ascii_grid("bkr_nrw_gk3.asc", row_offset=282)
     lu_ids = read_ascii_grid("lu_resampled.asc", row_offset=282)
+    kreise_ids = read_ascii_grid("kreise_matrix.asc", row_offset=282)
 
     def rotate(crop_rotation):
         "rotate the crops in the rotation"
@@ -151,21 +171,28 @@ def main():
     
     def insert_cc(crop_rotation):
         "insert cover crops in the rotation"
-        insert_cover_before = ["maize", "barley", "potato", "sugar beet"]
+        insert_cover_before = ["maize", "spring barley", "potato", "sugar beet"]
         insert_cover_here = []
         for cultivation_method in range(len(crop_rotation)):
             for workstep in crop_rotation[cultivation_method]["worksteps"]:
-                if workstep["type"] == "Sowing" and workstep["crop"]["cropParams"]["species"]["SpeciesName"] in insert_cover_before:
-                    insert_cover_here.append(cultivation_method)
-                    break
-        for position in reversed(insert_cover_here):
-            crop_rotation.insert(position, cc_data)
+                if workstep["type"] == "Sowing":
+                    if workstep["crop"]["cropParams"]["species"]["SpeciesName"] in insert_cover_before or workstep["crop"]["cropParams"]["cultivar"]["CultivarName"] in insert_cover_before:
+                        insert_cover_here.append((cultivation_method, workstep["date"]))
+                        break
+        for position, mydate in reversed(insert_cover_here): 
+            mydate = mydate.split("-")
+            main_crop_sowing = date(2017, int(mydate[1]), int(mydate[2]))
+            latest_harvest_cc = main_crop_sowing - timedelta(days = 10)
+            latest_harvest_cc = unicode("0001-" + str(latest_harvest_cc.month).zfill(2) + "-" + str(latest_harvest_cc.day).zfill(2))
+            crop_rotation.insert(position, copy.deepcopy(cc_data))
+            crop_rotation[position]["worksteps"][1]["latest-date"] = latest_harvest_cc
+            
 
-    def remove_cc(crop_rotation):
-        "remove cover crops from the rotation"
-        for cultivation_method in reversed(range(len(crop_rotation))):
-            if "is-cover-crop" in crop_rotation[cultivation_method]:
-                del crop_rotation[cultivation_method]
+    #def remove_cc(crop_rotation):
+    #    "remove cover crops from the rotation"
+    #    for cultivation_method in reversed(range(len(crop_rotation))):
+    #        if "is-cover-crop" in crop_rotation[cultivation_method]:
+    #            del crop_rotation[cultivation_method]
     
     #env built only to have structured data for cover crop
     cover_env = monica_io.create_env_json_from_json_config({
@@ -179,17 +206,43 @@ def main():
     read_climate_data_locally = False
     i = 0
     start_send = time.clock()
-    for (row, col), gmd in general_metadata.iteritems():        
+
+    def calculate_orgfert_amount(N_applied, fert_type):
+        "convert N applied in amount of fresh org fert"
+        AOM_DryMatterContent = fert_type["AOM_DryMatterContent"][0]
+        AOM_NH4Content = fert_type["AOM_NH4Content"][0]
+        AOM_NO3Content = fert_type["AOM_NO3Content"][0]
+        CN_Ratio_AOM_Fast = fert_type["CN_Ratio_AOM_Fast"][0]
+        CN_Ratio_AOM_Slow = fert_type["CN_Ratio_AOM_Slow"][0]
+        PartAOM_to_AOM_Fast = fert_type["PartAOM_to_AOM_Fast"][0]
+        PartAOM_to_AOM_Slow = fert_type["PartAOM_to_AOM_Slow"][0]
+        AOM_to_C = 0.45
+
+        AOM_fast_factor = 1/(CN_Ratio_AOM_Fast/(AOM_to_C * PartAOM_to_AOM_Fast))
+        AOM_slow_factor = 1/(CN_Ratio_AOM_Slow/(AOM_to_C * PartAOM_to_AOM_Slow))
+
+        conversion_coeff = AOM_NH4Content + AOM_NO3Content + AOM_fast_factor + AOM_slow_factor
+        
+        AOM_dry = N_applied / conversion_coeff
+        AOM_fresh = AOM_dry / AOM_DryMatterContent
+
+        return AOM_fresh
+
+    for (row, col), gmd in general_metadata.iteritems():
 
         if (row, col) in soil_ids and (row, col) in bkr_ids and (row, col) in lu_ids:
             update_soil_crop_dates(row, col)
 
             bkr_id = bkr_ids[(row, col)]
-            soil_id = soil_ids[(row, col)]            
+            soil_id = soil_ids[(row, col)]
+            kreis_id = kreise_ids[(row, col)]
+
+            if bkr_id != 142:
+                continue
 
             for rot_id, rotation in rotations[str(bkr_id)].iteritems():
 
-                crop["cropRotation"] = rotation                
+                crop["cropRotation"] = rotation
 
                 env = monica_io.create_env_json_from_json_config({
                     "crop": crop,
@@ -198,7 +251,22 @@ def main():
                     "climate": ""
                 })
 
+                #with open("test_crop.json", "w") as _:
+                #    _.write(json.dumps(crop))
+                
+                #with open("test_site.json", "w") as _:
+                #    _.write(json.dumps(site))
+                
+                #with open("test_sim.json", "w") as _:
+                #    _.write(json.dumps(sim))
+
                 insert_cc(env["cropRotation"])
+
+                #assign amount of organic fertilizer
+                for cultivation_method in env["cropRotation"]:
+                    for workstep in cultivation_method["worksteps"]:
+                        if workstep["type"] == "OrganicFertilization":
+                            workstep["amount"] = calculate_orgfert_amount(orgN_kreise[kreis_id], workstep["parameters"])
 
                 #read climate data on client and send them with the env
                 if read_climate_data_locally:
@@ -213,8 +281,8 @@ def main():
                     env["pathToClimateCSV"] = PATH_TO_CLIMATE_DATA_DIR + gmd["subpath-climate.csv"]
 
                 for sim_id, sim_ in sims.iteritems():
-                    #if sim_id != "WL.NL.rain":
-                    #    continue
+                    if sim_id != "WL.NL.rain":
+                        continue
                     #sim_id, sim_ = ("potential", sims["potential"])
                     env["events"] = sim_["output"]
                     env["params"]["simulationParameters"]["NitrogenResponseOn"] = sim_["NitrogenResponseOn"]
@@ -229,7 +297,7 @@ def main():
                                         + "|(" + str(row) + "/" + str(col) + ")" \
                                         + "|" + str(bkr_id) \
                                         + "|" + str(rot)
-                        #socket.send_json(env) #TODO uncomment this
+                        socket.send_json(env) 
                         print "sent env ", i, " customId: ", env["customId"]
                         i += 1                        
                         rotate(env["cropRotation"]) 

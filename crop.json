@@ -1,79 +1,65 @@
   {
 	"crops": {
-		"WR": {
-			"cropParams": {
-				"species": ["include-from-file", "monica-parameters/crops/rye.json"],
-				"cultivar": ["include-from-file", "monica-parameters/crops/rye/winter rye.json"]
-			},
-			"residueParams": ["include-from-file", "monica-parameters/crop-residues/rye.json"]
-		},
 		"SM": {
 			"cropParams": {
-				"species": ["include-from-file", "monica-parameters/crops/maize.json"],
-				"cultivar": ["include-from-file", "monica-parameters/crops/maize/silage maize.json"]
+				"species": ["include-from-file", "monica-parameters/projects/macsur-cc-scaling-nrw/maize.json"],
+				"cultivar": ["include-from-file", "monica-parameters/projects/macsur-cc-scaling-nrw/silage-maize.json"]
 			},
 			"residueParams": ["include-from-file", "monica-parameters/crop-residues/maize.json"]
 		},
 		"WW": {
 			"cropParams": {
-				"species": ["include-from-file", "monica-parameters/crops/wheat.json"],
-				"cultivar": ["include-from-file", "monica-parameters/crops/wheat/winter wheat.json"]
+				"species": ["include-from-file", "monica-parameters/projects/macsur-cc-scaling-nrw/wheat.json"],
+				"cultivar": ["include-from-file", "monica-parameters/projects/macsur-cc-scaling-nrw/winter-wheat.json"]
 			},
 			"residueParams": ["include-from-file", "monica-parameters/crop-residues/wheat.json"]
 		},
 		"WB": {
 			"cropParams": {
-				"species": ["include-from-file", "monica-parameters/crops/barley.json"],
-				"cultivar": ["include-from-file", "monica-parameters/crops/barley/winter barley.json"]
+				"species": ["include-from-file", "monica-parameters/projects/sustag/barley.json"],
+				"cultivar": ["include-from-file", "monica-parameters/projects/sustag/winter-barley.json"]
 			},
 			"residueParams": ["include-from-file", "monica-parameters/crop-residues/barley.json"]
 		},
 		"SB": {
 			"cropParams": {
-				"species": ["include-from-file", "monica-parameters/crops/barley.json"],
-				"cultivar": ["include-from-file", "monica-parameters/crops/barley/spring barley.json"]
+				"species": ["include-from-file", "monica-parameters/projects/sustag/barley.json"],
+				"cultivar": ["include-from-file", "monica-parameters/projects/macsur-croprotations-cz/spring-barley.json"]
 			},
 			"residueParams": ["include-from-file", "monica-parameters/crop-residues/barley.json"]
 		},
 		"WRa": {
 			"cropParams": {
-				"species": ["include-from-file", "monica-parameters/crops/rape.json"],
-				"cultivar": ["include-from-file", "monica-parameters/crops/rape/winter rape.json"]
+				"species": ["include-from-file", "monica-parameters/projects/macsur-croprotations-cz/rape.json"],
+				"cultivar": ["include-from-file", "monica-parameters/projects/macsur-croprotations-cz/winter-rape.json"]
 			},
 			"residueParams": ["include-from-file", "monica-parameters/crop-residues/rape.json"]
 		},
-		"PH": {			
-			"cropParams": {
-				"species": ["include-from-file", "monica-parameters/crops/phacelia.json"],
-				"cultivar": ["include-from-file", "monica-parameters/crops/phacelia/.json"]
-			},			
-			"residueParams": ["include-from-file", "monica-parameters/crop-residues/phacelia/cover.json"]
-		},
 		"PO": {			
 			"cropParams": {
-				"species": ["include-from-file", "monica-parameters/crops/potato.json"],
-				"cultivar": ["include-from-file", "monica-parameters/crops/potato/moderately early potato.json"]
+				"species": ["include-from-file", "monica-parameters/projects/sustag/potato.json"],
+				"cultivar": ["include-from-file", "monica-parameters/projects/sustag/moderately-early-potato.json"]
 			},			
 			"residueParams": ["include-from-file", "monica-parameters/crop-residues/potato.json"]
 		},
 		"SBee": {			
 			"cropParams": {
-				"species": ["include-from-file", "monica-parameters/crops/sugar beet.json"],
-				"cultivar": ["include-from-file", "monica-parameters/crops/sugar beet/.json"]
+				"species": ["include-from-file", "monica-parameters/projects/sustag/sugar-beet.json"],
+				"cultivar": ["include-from-file", "monica-parameters/projects/sustag/sugar-beet-cv.json"]
 			},			
 			"residueParams": ["include-from-file", "monica-parameters/crop-residues/beet.json"]
 		},
 		"WTr": {			
 			"cropParams": {
-				"species": ["include-from-file", "monica-parameters/crops/triticale.json"],
-				"cultivar": ["include-from-file", "monica-parameters/crops/triticale/winter triticale.json"]
+				"species": ["include-from-file", "monica-parameters/projects/sustag/triticale.json"],
+				"cultivar": ["include-from-file", "monica-parameters/projects/sustag/winter-triticale.json"]
 			},			
 			"residueParams": ["include-from-file", "monica-parameters/crop-residues/triticale.json"]
 		},
 		"GM": {			
 			"cropParams": {
-				"species": ["include-from-file", "monica-parameters/crops/maize.json"],
-				"cultivar": ["include-from-file", "monica-parameters/crops/maize/grain maize.json"]
+				"species": ["include-from-file", "monica-parameters/projects/macsur-cc-scaling-nrw/maize.json"],
+				"cultivar": ["include-from-file", "monica-parameters/projects/sustag/grain-maize.json"]
 			},			
 			"residueParams": ["include-from-file", "monica-parameters/crop-residues/maize.json"]
 		}
@@ -81,7 +67,7 @@
 	
 	"fert-params": {
 		"AN": ["include-from-file", "monica-parameters/mineral-fertilisers/AN.json"],
-		"CADLM": ["include-from-file", "monica-parameters/organic-fertilisers/CADLM.json"]
+		"org_fert": ["include-from-file", "monica-parameters/organic-fertilisers/PIS.json"]
 	}, 	
 
 	"cropRotation": [
@@ -90,6 +76,6 @@
 	
 
 	"CropParameters": {
-		"DEFAULT": ["include-from-file", "monica-parameters/user-parameters/hermes-crop.json"]
+		"DEFAULT": ["include-from-file", "monica-parameters/general/crop.json"]
 	}
 }

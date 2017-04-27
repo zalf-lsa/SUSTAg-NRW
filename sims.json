@@ -79,7 +79,10 @@
 				["NLeach", "SUM"], 
 				["ActNup", "SUM"], 
 				["NFert", "SUM"], 
-				["N2O", "SUM"]
+				["Act_ET", "SUM"], 
+				["Act_Ev", "SUM"],
+				["N2O", "SUM"],
+				["PercolationRate", 20, "SUM"]
 			],
 			"crop", [
 				["Year", "LAST"], 
@@ -90,12 +93,38 @@
 				["SOC", [1, 3, "AVG"], "LAST"],
 				["Rh", "SUM"], 
 				["NEP", "SUM"], 
-				["Yield", "LAST"], 
+				["Yield", "LAST"],
+				["AbBiom", "LAST"],
+				["LAI", "MAX"],
+				["Stage", "LAST"],
+				["RelDev", "LAST"], 
 				["NLeach", "SUM"], 
 				["ActNup", "SUM"], 
 				["NFert", "SUM"], 
+				["Act_ET", "SUM"], 
+				["Act_Ev", "SUM"],
 				["N2O", "SUM"], 
-				["Nstress", "AVG"]
+				["Nstress", "AVG"],
+				["TraDef", "AVG"],
+				["PercolationRate", 20, "SUM"]				
+			],
+
+			{"at": "anthesis"}, [
+				["Year"],
+				["Crop"],
+				["DOY|anthesis"]
+			],
+
+			{"at": "maturity"}, [
+				["Year"],
+				["Crop"],
+				["DOY|matur"]
+			],
+
+			{"at": "Harvest"}, [
+				["Year"],
+				["Crop"],
+				["DOY|harvest"]
 			]
 		]
 	},
