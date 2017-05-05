@@ -45,7 +45,7 @@ def main():
 
         for x in range(0, 250):
 
-            h = yll + 500 + y * 1000
+            h = yll + 500 + (241 - y) * 1000
             r = xll + 500 + x * 1000
             lon, lat = transform(gk3, wgs84, r, h)
 
@@ -81,8 +81,8 @@ def load_mapping():
 
 
 
-#main()
-load_mapping()
+main()
+#load_mapping()
 
 
 
