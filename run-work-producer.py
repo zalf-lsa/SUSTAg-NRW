@@ -56,7 +56,8 @@ PATHS = {
     }
 }
 
-PATH_TO_CLIMATE_DATA_DIR = "/archiv-daten/md/projects/sustag/MACSUR_WP3_NRW_1x1/" #"Z:/projects/sustag/MACSUR_WP3_NRW_1x1/"
+PATH_TO_CLIMATE_DATA_DIR = "/archiv-daten/md/data/climate/isimip/csvs/earth/"
+#PATH_TO_CLIMATE_DATA_DIR ="/archiv-daten/md/projects/sustag/MACSUR_WP3_NRW_1x1/" #"Z:/projects/sustag/MACSUR_WP3_NRW_1x1/"
 
 def main():
     "main function"
@@ -106,6 +107,16 @@ def main():
             return data
 
     general_metadata = read_general_metadata("NRW_General_Metadata.csv")
+
+    
+    def load_mapping(row_offset=0, col_offset=0):
+        to_climate_index = {}
+        with(open("working_resolution_to_climate_lat_lon_indices.json")) as _:
+            l = json.load(_)
+            for i in xrange(0, len(l), 2):
+                cell = (row_offset + l[i][0], col_offset + l[i][1])
+                to_climate_index[cell] = tuple(l[i+1])
+            return to_climate_index
 
     def read_orgN_kreise(path_to_file):
         "read organic N info for kreise"
@@ -164,6 +175,7 @@ def main():
     bkr_ids = read_ascii_grid("bkr_nrw_gk3.asc", row_offset=282)
     lu_ids = read_ascii_grid("lu_resampled.asc", row_offset=282)
     kreise_ids = read_ascii_grid("kreise_matrix.asc", row_offset=282)
+    meteo_ids = load_mapping(row_offset=282)
 
     def rotate(crop_rotation):
         "rotate the crops in the rotation"
@@ -186,14 +198,13 @@ def main():
             latest_harvest_cc = unicode("0001-" + str(latest_harvest_cc.month).zfill(2) + "-" + str(latest_harvest_cc.day).zfill(2))
             crop_rotation.insert(position, copy.deepcopy(cc_data))
             crop_rotation[position]["worksteps"][1]["latest-date"] = latest_harvest_cc
-            
 
     #def remove_cc(crop_rotation):
     #    "remove cover crops from the rotation"
     #    for cultivation_method in reversed(range(len(crop_rotation))):
     #        if "is-cover-crop" in crop_rotation[cultivation_method]:
     #            del crop_rotation[cultivation_method]
-    
+
     #env built only to have structured data for cover crop
     cover_env = monica_io.create_env_json_from_json_config({
         "crop": cover_crop,
@@ -203,7 +214,6 @@ def main():
         })
     cc_data = cover_env["cropRotation"][0]
 
-    read_climate_data_locally = False
     i = 0
     start_send = time.clock()
 
@@ -236,6 +246,7 @@ def main():
             bkr_id = bkr_ids[(row, col)]
             soil_id = soil_ids[(row, col)]
             kreis_id = kreise_ids[(row, col)]
+            meteo_id = meteo_ids[(row, col)]
 
             if bkr_id != 142:
                 continue
@@ -253,10 +264,10 @@ def main():
 
                 #with open("test_crop.json", "w") as _:
                 #    _.write(json.dumps(crop))
-                
+
                 #with open("test_site.json", "w") as _:
                 #    _.write(json.dumps(site))
-                
+
                 #with open("test_sim.json", "w") as _:
                 #    _.write(json.dumps(sim))
 
@@ -268,17 +279,12 @@ def main():
                         if workstep["type"] == "OrganicFertilization":
                             workstep["amount"] = calculate_orgfert_amount(orgN_kreise[kreis_id], workstep["parameters"])
 
-                #read climate data on client and send them with the env
-                if read_climate_data_locally:
-                    print PATH_TO_CLIMATE_DATA_DIR + gmd["subpath-climate.csv"]
-                    with open(PATH_TO_CLIMATE_DATA_DIR + gmd["subpath-climate.csv"]) as _:
-                        climate_data = _.read()
-                    monica_io.add_climate_data_to_env(env, sim, climate_data)
-                else:
-                    env["csvViaHeaderOptions"] = sim["climate.csv-options"]
-                    env["csvViaHeaderOptions"]["start-date"] = sim["start-date"]
-                    env["csvViaHeaderOptions"]["end-date"] = sim["end-date"]
-                    env["pathToClimateCSV"] = PATH_TO_CLIMATE_DATA_DIR + gmd["subpath-climate.csv"]
+                #climate is read by the server
+                env["csvViaHeaderOptions"] = sim["climate.csv-options"]
+                env["csvViaHeaderOptions"]["start-date"] = sim["start-date"]
+                env["csvViaHeaderOptions"]["end-date"] = sim["end-date"]
+                env["pathToClimateCSV"] = PATH_TO_CLIMATE_DATA_DIR + "row-" + str(meteo_id[0]) + "/col-" + str(meteo_id[1]) + ".csv"
+                #env["pathToClimateCSV"] = PATH_TO_CLIMATE_DATA_DIR + gmd["subpath-climate.csv"]
 
                 for sim_id, sim_ in sims.iteritems():
                     if sim_id != "WL.NL.rain":

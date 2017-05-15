@@ -164,7 +164,7 @@ def write_data(region_id, year_data, crop_data, pheno_data):
 
     if not os.path.isfile(path_to_year_file):
         with open(path_to_year_file, "w") as _:
-            _.write("ID.cell,rotation,prod.level,year,delta.OC,CO2.emission,NEP,ET,EV,water.perc,irr,N.leach,N.up,N.fert,N2O.em\n")
+            _.write("IDcell,rotation,prodlevel,year,deltaOC,CO2emission,NEP,ET,EV,waterperc,irr,Nleach,Nup,Nfert,N2Oem\n")
 
     with open(path_to_year_file, 'ab') as _:
         writer = csv.writer(_, delimiter=",")
@@ -174,7 +174,7 @@ def write_data(region_id, year_data, crop_data, pheno_data):
 
     if not os.path.isfile(path_to_crop_file):
         with open(path_to_crop_file, "w") as _:
-            _.write("ID.cell,rotation,crop,prod.level,year,cycle.length,delta.OC,CO2.emission,NEP,yield,agb,LAImax,Stage.harv,RelDev,ET,EV,water.perc,irr,N.leach,N.up,N.min.fert,N2O.em,N.stress,Wstress\n")
+            _.write("IDcell,rotation,crop,prodlevel,year,cyclelength,deltaOC,CO2emission,NEP,yield,agb,LAImax,Stageharv,RelDev,ET,EV,waterperc,irr,Nleach,Nup,Nminfert,N2Oem,Nstress,Wstress\n")
 
     with open(path_to_crop_file, 'ab') as _:
         writer = csv.writer(_, delimiter=",")
