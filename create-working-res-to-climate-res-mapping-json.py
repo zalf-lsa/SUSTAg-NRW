@@ -45,7 +45,7 @@ def main():
 
         for x in range(0, 250):
 
-            h = yll + 500 + y * 1000
+            h = yll + 500 + (241 - y) * 1000
             r = xll + 500 + x * 1000
             lon, lat = transform(gk3, wgs84, r, h)
 
@@ -61,7 +61,7 @@ def main():
             to_climate_index.append((y, x))
             to_climate_index.append((ilat, ilon))
 
-    with open("working_resolution_to_climate_lat_lon_indizes.json", "w") as _:
+    with open("working_resolution_to_climate_lat_lon_indices.json", "w") as _:
         _.write(json.dumps(to_climate_index))
 
     with open("working_resolution_to_climate_lat_lon_geo_coords.json", "w") as _:
@@ -81,8 +81,8 @@ def load_mapping():
 
 
 
-#main()
-load_mapping()
+main()
+#load_mapping()
 
 
 
