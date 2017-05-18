@@ -132,6 +132,7 @@ def main():
         return data
 
     orgN_kreise = read_orgN_kreise("NRW_orgN_balance.csv")
+    #print orgN_kreise.keys()
 
     def update_soil_crop_dates(row, col):
         "in place update the env"
@@ -159,23 +160,31 @@ def main():
             #skip the header (first 6 lines)
             for _ in range(0, 6):
                 file_.next()
-            row = 0
+            row = -1
             for line in file_:
-                col = 0
+                row += 1
+                col = -1
                 for col_str in line.strip().split(" "):
+                    col += 1
                     if not include_no_data and int_or_float(col_str) == -9999:
                         continue
-                    data[(row_offset+row, col_offset+col)] = int_or_float(col_str)
-                    col += 1
-                row += 1
+                    data[(row_offset+row, col_offset+col)] = int_or_float(col_str)                    
+                
             return data
-    
+
     #offset is used to match info in general metadata and soil database
     soil_ids = read_ascii_grid("soil-profile-id_nrw_gk3.asc", row_offset=282)
     bkr_ids = read_ascii_grid("bkr_nrw_gk3.asc", row_offset=282)
-    lu_ids = read_ascii_grid("lu_resampled.asc", row_offset=282)
+    lu_ids = read_ascii_grid("lu_resampled.asc", row_offset=282)    
     kreise_ids = read_ascii_grid("kreise_matrix.asc", row_offset=282)
     meteo_ids = load_mapping(row_offset=282)
+
+    #counter = 0
+    #for k, v in bkr_ids.iteritems():
+    #    if v == 134:
+    #        if k in lu_ids:
+    #            counter += 1
+    #print counter
 
     def rotate(crop_rotation):
         "rotate the crops in the rotation"
@@ -238,18 +247,27 @@ def main():
 
         return AOM_fresh
 
+    simulated_cells = 0
+    no_kreis = 0
     for (row, col), gmd in general_metadata.iteritems():
 
         if (row, col) in soil_ids and (row, col) in bkr_ids and (row, col) in lu_ids:
-            update_soil_crop_dates(row, col)
 
             bkr_id = bkr_ids[(row, col)]
+            #if bkr_id != 143:
+            #    continue
             soil_id = soil_ids[(row, col)]
-            kreis_id = kreise_ids[(row, col)]
             meteo_id = meteo_ids[(row, col)]
-
-            if bkr_id != 142:
-                continue
+            if (row, col) in kreise_ids:
+                kreis_id = kreise_ids[(row, col)]
+            else:
+                no_kreis +=1
+                print "-----------------------------------------------------"
+                print ("kreis not found for calculation of organic N") #TODO find out a solution
+                print "-----------------------------------------------------"
+            
+            simulated_cells += 1
+            update_soil_crop_dates(row, col)
 
             for rot_id, rotation in rotations[str(bkr_id)].iteritems():
 
@@ -305,13 +323,14 @@ def main():
                                         + "|" + str(rot)
                         socket.send_json(env) 
                         print "sent env ", i, " customId: ", env["customId"]
-                        i += 1                        
-                        rotate(env["cropRotation"]) 
+                        i += 1
+                        rotate(env["cropRotation"])
 
 
     stop_send = time.clock()
 
     print "sending ", i, " envs took ", (stop_send - start_send), " seconds"
+    print "simulated cells: ", simulated_cells, "; not found kreise for org N: ", no_kreis
 
 
 

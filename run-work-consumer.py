@@ -253,8 +253,8 @@ def collector():
                     elif orig_spec == '"crop"':
                         res = create_crop_output(output_ids, row, col, rotation, prod_level, results)
                         crop_data[region_id].extend(res)
-                    if re.search('anthesis', orig_spec) or re.search('maturity', orig_spec) or re.search('Harvest', orig_spec):
-                        update_pheno_output(output_ids, row, col, rotation, prod_level, results, pheno_data, region_id)
+                    #if re.search('anthesis', orig_spec) or re.search('maturity', orig_spec) or re.search('Harvest', orig_spec):
+                    #    update_pheno_output(output_ids, row, col, rotation, prod_level, results, pheno_data, region_id)
 
 
             for region_id in year_data.keys():
