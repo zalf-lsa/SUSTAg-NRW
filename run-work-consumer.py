@@ -33,6 +33,7 @@ import zmq
 import monica_io
 import re
 
+start_recording_out = 1975
 
 def create_year_output(oids, row, col, rotation, prod_level, values):
     "create year output lines"
@@ -55,7 +56,7 @@ def create_year_output(oids, row, col, rotation, prod_level, values):
                     else:
                         vals[oid["name"]] = val
 
-            if vals.get("Year", 0) > 1982:
+            if vals.get("Year", 0) > start_recording_out:
                 out.append([
                     row_col,
                     rotation,
@@ -104,7 +105,7 @@ def create_crop_output(oids, row, col, rotation, prod_level, values):
                     else:
                         vals[oid["name"]] = val
 
-            if vals.get("Year", 0) > 1982:
+            if vals.get("Year", 0) > start_recording_out:
                 out.append([
                     row_col,
                     rotation,

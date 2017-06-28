@@ -49,7 +49,7 @@ NODATA_value  -9999
                     _.write(str(grid_data[row][col]) + " ")
                 _.write("\n")
 
-def crop_rotation_grids(df, plot_vars, n_rows, n_cols):
+def crop_rotation_grids(df, plot_vars, n_rows, n_cols, measure = "avg"):
 
     #identify available crops
     crops = set(df.crop)
@@ -59,7 +59,10 @@ def crop_rotation_grids(df, plot_vars, n_rows, n_cols):
         crop_df = df[df.crop == cp]
 
         #aggregate per cell and rotation
-        aggr_data = crop_df.groupby(["IDcell", "rotation"]).mean()
+        if measure == "avg":
+            aggr_data = crop_df.groupby(["IDcell", "rotation"]).mean()
+        elif measure == "stdev":
+            aggr_data = crop_df.groupby(["IDcell", "rotation"]).std()
         #print aggr_data
 
         #identify cells/rotations
@@ -76,10 +79,10 @@ def crop_rotation_grids(df, plot_vars, n_rows, n_cols):
                 for row in range(n_rows):
                     for col in range(n_cols):
                         update_grid_data(aggr_data, grid_data, row, col, r_loc, c_index, rot)
-                write_grid_file(grid_data, cp, out_var, rot)
+                write_grid_file(grid_data, cp + "_" + measure, out_var, rot)
                 print("out grid for crop: " + str(cp) + " var: " + str(out_var) + " and rotation: " + str(rot) + " ready!")
 
-def crop_grids(df, plot_vars, n_rows, n_cols):
+def crop_grids(df, plot_vars, n_rows, n_cols, measure = "avg"):
     
     #identify available crops
     crops = set(df.crop)
@@ -89,7 +92,10 @@ def crop_grids(df, plot_vars, n_rows, n_cols):
         crop_df = df[df.crop == cp]
 
         #aggregate per cell and rotation
-        aggr_data = crop_df.groupby(["IDcell"]).mean()
+        if measure == "avg":
+            aggr_data = crop_df.groupby(["IDcell"]).mean()
+        elif measure == "stdev":
+            aggr_data = crop_df.groupby(["IDcell"]).std()
         #print aggr_data
 
         #retrieve values per cell/rotation
@@ -104,13 +110,16 @@ def crop_grids(df, plot_vars, n_rows, n_cols):
             for row in range(n_rows):
                 for col in range(n_cols):
                     update_grid_data(aggr_data, grid_data, row, col, r_loc, c_index)
-            write_grid_file(grid_data, cp, out_var)
+            write_grid_file(grid_data, cp + "_" + measure, out_var)
             print("out grid for crop: " + str(cp) + " var: " + str(out_var) + " ready!")
 
-def year_rotation_grids(df, plot_vars, n_rows, n_cols):
+def year_rotation_grids(df, plot_vars, n_rows, n_cols, measure = "avg"):
     
     #aggregate per cell and rotation
-    aggr_data = df.groupby(["IDcell", "rotation"]).mean()
+    if measure == "avg":
+        aggr_data = df.groupby(["IDcell", "rotation"]).mean()
+    elif measure == "stdev":
+        aggr_data = df.groupby(["IDcell", "rotation"]).std()
     #print aggr_data
 
     #retrieve values per cell/rotation
@@ -127,13 +136,16 @@ def year_rotation_grids(df, plot_vars, n_rows, n_cols):
             for row in range(n_rows):
                 for col in range(n_cols):
                     update_grid_data(aggr_data, grid_data, row, col, r_loc, c_index, rot)
-            write_grid_file(grid_data, "yearly", out_var, rot)
+            write_grid_file(grid_data, "yearly_" + measure, out_var, rot)
             print("out grid for yearly out var: " + str(out_var) + " and rotation: " + str(rot) + " ready!")
 
-def year_grids(df, plot_vars, n_rows, n_cols):
+def year_grids(df, plot_vars, n_rows, n_cols, measure = "avg"):
     
     #aggregate per cell and rotation
-    aggr_data = df.groupby(["IDcell"]).mean()
+    if measure == "avg":
+        aggr_data = df.groupby(["IDcell"]).mean()
+    elif measure == "stdev":
+        aggr_data = df.groupby(["IDcell"]).std()
     #print aggr_data
 
     #retrieve values per cell/rotation
@@ -148,7 +160,7 @@ def year_grids(df, plot_vars, n_rows, n_cols):
         for row in range(n_rows):
             for col in range(n_cols):
                 update_grid_data(aggr_data, grid_data, row, col, r_loc, c_index)
-        write_grid_file(grid_data, "yearly", out_var)
+        write_grid_file(grid_data, "yearly_" + measure, out_var)
         print("out grid for yearly out var: " + str(out_var) + " ready!")
 
 def testgrid(filename, n_rows, n_cols):
@@ -184,38 +196,35 @@ def testgrid(filename, n_rows, n_cols):
             if row_X in data.keys():
                 if col_x in data[row_X]:
                     grid_data[row][col] = data[row_X][col_x]
-    
-    
+
     write_grid_file(grid_data, "testXenia", "elevation")
 
-            
-
 #read file(s)
-df_cp_129 = pd.read_csv("out/splitted-out/129_crop.csv")
-df_cp_134 = pd.read_csv("out/splitted-out/134_crop.csv")
-df_cp_141 = pd.read_csv("out/splitted-out/141_crop.csv")
-df_cp_142 = pd.read_csv("out/splitted-out/142_crop.csv")
-df_cp_143 = pd.read_csv("out/splitted-out/143_crop.csv")
-df_cp_146 = pd.read_csv("out/splitted-out/146_crop.csv")
-df_cp_147 = pd.read_csv("out/splitted-out/147_crop.csv")
-df_cp_148 = pd.read_csv("out/splitted-out/148_crop.csv")
-df_cp_191 = pd.read_csv("out/splitted-out/191_crop.csv")
+#df_cp_129 = pd.read_csv("out/splitted-out/129_crop.csv")
+#df_cp_134 = pd.read_csv("out/splitted-out/134_crop.csv")
+#df_cp_141 = pd.read_csv("out/splitted-out/141_crop.csv")
+#df_cp_142 = pd.read_csv("out/splitted-out/142_crop.csv")
+#df_cp_143 = pd.read_csv("out/splitted-out/143_crop.csv")
+#df_cp_146 = pd.read_csv("out/splitted-out/146_crop.csv")
+#df_cp_147 = pd.read_csv("out/splitted-out/147_crop.csv")
+#df_cp_148 = pd.read_csv("out/splitted-out/148_crop.csv")
+#df_cp_191 = pd.read_csv("out/splitted-out/191_crop.csv")
 
-#df_yr_129 = pd.read_csv("out/splitted-out/129_year.csv")
-#df_yr_134 = pd.read_csv("out/splitted-out/134_year.csv")
-#df_yr_141 = pd.read_csv("out/splitted-out/141_year.csv")
-#df_yr_142 = pd.read_csv("out/splitted-out/142_year.csv")
-#df_yr_143 = pd.read_csv("out/splitted-out/143_year.csv")
-#df_yr_146 = pd.read_csv("out/splitted-out/146_year.csv")
-#df_yr_147 = pd.read_csv("out/splitted-out/147_year.csv")
-#df_yr_148 = pd.read_csv("out/splitted-out/148_year.csv")
-#df_yr_191 = pd.read_csv("out/splitted-out/191_year.csv")
+df_yr_129 = pd.read_csv("out/splitted-out/129_year.csv")
+df_yr_134 = pd.read_csv("out/splitted-out/134_year.csv")
+df_yr_141 = pd.read_csv("out/splitted-out/141_year.csv")
+df_yr_142 = pd.read_csv("out/splitted-out/142_year.csv")
+df_yr_143 = pd.read_csv("out/splitted-out/143_year.csv")
+df_yr_146 = pd.read_csv("out/splitted-out/146_year.csv")
+df_yr_147 = pd.read_csv("out/splitted-out/147_year.csv")
+df_yr_148 = pd.read_csv("out/splitted-out/148_year.csv")
+df_yr_191 = pd.read_csv("out/splitted-out/191_year.csv")
 
-cp_frames = [df_cp_129, df_cp_134, df_cp_141, df_cp_142, df_cp_143, df_cp_146, df_cp_147, df_cp_148, df_cp_191]
-cp_df = pd.concat(cp_frames)
+#cp_frames = [df_cp_129, df_cp_134, df_cp_141, df_cp_142, df_cp_143, df_cp_146, df_cp_147, df_cp_148, df_cp_191]
+#cp_df = pd.concat(cp_frames)
 
-#yr_frames = [df_yr_129, df_yr_134, df_yr_141, df_yr_142, df_yr_143, df_yr_146, df_yr_147, df_yr_148, df_yr_191]
-#yr_df = pd.concat(yr_frames)
+yr_frames = [df_yr_129, df_yr_134, df_yr_141, df_yr_142, df_yr_143, df_yr_146, df_yr_147, df_yr_148, df_yr_191]
+yr_df = pd.concat(yr_frames)
 
 plot_vars_crop = ["agb", "yield"]
 plot_vars_year = ["deltaOC", "waterperc", "Nleach"]
@@ -224,9 +233,12 @@ n_cols = 250
 
 #testgrid("NRW_General_Metadata.csv", n_rows, n_cols)
 
+#TODO: use either "avg" or "stdev" as last parameter of the following functions
 #crop_rotation_grids(cp_df, plot_vars, n_rows, n_cols)
-crop_grids(cp_df, plot_vars_crop, n_rows, n_cols)
+#crop_grids(cp_df, plot_vars_crop, n_rows, n_cols)
+#crop_grids(cp_df, plot_vars_crop, n_rows, n_cols, "stdev")
 #year_rotation_grids(yr_df, plot_vars, n_rows, n_cols)
 #year_grids(yr_df, plot_vars_year, n_rows, n_cols)
+year_grids(yr_df, plot_vars_year, n_rows, n_cols, "stdev")
 
 print "finished!"

@@ -6,6 +6,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 # Authors:
+# Tommaso Stella <tommaso.stella@zalf.de>
 # Michael Berg-Mohnicke <michael.berg@zalf.de>
 #
 # Maintainers:
@@ -168,14 +169,14 @@ def main():
                     col += 1
                     if not include_no_data and int_or_float(col_str) == -9999:
                         continue
-                    data[(row_offset+row, col_offset+col)] = int_or_float(col_str)                    
-                
+                    data[(row_offset+row, col_offset+col)] = int_or_float(col_str)
+
             return data
 
     #offset is used to match info in general metadata and soil database
     soil_ids = read_ascii_grid("soil-profile-id_nrw_gk3.asc", row_offset=282)
     bkr_ids = read_ascii_grid("bkr_nrw_gk3.asc", row_offset=282)
-    lu_ids = read_ascii_grid("lu_resampled.asc", row_offset=282)    
+    lu_ids = read_ascii_grid("lu_resampled.asc", row_offset=282)
     kreise_ids = read_ascii_grid("kreise_matrix.asc", row_offset=282)
     meteo_ids = load_mapping(row_offset=282)
 
@@ -189,7 +190,7 @@ def main():
     def rotate(crop_rotation):
         "rotate the crops in the rotation"
         crop_rotation.insert(0, crop_rotation.pop())
-    
+
     def insert_cc(crop_rotation):
         "insert cover crops in the rotation"
         insert_cover_before = ["maize", "spring barley", "potato", "sugar beet"]
@@ -241,7 +242,7 @@ def main():
         AOM_slow_factor = 1/(CN_Ratio_AOM_Slow/(AOM_to_C * PartAOM_to_AOM_Slow))
 
         conversion_coeff = AOM_NH4Content + AOM_NO3Content + AOM_fast_factor + AOM_slow_factor
-        
+
         AOM_dry = N_applied / conversion_coeff
         AOM_fresh = AOM_dry / AOM_DryMatterContent
 
@@ -261,11 +262,11 @@ def main():
             if (row, col) in kreise_ids:
                 kreis_id = kreise_ids[(row, col)]
             else:
-                no_kreis +=1
+                no_kreis += 1
                 print "-----------------------------------------------------"
-                print ("kreis not found for calculation of organic N") #TODO find out a solution
+                print "kreis not found for calculation of organic N" #TODO find out a solution
                 print "-----------------------------------------------------"
-            
+
             simulated_cells += 1
             update_soil_crop_dates(row, col)
 
