@@ -1,0 +1,29 @@
+  {
+	"crops": {
+		"grain-maize": {
+			"is-winter-crop": false,
+			"cropParams": {
+				"species": ["include-from-file", "projects/fnr-voce/maize.json"],
+				"cultivar": ["include-from-file", "projects/fnr-voce/sustag-grain-maize.json"]
+			},
+			"residueParams": ["include-from-file", "crop-residues/maize.json"]
+		},
+		"winter-rape": {
+			"is-winter-crop": true,
+			"cropParams": {
+				"species": ["include-from-file", "projects/fnr-voce/rape.json"],
+				"cultivar": ["include-from-file", "projects/fnr-voce/sustag-winter-rape.json"]
+			},
+			"residueParams": ["include-from-file", "crop-residues/rape.json"]
+		}
+	},
+	
+	"fert-params": {
+		"AN": ["include-from-file", "mineral-fertilisers/AN.json"],
+		"U": ["include-from-file", "mineral-fertilisers/U.json"]
+	}, 
+
+	"cropRotation": [],
+
+	"CropParameters": ["include-from-file", "general/crop.json"]
+}
