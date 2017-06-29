@@ -144,7 +144,7 @@ def main():
             leave = True
 
         elif not write_normal_output_files:
-            print "received work result ", i, " customId: ", result.get("customId", ""), " len(year_data): ", len((year_data.values()[:1] or [[]])[0])
+            print "received work result ", i, " customId: ", result.get("customId", ""), " len(crop_data): ", len((crop_data.values()[:1] or [[]])[0])
 
             custom_id = result["customId"]
             ci_parts = custom_id.split("|")
