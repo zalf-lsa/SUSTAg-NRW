@@ -1,0 +1,37 @@
+  {
+	"crops": {
+		"silage-maize": {
+			"is-winter-crop": false,
+			"cropParams": {
+				"species": ["include-from-file", "projects/fnr-voce/on-sustag-data/maize.json"],
+				"cultivar": ["include-from-file", "projects/fnr-voce/on-sustag-data/silage-maize.json"]
+			},
+			"residueParams": ["include-from-file", "crop-residues/maize.json"]
+		},
+		"winter-rape": {
+			"is-winter-crop": true,
+			"cropParams": {
+				"species": ["include-from-file", "projects/fnr-voce/on-sustag-data/rape.json"],
+				"cultivar": ["include-from-file", "projects/fnr-voce/on-sustag-data/winter-rape.json"]
+			},
+			"residueParams": ["include-from-file", "crop-residues/rape.json"]
+		},
+		"winter-wheat": {
+			"is-winter-crop": true,
+			"cropParams": {
+				"species": ["include-from-file", "projects/fnr-voce/on-sustag-data/wheat.json"],
+				"cultivar": ["include-from-file", "projects/fnr-voce/on-sustag-data/winter-wheat.json"]
+			},
+			"residueParams": ["include-from-file", "crop-residues/wheat.json"]
+		}
+	},
+	
+	"fert-params": {
+		"AN": ["include-from-file", "mineral-fertilisers/AN.json"],
+		"U": ["include-from-file", "mineral-fertilisers/U.json"]
+	}, 
+
+	"cropRotation": [],
+
+	"CropParameters": ["include-from-file", "general/crop.json"]
+}

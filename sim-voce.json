@@ -1,0 +1,89 @@
+{
+	"crop.json": "crop.json",
+	"site.json": "site.json",
+	"climate.csv": "",
+
+	"climate.csv-options": {
+		"start-date": "1975-01-01",
+		"end-date": "2005-12-31",
+		"no-of-climate-file-header-lines": 2,
+		"csv-separator": ",",
+		"header-to-acd-names": {
+			"Date": "iso-date",
+			"Precipitation": "precip",
+			"TempMin": "tmin",
+			"TempMean": "tavg",
+			"TempMax": "tmax",
+			"Radiation": "globrad",
+			"Windspeed": "windspeed",
+			"RH": "relhumid"
+		}
+	},
+	
+	"debug?": false,
+	"path-to-output": "./",
+	"include-file-base-path": "C:/Users/berg.ZALF-AD/GitHub/",
+	
+	"output": { 
+	  "write-file?": false,
+		"file-name": "out.csv",
+	
+		"csv-options": {
+			"include-header-row": true,
+			"include-units-row": true,
+			"csv-separator": ","
+		},
+
+		"2 events": [
+			"daily", ["Date", "Crop", "Yield", "Tavg"]
+		],
+
+		"events": [
+			"crop", [
+				["Year", "LAST"], 
+				["Crop", "FIRST"],
+				["Count|cycleLength", "SUM"],  
+				["AbBiom|abBiom", "LAST"],
+				["Yield|yield", "LAST"],
+				["guenther-isoprene-emission|sumGIso", "SUM"],
+				["guenther-monoterpene-emission|sumGMono", "SUM"],
+				["jjv-isoprene-emission|sumJIso", "SUM"],
+				["jjv-monoterpene-emission|sumJMono", "SUM"],
+				["Globrad|sumGlobrad", "SUM"],
+				["Globrad|avgGlobrad", "AVG"],
+				["Tavg|sumTavg", "SUM"],
+				["Tavg|avgTavg", "AVG"],
+				["Tmin|avgTmin", "AVG"],
+				["Tmax|avgTmax", "AVG"],
+				["LAI|maxLAI", "MAX"],
+				["ActNup|sumNup", "SUM"],
+				["Precip|sumPrecip", "SUM"],
+				["Tra|sumTra", "SUM"]
+			]
+		]
+	},
+
+	"NumberOfLayers": 20,
+	"LayerThickness": [0.1, "m"],
+
+	"UseSecondaryYields": false,
+	"NitrogenResponseOn": false,
+	"WaterDeficitResponseOn": true,
+	"EmergenceMoistureControlOn": false,
+	"EmergenceFloodingControlOn": false,
+
+	"UseAutomaticIrrigation": false,
+	"AutoIrrigationParams": {
+		"irrigationParameters": {
+			"nitrateConcentration": [0, "mg dm-3"],
+			"sulfateConcentration": [0, "mg dm-3"]
+		},
+		"amount": [0, "mm"],
+		"threshold": 0.9
+	},
+
+	"UseNMinMineralFertilisingMethod": false,
+	"NMinUserParams": { "min": 40, "max": 120, "delayInDays": 10 },
+	"NMinFertiliserPartition": ["include-from-file", "mineral-fertilisers/AN.json"],
+	"JulianDayAutomaticFertilising": 89
+}

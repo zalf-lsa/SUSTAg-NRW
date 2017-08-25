@@ -1,0 +1,64 @@
+{
+	"winter-rape": [
+		{
+			"worksteps": [
+				{ "date": "0000-08-26", "type": "Seed", "crop": ["ref", "crops", "winter-rape"] },
+				{	
+					"date": "0000-09-03",
+					"type": "MineralFertiliserApplication",
+					"amount": [30.0, "kg N"],
+					"partition": ["ref", "fert-params", "AN"]
+				},
+				{
+					"date": "0001-03-01",
+					"type": "MineralFertiliserApplication",
+					"amount": [80.0, "kg N"],
+					"partition": ["ref", "fert-params", "U"]
+				},
+				{	
+					"date": "0001-04-06",
+					"type": "MineralFertiliserApplication",
+					"amount": [60.0, "kg N"],
+					"partition": ["ref", "fert-params", "AN"]
+				},
+				{ "date": "0001-07-28", "type": "Harvest"}
+			]
+		}
+	],
+
+	"silage-maize": [
+		{
+			"worksteps": [
+				{
+					"date": "0000-04-29",
+					"type": "MineralFertiliserApplication",
+					"amount": [160.0, "kg N"],
+					"partition": ["ref", "fert-params", "U"]
+				},
+				{ "date": "0000-04-29", "type": "Seed", "crop": ["ref", "crops", "silage-maize"] },
+				{ "date": "0000-09-25", "type": "Harvest"}
+			]
+		}
+	],
+
+	"winter-wheat": [
+		{
+			"worksteps": [
+				{ "date": "0000-10-07", "type": "Seed", "crop": ["ref", "crops", "winter-wheat"] },
+				{
+					"date": "0001-03-23",
+					"type": "MineralFertiliserApplication",
+					"amount": [80.0, "kg N"],
+					"partition": ["ref", "fert-params", "AN"]
+				},
+				{
+					"date": "0001-04-22",
+					"type": "MineralFertiliserApplication",
+					"amount": [80.0, "kg N"],
+					"partition": ["ref", "fert-params", "U"]
+				},
+				{ "date": "0001-08-14", "type": "Harvest"}
+			]
+		}
+	]
+}
