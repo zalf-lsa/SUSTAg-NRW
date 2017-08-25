@@ -227,7 +227,7 @@ def main():
     i = 0
     start_send = time.clock()
 
-    def calculate_orgfert_amount(N_applied, fert_type):
+    def calculate_orgfert_amount(N_applied, fert_type, soilCN=10):
         "convert N applied in amount of fresh org fert"
         AOM_DryMatterContent = fert_type["AOM_DryMatterContent"][0]
         AOM_NH4Content = fert_type["AOM_NH4Content"][0]
@@ -238,10 +238,11 @@ def main():
         PartAOM_to_AOM_Slow = fert_type["PartAOM_to_AOM_Slow"][0]
         AOM_to_C = 0.45
 
-        AOM_fast_factor = 1/(CN_Ratio_AOM_Fast/(AOM_to_C * PartAOM_to_AOM_Fast))
-        AOM_slow_factor = 1/(CN_Ratio_AOM_Slow/(AOM_to_C * PartAOM_to_AOM_Slow))
+        AOM_fast_factor = (AOM_to_C * PartAOM_to_AOM_Fast)/CN_Ratio_AOM_Fast
+        AOM_slow_factor = (AOM_to_C * PartAOM_to_AOM_Slow)/CN_Ratio_AOM_Slow
+        AOM_SOM_factor = (1- (PartAOM_to_AOM_Fast + PartAOM_to_AOM_Slow)) * AOM_to_C / soilCN
 
-        conversion_coeff = AOM_NH4Content + AOM_NO3Content + AOM_fast_factor + AOM_slow_factor
+        conversion_coeff = AOM_NH4Content + AOM_NO3Content + AOM_fast_factor + AOM_slow_factor + AOM_SOM_factor
 
         AOM_dry = N_applied / conversion_coeff
         AOM_fresh = AOM_dry / AOM_DryMatterContent
@@ -296,7 +297,7 @@ def main():
                 for cultivation_method in env["cropRotation"]:
                     for workstep in cultivation_method["worksteps"]:
                         if workstep["type"] == "OrganicFertilization":
-                            workstep["amount"] = calculate_orgfert_amount(orgN_kreise[kreis_id], workstep["parameters"])
+                            workstep["amount"] = calculate_orgfert_amount(orgN_kreise[kreis_id], workstep["parameters"]) #TODO: assign soilCN param dynamically
 
                 #climate is read by the server
                 env["csvViaHeaderOptions"] = sim["climate.csv-options"]
