@@ -6,6 +6,20 @@ library(raster)
 
 setwd("C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/grids")
 
+#VOCE grids
+r <- raster("maize_grain-maize_avg_sumJMono_.asc") 
+plot(r)
+title(main="avg maize sumJMono")
+
+r <- raster("maize_grain-maize_avg_sumGMono_.asc") 
+plot(r)
+title(main="avg maize sumGMono")
+
+r <- raster("maize_grain-maize_avg_maxLAI_.asc") 
+plot(r)
+title(main="avg maize max LAI")
+
+
 #
 r <- raster("bkr_nrw_gk3.asc") 
 plot(r)

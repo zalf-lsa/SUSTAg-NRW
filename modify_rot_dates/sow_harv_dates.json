@@ -1,0 +1,345 @@
+{
+	"129": {
+		"WW":{
+			"OrganicFertilization": "0000-10-03",
+			"Sowing": "0000-10-04",
+			"Harvest": "0001-08-15"
+		},
+		"WB":{
+			"OrganicFertilization": "0000-09-16",
+			"Sowing": "0000-09-17",
+			"Harvest": "0001-07-17"
+		},
+		"GM":{
+			"OrganicFertilization": "0000-04-27",
+			"Sowing": "0000-04-28",
+			"Harvest": "0000-10-14"
+		},
+		"SM":{
+			"OrganicFertilization": "0000-04-24",
+			"Sowing": "0000-04-25",
+			"Harvest": "0000-09-26"
+		},
+		"WRa":{
+			"OrganicFertilization": "0000-09-10",
+			"Sowing": "0000-09-11",
+			"Harvest": "0001-07-15"
+		},
+		"SBee":{
+			"OrganicFertilization": "0000-03-31",
+			"Sowing": "0000-04-01",
+			"Harvest": "0000-11-05"
+		},
+		"SB":{
+			"OrganicFertilization": "0000-03-30",
+			"Sowing": "0000-03-31",
+			"Harvest": "0000-07-15"
+		}
+	},
+
+	"134": {
+		"WW":{
+			"OrganicFertilization": "0000-10-03",
+			"Sowing": "0000-10-04",
+			"Harvest": "0001-08-10"
+		},
+		"WB":{
+			"OrganicFertilization": "0000-09-16",
+			"Sowing": "0000-09-17",
+			"Harvest": "0001-07-17"
+		},
+		"GM":{
+			"OrganicFertilization": "0000-04-27",
+			"Sowing": "0000-04-28",
+			"Harvest": "0000-10-14"
+		},
+		"SM":{
+			"OrganicFertilization": "0000-04-24",
+			"Sowing": "0000-04-25",
+			"Harvest": "0000-09-26"
+		},
+		"WRa":{
+			"OrganicFertilization": "0000-08-31",
+			"Sowing": "0000-09-01",
+			"Harvest": "0001-07-15"
+		},
+		"SBee":{
+			"OrganicFertilization": "0000-03-31",
+			"Sowing": "0000-04-01",
+			"Harvest": "0000-11-05"
+		},
+		"SB":{
+			"OrganicFertilization": "0000-03-30",
+			"Sowing": "0000-03-31",
+			"Harvest": "0000-07-15"
+		}
+	},
+
+	"141": {
+		"WW":{
+			"OrganicFertilization": "0000-10-30",
+			"Sowing": "0000-10-31",
+			"Harvest": "0001-07-20"
+		},
+		"WB":{
+			"OrganicFertilization": "0000-09-26",
+			"Sowing": "0000-09-27",
+			"Harvest": "0001-07-04"
+		},
+		"GM":{
+			"OrganicFertilization": "0000-04-27",
+			"Sowing": "0000-04-28",
+			"Harvest": "0000-10-20"
+		},
+		"SM":{
+			"OrganicFertilization": "0000-04-24",
+			"Sowing": "0000-04-25",
+			"Harvest": "0000-09-15"
+		},
+		"WRa":{
+			"OrganicFertilization": "0000-09-14",
+			"Sowing": "0000-09-15",
+			"Harvest": "0001-07-15"
+		},
+		"SBee":{
+			"OrganicFertilization": "0000-03-31",
+			"Sowing": "0000-04-01",
+			"Harvest": "0000-11-05"
+		},
+		"SB":{
+			"OrganicFertilization": "0000-03-30",
+			"Sowing": "0000-03-31",
+			"Harvest": "0000-07-15"
+		}
+	},
+
+	"142": {
+		"WW":{
+			"OrganicFertilization": "0000-10-15",
+			"Sowing": "0000-10-16",
+			"Harvest": "0001-07-20"
+		},
+		"WB":{
+			"OrganicFertilization": "0000-09-26",
+			"Sowing": "0000-09-27",
+			"Harvest": "0001-07-04"
+		},
+		"GM":{
+			"OrganicFertilization": "0000-04-27",
+			"Sowing": "0000-04-28",
+			"Harvest": "0000-10-20"
+		},
+		"SM":{
+			"OrganicFertilization": "0000-04-24",
+			"Sowing": "0000-04-25",
+			"Harvest": "0000-09-15"
+		},
+		"WRa":{
+			"OrganicFertilization": "0000-09-14",
+			"Sowing": "0000-09-15",
+			"Harvest": "0001-07-15"
+		},
+		"SBee":{
+			"OrganicFertilization": "0000-03-31",
+			"Sowing": "0000-04-01",
+			"Harvest": "0000-11-05"
+		},
+		"SB":{
+			"OrganicFertilization": "0000-03-30",
+			"Sowing": "0000-03-31",
+			"Harvest": "0000-07-15"
+		}
+	},
+
+	"143": {
+		"WW":{
+			"OrganicFertilization": "0000-10-03",
+			"Sowing": "0000-10-04",
+			"Harvest": "0001-08-10"
+		},
+		"WB":{
+			"OrganicFertilization": "0000-09-16",
+			"Sowing": "0000-09-17",
+			"Harvest": "0001-07-10"
+		},
+		"GM":{
+			"OrganicFertilization": "0000-04-27",
+			"Sowing": "0000-04-28",
+			"Harvest": "0000-10-14"
+		},
+		"SM":{
+			"OrganicFertilization": "0000-04-24",
+			"Sowing": "0000-04-25",
+			"Harvest": "0000-09-15"
+		},
+		"WRa":{
+			"OrganicFertilization": "0000-09-14",
+			"Sowing": "0000-09-15",
+			"Harvest": "0001-07-15"
+		},
+		"SBee":{
+			"OrganicFertilization": "0000-03-31",
+			"Sowing": "0000-04-01",
+			"Harvest": "0000-11-05"
+		},
+		"SB":{
+			"OrganicFertilization": "0000-03-30",
+			"Sowing": "0000-03-31",
+			"Harvest": "0000-07-15"
+		}
+	},
+
+	"148": {
+		"WW":{
+			"OrganicFertilization": "0000-10-15",
+			"Sowing": "0000-10-16",
+			"Harvest": "0001-07-20"
+		},
+		"WB":{
+			"OrganicFertilization": "0000-09-26",
+			"Sowing": "0000-09-27",
+			"Harvest": "0001-07-04"
+		},
+		"GM":{
+			"OrganicFertilization": "0000-04-27",
+			"Sowing": "0000-04-28",
+			"Harvest": "0000-10-01"
+		},
+		"SM":{
+			"OrganicFertilization": "0000-04-24",
+			"Sowing": "0000-04-25",
+			"Harvest": "0000-09-15"
+		},
+		"WRa":{
+			"OrganicFertilization": "0000-09-14",
+			"Sowing": "0000-09-15",
+			"Harvest": "0001-07-01"
+		},
+		"SBee":{
+			"OrganicFertilization": "0000-03-31",
+			"Sowing": "0000-04-01",
+			"Harvest": "0000-11-05"
+		},
+		"SB":{
+			"OrganicFertilization": "0000-03-30",
+			"Sowing": "0000-03-31",
+			"Harvest": "0000-07-15"
+		}
+	},
+
+	"191": {
+		"WW":{
+			"OrganicFertilization": "0000-10-03",
+			"Sowing": "0000-10-04",
+			"Harvest": "0001-08-10"
+		},
+		"WB":{
+			"OrganicFertilization": "0000-09-16",
+			"Sowing": "0000-09-17",
+			"Harvest": "0001-07-17"
+		},
+		"GM":{
+			"OrganicFertilization": "0000-04-27",
+			"Sowing": "0000-04-28",
+			"Harvest": "0000-10-15"
+		},
+		"SM":{
+			"OrganicFertilization": "0000-04-24",
+			"Sowing": "0000-04-25",
+			"Harvest": "0000-09-20"
+		},
+		"WRa":{
+			"OrganicFertilization": "0000-08-31",
+			"Sowing": "0000-09-01",
+			"Harvest": "0001-07-22"
+		},
+		"SBee":{
+			"OrganicFertilization": "0000-03-31",
+			"Sowing": "0000-04-01",
+			"Harvest": "0000-11-05"
+		},
+		"SB":{
+			"OrganicFertilization": "0000-03-30",
+			"Sowing": "0000-03-31",
+			"Harvest": "0000-07-15"
+		}
+	},
+
+	"146": {
+		"WW":{
+			"OrganicFertilization": "0000-10-10",
+			"Sowing": "0000-10-11",
+			"Harvest": "0001-08-01"
+		},
+		"WB":{
+			"OrganicFertilization": "0000-09-20",
+			"Sowing": "0000-09-21",
+			"Harvest": "0001-07-10"
+		},
+		"GM":{
+			"OrganicFertilization": "0000-04-27",
+			"Sowing": "0000-04-28",
+			"Harvest": "0000-10-14"
+		},
+		"SM":{
+			"OrganicFertilization": "0000-04-24",
+			"Sowing": "0000-04-25",
+			"Harvest": "0000-09-18"
+		},
+		"WRa":{
+			"OrganicFertilization": "0000-08-31",
+			"Sowing": "0000-09-01",
+			"Harvest": "0001-07-10"
+		},
+		"SBee":{
+			"OrganicFertilization": "0000-03-31",
+			"Sowing": "0000-04-01",
+			"Harvest": "0000-11-05"
+		},
+		"SB":{
+			"OrganicFertilization": "0000-03-30",
+			"Sowing": "0000-03-31",
+			"Harvest": "0000-07-15"
+		}
+	},
+
+	"147": {
+		"WW":{
+			"OrganicFertilization": "0000-10-10",
+			"Sowing": "0000-10-11",
+			"Harvest": "0001-08-01"
+		},
+		"WB":{
+			"OrganicFertilization": "0000-09-20",
+			"Sowing": "0000-09-21",
+			"Harvest": "0001-07-10"
+		},
+		"GM":{
+			"OrganicFertilization": "0000-04-27",
+			"Sowing": "0000-04-28",
+			"Harvest": "0000-10-14"
+		},
+		"SM":{
+			"OrganicFertilization": "0000-04-24",
+			"Sowing": "0000-04-25",
+			"Harvest": "0000-09-18"
+		},
+		"WRa":{
+			"OrganicFertilization": "0000-08-31",
+			"Sowing": "0000-09-01",
+			"Harvest": "0001-07-10"
+		},
+		"SBee":{
+			"OrganicFertilization": "0000-03-31",
+			"Sowing": "0000-04-01",
+			"Harvest": "0000-11-05"
+		},
+		"SB":{
+			"OrganicFertilization": "0000-03-30",
+			"Sowing": "0000-03-31",
+			"Harvest": "0000-07-15"
+		}
+	}
+}
+
+		

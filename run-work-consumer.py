@@ -213,7 +213,7 @@ def collector():
     i = 0
     context = zmq.Context()
     socket = context.socket(zmq.PULL)
-    socket.connect("tcp://cluster2:7777")
+    socket.connect("tcp://cluster1:7777")
     socket.RCVTIMEO = 1000
     leave = False
     write_normal_output_files = False

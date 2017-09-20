@@ -37,7 +37,11 @@
     	"WindSpeedHeight": 2.5
   	},
 	
-	"SoilOrganicParameters": ["include-from-file", "monica-parameters/general/soil-organic.json"],
+	"SoilOrganicParameters": {
+		"DEFAULT": ["include-from-file", "monica-parameters/general/soil-organic.json"],
+		"SOM_SlowDecCoeffStandard": 0.000033
+	},
+
 	"SoilTransportParameters": ["include-from-file", "monica-parameters/general/soil-transport.json"],
 	"SoilMoistureParameters": ["include-from-file", "monica-parameters/general/soil-moisture.json"]
 }

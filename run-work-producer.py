@@ -66,7 +66,7 @@ def main():
     context = zmq.Context()
     socket = context.socket(zmq.PUSH)
     port = 6666 if len(sys.argv) == 1 else sys.argv[1]
-    socket.connect("tcp://cluster2:" + str(port))
+    socket.connect("tcp://cluster1:" + str(port))
 
     soil_db_con = sqlite3.connect("soil.sqlite")
 
@@ -147,6 +147,7 @@ def main():
         site["SiteParameters"]["SoilProfileParameters"] = soil_io.soil_parameters(soil_db_con, soil_ids[(row, col)])
         for layer in site["SiteParameters"]["SoilProfileParameters"]:
             layer["SoilBulkDensity"][0] = max(layer["SoilBulkDensity"][0], 600)
+            layer["SoilOrganicCarbon"][0] = layer["SoilOrganicCarbon"][0] * 0.6 #correction factor suggested by TGaiser
     
     def read_ascii_grid(path_to_file, include_no_data=False, row_offset=0, col_offset=0):
         "read an ascii grid into a map, without the no-data values"
@@ -256,8 +257,8 @@ def main():
         if (row, col) in soil_ids and (row, col) in bkr_ids and (row, col) in lu_ids:
 
             bkr_id = bkr_ids[(row, col)]
-            #if bkr_id != 143:
-            #    continue
+            if bkr_id != 129:
+                continue
             soil_id = soil_ids[(row, col)]
             meteo_id = meteo_ids[(row, col)]
             if (row, col) in kreise_ids:

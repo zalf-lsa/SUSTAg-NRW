@@ -26,7 +26,7 @@ for (file in file_list){
 
 dataset$bkr <- factor(dataset$bkr)
 
-plot <- ggplot(dataset, aes(x = bkr, y = Nminfert)) + 
+plot <- ggplot(dataset, aes(x = bkr, y = RelDev)) + 
   geom_boxplot(aes(fill=factor(rotation)))
 plot <- plot + facet_wrap(~ crop)
 plot <- plot + theme_bw()

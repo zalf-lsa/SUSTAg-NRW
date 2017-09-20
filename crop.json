@@ -76,6 +76,7 @@
 	
 
 	"CropParameters": {
-		"DEFAULT": ["include-from-file", "monica-parameters/general/crop.json"]
+		"DEFAULT": ["include-from-file", "monica-parameters/general/crop.json"],
+		"__enable_Photosynthesis_WangEngelTemperatureResponse__": true
 	}
 }

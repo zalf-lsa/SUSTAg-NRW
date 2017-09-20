@@ -6,7 +6,8 @@ dir_name = basepath + "/out/"
 out_dir = dir_name + "/splitted-out/"
 
 #extract_vars_cp = ["IDcell", "rotation", "crop", "agb", "yield"]
-extract_vars_cp = ["rotation", "crop", "Nminfert"]
+#extract_vars_cp = ["rotation", "crop", "Nminfert"]
+extract_vars_cp = ["IDcell", "rotation", "crop", "RelDev"]
 extract_vars_yr = ["year", "rotation", "deltaOC"]
 
 def split(suffix, extract_vars, tag_bkr=True):
@@ -41,7 +42,7 @@ def split(suffix, extract_vars, tag_bkr=True):
                     writer.writerow(row_)
             print(filename + " done!")
 
-split("_crop", extract_vars_cp)
+split("_crop", extract_vars_cp, True)
 #split("_year", extract_vars_yr, True)
 
 print("finished")
