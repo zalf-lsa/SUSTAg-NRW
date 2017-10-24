@@ -21,7 +21,6 @@
         "cropRotation": [
             {
                 "is-cover-crop": true,
-                "can-be-skipped": true,
                 "worksteps": [
                     { 
                         "type": "AutomaticSowing", 

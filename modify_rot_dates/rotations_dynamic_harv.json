@@ -1,0 +1,3024 @@
+{
+    "146": {
+        "1120": [
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-10", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-11", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-16", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-09-20", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-09-21", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WB"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-07-25", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-10", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-11", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WTr"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-16", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-08-31", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-09-01", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WRa"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-07-25", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }
+        ], 
+        "1110": [
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-10", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-11", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-16", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-09-20", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-09-21", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WB"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-07-25", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-04-24", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-04-25", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "SM"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0000-10-03", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }
+        ], 
+        "1130": [
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-04-27", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-04-28", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "GM"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0000-10-29", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-10", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-11", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WTr"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-16", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }
+        ]
+    }, 
+    "147": {
+        "3120": [
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-10", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-11", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-16", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-09-20", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-09-21", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WB"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-07-25", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-10", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-11", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WTr"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-16", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-08-31", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-09-01", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WRa"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-07-25", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }
+        ], 
+        "3130": [
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-10", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-11", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-16", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-04-27", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-04-28", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "GM"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0000-10-29", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }
+        ], 
+        "3110": [
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-10", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-11", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-16", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-09-20", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-09-21", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WB"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-07-25", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-04-24", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-04-25", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "SM"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0000-10-03", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }
+        ]
+    }, 
+    "142": {
+        "6130": [
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-15", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-16", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-04", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-03-31", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-04-01", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "SBee"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0000-11-20", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-15", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-16", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-04", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-04-23", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-04-24", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "PO"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0000-10-01", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }
+        ], 
+        "6110": [
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-15", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-16", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-04", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-09-26", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-09-27", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WB"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-07-19", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-04-24", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-04-25", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "SM"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0000-09-30", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }
+        ], 
+        "6120": [
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-15", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-16", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-04", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-09-14", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-09-15", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WRa"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-07-30", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-04-27", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-04-28", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "GM"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0000-11-04", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }
+        ]
+    }, 
+    "143": {
+        "5120": [
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-03", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-04", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-25", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-09-16", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-09-17", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WB"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-07-25", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-04-24", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-04-25", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "SM"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0000-09-30", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }
+        ], 
+        "5110": [
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-03", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-04", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-25", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-03", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-04", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-25", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-09-14", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-09-15", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WRa"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-07-30", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }
+        ], 
+        "5130": [
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-03", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-04", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-25", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-03", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-04", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WTr"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-25", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-09-14", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-09-15", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WRa"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-07-30", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }
+        ]
+    }, 
+    "141": {
+        "8110": [
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-30", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-31", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-04", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-09-26", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-09-27", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WB"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-07-19", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-03-31", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-04-01", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "SBee"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0000-11-20", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }
+        ], 
+        "8130": [
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-30", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-31", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-04", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-30", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-31", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-04", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-03-31", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-04-01", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "SBee"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0000-11-20", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }
+        ], 
+        "8120": [
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-30", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-31", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-04", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-04-24", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-04-25", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "SM"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0000-09-30", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-30", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-31", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-04", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-04-23", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-04-24", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "PO"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0000-10-01", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }
+        ]
+    }, 
+    "191": {
+        "4120": [
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-03", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-04", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-25", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-09-16", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-09-17", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WB"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-01", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-03", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-04", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WTr"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-25", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-04-27", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-04-28", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "GM"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0000-10-30", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }
+        ], 
+        "4110": [
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-03", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-04", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-25", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-04-24", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-04-25", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "SM"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0000-10-05", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-09-16", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-09-17", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WB"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-01", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-08-31", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-09-01", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WRa"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-06", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }
+        ]
+    }, 
+    "148": {
+        "2110": [
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-09-26", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-09-27", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WB"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-07-19", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-04-24", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-04-25", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "SM"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0000-09-30", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-15", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-16", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WTr"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-04", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }
+        ], 
+        "2120": [
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-15", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-16", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-04", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-09-26", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-09-27", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WB"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-07-19", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-04-27", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-04-28", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "GM"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0000-10-16", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }
+        ], 
+        "2130": [
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-04-24", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-04-25", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "SM"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0000-09-30", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-04-27", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-04-28", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "GM"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0000-10-16", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }
+        ]
+    }, 
+    "134": {
+        "7130": [
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-03", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-04", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-25", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-03-30", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-03-31", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "SB"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0000-07-30", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-03", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-04", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WTr"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-25", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-04-24", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-04-25", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "SM"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0000-10-11", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }
+        ], 
+        "7110": [
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-03", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-04", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-25", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-09-16", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-09-17", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WB"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-01", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-08-31", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-09-01", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WRa"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-07-30", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }
+        ], 
+        "7120": [
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-03", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-04", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-25", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-09-16", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-09-17", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WB"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-01", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-04-24", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-04-25", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "SM"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0000-10-11", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }
+        ]
+    }, 
+    "129": {
+        "9120": [
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-03", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-04", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-30", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-09-16", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-09-17", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WB"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-01", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-04-24", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-04-25", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "SM"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0000-10-11", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }
+        ], 
+        "9110": [
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-03", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-04", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-30", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-03-30", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-03-31", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "SB"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0000-07-30", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-09-10", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-09-11", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WRa"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-07-30", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }
+        ], 
+        "9130": [
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-03", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-04", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WW"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-30", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-09-16", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-09-17", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WB"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-01", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }, 
+            {
+                "worksteps": [
+                    {
+                        "date": "0000-10-03", 
+                        "incorporation": false, 
+                        "amount": [
+                            0, 
+                            "kg"
+                        ], 
+                        "type": "OrganicFertilization", 
+                        "parameters": [
+                            "ref", 
+                            "fert-params", 
+                            "org_fert"
+                        ]
+                    }, 
+                    {
+                        "date": "0000-10-04", 
+                        "type": "Sowing", 
+                        "crop": [
+                            "ref", 
+                            "crops", 
+                            "WTr"
+                        ]
+                    }, 
+                    {
+                        "max-3d-precip-sum": 5, 
+                        "min-%-asw": 0, 
+                        "max-curr-day-precip": 1, 
+                        "harvest-time": "maturity", 
+                        "max-%-asw": 100, 
+                        "latest-date": "0001-08-30", 
+                        "type": "AutomaticHarvest"
+                    }
+                ]
+            }
+        ]
+    }
+}

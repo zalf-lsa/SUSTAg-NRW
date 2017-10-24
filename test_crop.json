@@ -1,0 +1,276 @@
+{
+    "crops": {
+        "WTr": {
+            "residueParams": [
+                "include-from-file", 
+                "monica-parameters/crop-residues/triticale.json"
+            ], 
+            "cropParams": {
+                "cultivar": [
+                    "include-from-file", 
+                    "monica-parameters/projects/sustag/winter-triticale.json"
+                ], 
+                "species": [
+                    "include-from-file", 
+                    "monica-parameters/projects/sustag/triticale.json"
+                ]
+            }
+        }, 
+        "WB": {
+            "residueParams": [
+                "include-from-file", 
+                "monica-parameters/crop-residues/barley.json"
+            ], 
+            "cropParams": {
+                "cultivar": [
+                    "include-from-file", 
+                    "monica-parameters/projects/sustag/winter-barley.json"
+                ], 
+                "species": [
+                    "include-from-file", 
+                    "monica-parameters/projects/sustag/barley.json"
+                ]
+            }
+        }, 
+        "WRa": {
+            "residueParams": [
+                "include-from-file", 
+                "monica-parameters/crop-residues/rape.json"
+            ], 
+            "cropParams": {
+                "cultivar": [
+                    "include-from-file", 
+                    "monica-parameters/projects/sustag/winter-rape.json"
+                ], 
+                "species": [
+                    "include-from-file", 
+                    "monica-parameters/projects/macsur-croprotations-cz/rape.json"
+                ]
+            }
+        }, 
+        "SBee": {
+            "residueParams": [
+                "include-from-file", 
+                "monica-parameters/crop-residues/beet.json"
+            ], 
+            "cropParams": {
+                "cultivar": [
+                    "include-from-file", 
+                    "monica-parameters/projects/sustag/sugar-beet-cv.json"
+                ], 
+                "species": [
+                    "include-from-file", 
+                    "monica-parameters/projects/sustag/sugar-beet.json"
+                ]
+            }
+        }, 
+        "WW": {
+            "residueParams": [
+                "include-from-file", 
+                "monica-parameters/crop-residues/wheat.json"
+            ], 
+            "cropParams": {
+                "cultivar": [
+                    "include-from-file", 
+                    "monica-parameters/projects/macsur-cc-scaling-nrw/winter-wheat.json"
+                ], 
+                "species": [
+                    "include-from-file", 
+                    "monica-parameters/projects/macsur-cc-scaling-nrw/wheat.json"
+                ]
+            }
+        }, 
+        "SM": {
+            "residueParams": [
+                "include-from-file", 
+                "monica-parameters/crop-residues/maize.json"
+            ], 
+            "cropParams": {
+                "cultivar": [
+                    "include-from-file", 
+                    "monica-parameters/projects/macsur-cc-scaling-nrw/silage-maize.json"
+                ], 
+                "species": [
+                    "include-from-file", 
+                    "monica-parameters/projects/macsur-cc-scaling-nrw/maize.json"
+                ]
+            }
+        }, 
+        "SB": {
+            "residueParams": [
+                "include-from-file", 
+                "monica-parameters/crop-residues/barley.json"
+            ], 
+            "cropParams": {
+                "cultivar": [
+                    "include-from-file", 
+                    "monica-parameters/projects/sustag/spring-barley.json"
+                ], 
+                "species": [
+                    "include-from-file", 
+                    "monica-parameters/projects/sustag/barley.json"
+                ]
+            }
+        }, 
+        "GM": {
+            "residueParams": [
+                "include-from-file", 
+                "monica-parameters/crop-residues/maize.json"
+            ], 
+            "cropParams": {
+                "cultivar": [
+                    "include-from-file", 
+                    "monica-parameters/projects/sustag/grain-maize.json"
+                ], 
+                "species": [
+                    "include-from-file", 
+                    "monica-parameters/projects/macsur-cc-scaling-nrw/maize.json"
+                ]
+            }
+        }, 
+        "PO": {
+            "residueParams": [
+                "include-from-file", 
+                "monica-parameters/crop-residues/potato.json"
+            ], 
+            "cropParams": {
+                "cultivar": [
+                    "include-from-file", 
+                    "monica-parameters/projects/sustag/moderately-early-potato.json"
+                ], 
+                "species": [
+                    "include-from-file", 
+                    "monica-parameters/projects/sustag/potato.json"
+                ]
+            }
+        }
+    }, 
+    "cropRotation": [
+        {
+            "worksteps": [
+                {
+                    "date": "0000-10-03", 
+                    "type": "OrganicFertilization", 
+                    "amount": [
+                        0, 
+                        "kg"
+                    ], 
+                    "incorporation": false, 
+                    "parameters": [
+                        "ref", 
+                        "fert-params", 
+                        "org_fert"
+                    ]
+                }, 
+                {
+                    "date": "0000-10-04", 
+                    "type": "Sowing", 
+                    "crop": [
+                        "ref", 
+                        "crops", 
+                        "WW"
+                    ]
+                }, 
+                {
+                    "max-3d-precip-sum": 5, 
+                    "harvest-time": "maturity", 
+                    "max-curr-day-precip": 1, 
+                    "min-%-asw": 0, 
+                    "max-%-asw": 100, 
+                    "latest-date": "0001-08-30", 
+                    "type": "AutomaticHarvest"
+                }
+            ]
+        }, 
+        {
+            "worksteps": [
+                {
+                    "date": "0000-09-16", 
+                    "type": "OrganicFertilization", 
+                    "amount": [
+                        0, 
+                        "kg"
+                    ], 
+                    "incorporation": false, 
+                    "parameters": [
+                        "ref", 
+                        "fert-params", 
+                        "org_fert"
+                    ]
+                }, 
+                {
+                    "date": "0000-09-17", 
+                    "type": "Sowing", 
+                    "crop": [
+                        "ref", 
+                        "crops", 
+                        "WB"
+                    ]
+                }, 
+                {
+                    "max-3d-precip-sum": 5, 
+                    "harvest-time": "maturity", 
+                    "max-curr-day-precip": 1, 
+                    "min-%-asw": 0, 
+                    "max-%-asw": 100, 
+                    "latest-date": "0001-08-01", 
+                    "type": "AutomaticHarvest"
+                }
+            ]
+        }, 
+        {
+            "worksteps": [
+                {
+                    "date": "0000-04-24", 
+                    "type": "OrganicFertilization", 
+                    "amount": [
+                        0, 
+                        "kg"
+                    ], 
+                    "incorporation": false, 
+                    "parameters": [
+                        "ref", 
+                        "fert-params", 
+                        "org_fert"
+                    ]
+                }, 
+                {
+                    "date": "0000-04-25", 
+                    "type": "Sowing", 
+                    "crop": [
+                        "ref", 
+                        "crops", 
+                        "SM"
+                    ]
+                }, 
+                {
+                    "max-3d-precip-sum": 5, 
+                    "harvest-time": "maturity", 
+                    "max-curr-day-precip": 1, 
+                    "min-%-asw": 0, 
+                    "max-%-asw": 100, 
+                    "latest-date": "0000-10-11", 
+                    "type": "AutomaticHarvest"
+                }
+            ]
+        }
+    ], 
+    "fert-params": {
+        "org_fert": [
+            "include-from-file", 
+            "monica-parameters/organic-fertilisers/PIS.json"
+        ], 
+        "AN": [
+            "include-from-file", 
+            "monica-parameters/mineral-fertilisers/AN.json"
+        ]
+    }, 
+    "CropParameters": {
+        "DEFAULT": [
+            "include-from-file", 
+            "monica-parameters/general/crop.json"
+        ], 
+        "__enable_Photosynthesis_WangEngelTemperatureResponse__": true
+    }, 
+    "include-file-base-path": "C:/Users/stella/Documents/GitHub"
+}

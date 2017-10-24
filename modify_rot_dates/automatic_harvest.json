@@ -1,0 +1,9 @@
+{ 
+    "type": "AutomaticHarvest", 
+    "latest-date": "0001-09-05",
+    "min-%-asw": 0,
+    "max-%-asw": 100,
+    "max-3d-precip-sum": 5,
+    "max-curr-day-precip": 1,
+    "harvest-time": "maturity"
+}

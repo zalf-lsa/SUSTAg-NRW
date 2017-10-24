@@ -57,7 +57,10 @@ PATHS = {
     }
 }
 
+LOCAL_RUN = False
+USE_NDEM_FERTILIZATION = True
 PATH_TO_CLIMATE_DATA_DIR = "/archiv-daten/md/data/climate/isimip/csvs/earth/"
+LOCAL_PATH_TO_CLIMATE_DATA_DIR = "z:/data/climate/isimip/csvs/earth/"
 #PATH_TO_CLIMATE_DATA_DIR ="/archiv-daten/md/projects/sustag/MACSUR_WP3_NRW_1x1/" #"Z:/projects/sustag/MACSUR_WP3_NRW_1x1/"
 
 def main():
@@ -66,7 +69,10 @@ def main():
     context = zmq.Context()
     socket = context.socket(zmq.PUSH)
     port = 6666 if len(sys.argv) == 1 else sys.argv[1]
-    socket.connect("tcp://cluster1:" + str(port))
+    if LOCAL_RUN:
+        socket.connect("tcp://localhost:" + str(port))
+    else:
+        socket.connect("tcp://cluster2:" + str(port))
 
     soil_db_con = sqlite3.connect("soil.sqlite")
 
@@ -84,8 +90,16 @@ def main():
 
     with open("sims.json") as _:
         sims = json.load(_)
+        if USE_NDEM_FERTILIZATION:
+            #turn off Nmin automatic fertilization
+            for setting in sims.iteritems():
+                setting[1]["UseNMinMineralFertilisingMethod"] = False
+    
+    rotations_file = "rotations_dynamic_harv.json"
+    if USE_NDEM_FERTILIZATION:
+        rotations_file = "rotations_dynamic_harv_Ndem.json"
 
-    with open("rotations.json") as _:
+    with open(rotations_file) as _:        
         rotations = json.load(_)
     
 
@@ -257,8 +271,11 @@ def main():
         if (row, col) in soil_ids and (row, col) in bkr_ids and (row, col) in lu_ids:
 
             bkr_id = bkr_ids[(row, col)]
-            if bkr_id != 129:
-                continue
+            
+            ########for testing
+            #if bkr_id != 129:
+            #    continue
+            
             soil_id = soil_ids[(row, col)]
             meteo_id = meteo_ids[(row, col)]
             if (row, col) in kreise_ids:
@@ -273,6 +290,10 @@ def main():
             update_soil_crop_dates(row, col)
 
             for rot_id, rotation in rotations[str(bkr_id)].iteritems():
+                
+                ########for testing
+                #if rot_id != "9120":
+                #    continue
 
                 crop["cropRotation"] = rotation
 
@@ -284,7 +305,7 @@ def main():
                 })
 
                 #with open("test_crop.json", "w") as _:
-                #    _.write(json.dumps(crop))
+                #    _.write(json.dumps(crop, indent=4))
 
                 #with open("test_site.json", "w") as _:
                 #    _.write(json.dumps(site))
@@ -304,7 +325,10 @@ def main():
                 env["csvViaHeaderOptions"] = sim["climate.csv-options"]
                 env["csvViaHeaderOptions"]["start-date"] = sim["start-date"]
                 env["csvViaHeaderOptions"]["end-date"] = sim["end-date"]
-                env["pathToClimateCSV"] = PATH_TO_CLIMATE_DATA_DIR + "row-" + str(meteo_id[0]) + "/col-" + str(meteo_id[1]) + ".csv"
+                if LOCAL_RUN:
+                    env["pathToClimateCSV"] = LOCAL_PATH_TO_CLIMATE_DATA_DIR + "row-" + str(meteo_id[0]) + "/col-" + str(meteo_id[1]) + ".csv"
+                else:
+                    env["pathToClimateCSV"] = PATH_TO_CLIMATE_DATA_DIR + "row-" + str(meteo_id[0]) + "/col-" + str(meteo_id[1]) + ".csv"
                 #env["pathToClimateCSV"] = PATH_TO_CLIMATE_DATA_DIR + gmd["subpath-climate.csv"]
 
                 for sim_id, sim_ in sims.iteritems():

@@ -108,7 +108,7 @@
 				["TraDef", "AVG"],
 				["PercolationRate", 20, "SUM"]				
 			],
-
+			
 			{"at": "anthesis"}, [
 				["Year"],
 				["Crop"],

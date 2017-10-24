@@ -2,15 +2,15 @@
 	"crops": {
 		"SM": {
 			"cropParams": {
-				"species": ["include-from-file", "monica-parameters/projects/macsur-cc-scaling-nrw/maize.json"],
-				"cultivar": ["include-from-file", "monica-parameters/projects/macsur-cc-scaling-nrw/silage-maize.json"]
+				"species": ["include-from-file", "monica-parameters/projects/sustag/maize.json"],
+				"cultivar": ["include-from-file", "monica-parameters/projects/sustag/silage-maize.json"]
 			},
 			"residueParams": ["include-from-file", "monica-parameters/crop-residues/maize.json"]
 		},
 		"WW": {
 			"cropParams": {
-				"species": ["include-from-file", "monica-parameters/projects/macsur-cc-scaling-nrw/wheat.json"],
-				"cultivar": ["include-from-file", "monica-parameters/projects/macsur-cc-scaling-nrw/winter-wheat.json"]
+				"species": ["include-from-file", "monica-parameters/projects/sustag/wheat.json"],
+				"cultivar": ["include-from-file", "monica-parameters/projects/sustag/winter-wheat.json"]
 			},
 			"residueParams": ["include-from-file", "monica-parameters/crop-residues/wheat.json"]
 		},
@@ -24,14 +24,14 @@
 		"SB": {
 			"cropParams": {
 				"species": ["include-from-file", "monica-parameters/projects/sustag/barley.json"],
-				"cultivar": ["include-from-file", "monica-parameters/projects/macsur-croprotations-cz/spring-barley.json"]
+				"cultivar": ["include-from-file", "monica-parameters/projects/sustag/spring-barley.json"]
 			},
 			"residueParams": ["include-from-file", "monica-parameters/crop-residues/barley.json"]
 		},
 		"WRa": {
 			"cropParams": {
-				"species": ["include-from-file", "monica-parameters/projects/macsur-croprotations-cz/rape.json"],
-				"cultivar": ["include-from-file", "monica-parameters/projects/macsur-croprotations-cz/winter-rape.json"]
+				"species": ["include-from-file", "monica-parameters/projects/sustag/rape.json"],
+				"cultivar": ["include-from-file", "monica-parameters/projects/sustag/winter-rape.json"]
 			},
 			"residueParams": ["include-from-file", "monica-parameters/crop-residues/rape.json"]
 		},
@@ -58,7 +58,7 @@
 		},
 		"GM": {			
 			"cropParams": {
-				"species": ["include-from-file", "monica-parameters/projects/macsur-cc-scaling-nrw/maize.json"],
+				"species": ["include-from-file", "monica-parameters/projects/sustag/maize.json"],
 				"cultivar": ["include-from-file", "monica-parameters/projects/sustag/grain-maize.json"]
 			},			
 			"residueParams": ["include-from-file", "monica-parameters/crop-residues/maize.json"]
@@ -77,6 +77,6 @@
 
 	"CropParameters": {
 		"DEFAULT": ["include-from-file", "monica-parameters/general/crop.json"],
-		"__enable_Photosynthesis_WangEngelTemperatureResponse__": true
+		"__enable_Photosynthesis_WangEngelTemperatureResponse__": false
 	}
 }
