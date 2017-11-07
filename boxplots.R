@@ -32,3 +32,11 @@ plot <- plot + facet_wrap(~ crop)
 plot <- plot + theme_bw()
 plot
 
+#barley_spring-barley, barley_winter-barley, maize_silage-maize, mustard_,
+#rape_winter-rape, triticale_winter-triticale, wheat_winter-wheat, potato_moderately-early-potato,
+#sugar-beet, maize_grain-maize
+cp_dataset <- subset(dataset, crop == "maize_grain-maize")
+plot <- ggplot(cp_dataset, aes(x = bkr, y = hi)) + 
+  geom_boxplot(aes(fill=factor(rotation)))
+plot <- plot + theme_bw()
+plot

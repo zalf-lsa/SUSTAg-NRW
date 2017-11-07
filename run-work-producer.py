@@ -21,31 +21,15 @@ import csv
 import json
 #import os
 import sqlite3
-#import types
-
 import sys
-#####sys.path.insert(0, "C:\\Users\\berg.ZALF-AD\\GitHub\\monica\\project-files\\Win32\\Release")
-####sys.path.insert(0, "C:\\Users\\berg.ZALF-AD\\GitHub\\monica\\src\\python")
-#print sys.path
-
 import time
-#from datetime import date, datetime, timedelta
-#from StringIO import StringIO
-
 import zmq
-
-#sys.path.append('C:/Users/berg.ZALF-AD/GitHub/util/soil')
-#from soil_conversion import *
-#import monica_python
 import monica_io
 import soil_io
 import ascii_io
 from datetime import date, timedelta
 import copy
 
-#print "pyzmq version: ", zmq.pyzmq_version()
-#print "sys.path: ", sys.path
-#print "sys.version: ", sys.version
 USER = "stella"
 
 PATHS = {
@@ -57,11 +41,42 @@ PATHS = {
     }
 }
 
-LOCAL_RUN = False
-USE_NDEM_FERTILIZATION = True
-PATH_TO_CLIMATE_DATA_DIR = "/archiv-daten/md/data/climate/isimip/csvs/earth/"
-LOCAL_PATH_TO_CLIMATE_DATA_DIR = "z:/data/climate/isimip/csvs/earth/"
+timeframes = {
+    "historical": {
+        "start-date": "1975-01-01",
+        "end-date": "2005-12-31",
+        "cluster-path-to-climate": "/archiv-daten/md/data/climate/isimip/csvs/earth/",
+        "local-path-to-climate": "z:/data/climate/isimip/csvs/earth/"
+    },
+    "2030": {
+        "start-date": "2006-01-01",
+        "end-date": "2030-12-31",
+        "cluster-path-to-climate": "/archiv-daten/md/data/climate/isimip/csvs/germany-nrw/", #rcp 2.6
+        "local-path-to-climate": "z:/data/climate/isimip/csvs/germany-nrw/" #rcp 2.6
+    }
+}
+#macsur climate data:
 #PATH_TO_CLIMATE_DATA_DIR ="/archiv-daten/md/projects/sustag/MACSUR_WP3_NRW_1x1/" #"Z:/projects/sustag/MACSUR_WP3_NRW_1x1/"
+
+#Configure producer
+tf = "2030"
+LOCAL_RUN = False
+USE_NDEM_FERTILIZATION = True #if false, Nmin method by default
+residues_exported = True
+if residues_exported:
+    export_rate = "custom"
+    export_presets = {
+        "all": "export all residues available according to MONICA secondary yield params",
+        "custom": 0.33 #33% exported, 67% left on the field
+    }
+#end of user configuration
+
+rotations_file = "rotations_dynamic_harv.json"
+if USE_NDEM_FERTILIZATION:
+    rotations_file = "rotations_dynamic_harv_Ndem.json"
+
+PATH_TO_CLIMATE_DATA_DIR = timeframes[tf]["cluster-path-to-climate"]
+LOCAL_PATH_TO_CLIMATE_DATA_DIR = timeframes[tf]["local-path-to-climate"]
 
 def main():
     "main function"
@@ -78,6 +93,8 @@ def main():
 
     with open("sim.json") as _:
         sim = json.load(_)
+        sim["start-date"] = timeframes[tf]["start-date"]
+        sim["end-date"] = timeframes[tf]["end-date"]
 
     with open("site.json") as _:
         site = json.load(_)
@@ -94,16 +111,19 @@ def main():
             #turn off Nmin automatic fertilization
             for setting in sims.iteritems():
                 setting[1]["UseNMinMineralFertilisingMethod"] = False
-    
-    rotations_file = "rotations_dynamic_harv.json"
-    if USE_NDEM_FERTILIZATION:
-        rotations_file = "rotations_dynamic_harv_Ndem.json"
 
-    with open(rotations_file) as _:        
+    with open(rotations_file) as _:
         rotations = json.load(_)
-    
 
-    sim["include-file-base-path"] = PATHS[USER]["INCLUDE_FILE_BASE_PATH"]    
+    
+    sim["UseSecondaryYields"] = residues_exported
+    if residues_exported:
+        if export_rate == "custom":
+            for cp in crop["crops"].iteritems():
+                for organ in cp[1]["cropParams"]["cultivar"]["OrganIdsForSecondaryYield"]:
+                    organ["yieldPercentage"] = export_presets["custom"]
+
+    sim["include-file-base-path"] = PATHS[USER]["INCLUDE_FILE_BASE_PATH"]
 
     def read_general_metadata(path_to_file):
         "read metadata file"
@@ -147,15 +167,10 @@ def main():
         return data
 
     orgN_kreise = read_orgN_kreise("NRW_orgN_balance.csv")
-    #print orgN_kreise.keys()
 
     def update_soil_crop_dates(row, col):
         "in place update the env"
-        #startDate = date(1980, 1, 1)# + timedelta(days = p["sowing-doy"])
-        #sim["start-date"] = startDate.isoformat()
-        #sim["end-date"] = date(2010, 12, 31).isoformat()
-        #sim["debug?"] = True
-
+        
         site["Latitude"] = general_metadata[(row, col)]["latitude"]
         site["HeightNN"] = [general_metadata[(row, col)]["elevation"], "m"]
         site["SiteParameters"]["SoilProfileParameters"] = soil_io.soil_parameters(soil_db_con, soil_ids[(row, col)])
@@ -213,7 +228,7 @@ def main():
         for cultivation_method in range(len(crop_rotation)):
             for workstep in crop_rotation[cultivation_method]["worksteps"]:
                 if workstep["type"] == "Sowing":
-                    if workstep["crop"]["cropParams"]["species"]["SpeciesName"] in insert_cover_before or workstep["crop"]["cropParams"]["cultivar"]["CultivarName"] in insert_cover_before:
+                    if workstep["crop"]["cropParams"]["species"]["SpeciesName"] in insert_cover_before or workstep["crop"]["cropParams"]["cultivar"]["="]["CultivarName"] in insert_cover_before:
                         insert_cover_here.append((cultivation_method, workstep["date"]))
                         break
         for position, mydate in reversed(insert_cover_here): 
@@ -273,7 +288,7 @@ def main():
             bkr_id = bkr_ids[(row, col)]
             
             ########for testing
-            #if bkr_id != 129:
+            #if bkr_id != 142:
             #    continue
             
             soil_id = soil_ids[(row, col)]
@@ -307,12 +322,6 @@ def main():
                 #with open("test_crop.json", "w") as _:
                 #    _.write(json.dumps(crop, indent=4))
 
-                #with open("test_site.json", "w") as _:
-                #    _.write(json.dumps(site))
-
-                #with open("test_sim.json", "w") as _:
-                #    _.write(json.dumps(sim))
-
                 insert_cc(env["cropRotation"])
 
                 #assign amount of organic fertilizer
@@ -329,12 +338,10 @@ def main():
                     env["pathToClimateCSV"] = LOCAL_PATH_TO_CLIMATE_DATA_DIR + "row-" + str(meteo_id[0]) + "/col-" + str(meteo_id[1]) + ".csv"
                 else:
                     env["pathToClimateCSV"] = PATH_TO_CLIMATE_DATA_DIR + "row-" + str(meteo_id[0]) + "/col-" + str(meteo_id[1]) + ".csv"
-                #env["pathToClimateCSV"] = PATH_TO_CLIMATE_DATA_DIR + gmd["subpath-climate.csv"]
 
                 for sim_id, sim_ in sims.iteritems():
                     if sim_id != "WL.NL.rain":
                         continue
-                    #sim_id, sim_ = ("potential", sims["potential"])
                     env["events"] = sim_["output"]
                     env["params"]["simulationParameters"]["NitrogenResponseOn"] = sim_["NitrogenResponseOn"]
                     env["params"]["simulationParameters"]["WaterDeficitResponseOn"] = sim_["WaterDeficitResponseOn"]
@@ -347,7 +354,8 @@ def main():
                                         + "|" + str(soil_id) \
                                         + "|(" + str(row) + "/" + str(col) + ")" \
                                         + "|" + str(bkr_id) \
-                                        + "|" + str(rot)
+                                        + "|" + str(rot) \
+                                        + "|" + str(sim["UseSecondaryYields"])
                         socket.send_json(env) 
                         print "sent env ", i, " customId: ", env["customId"]
                         i += 1

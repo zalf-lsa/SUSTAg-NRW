@@ -82,15 +82,16 @@ def crop_rotation_grids(df, plot_vars, n_rows, n_cols, measure = "avg"):
                 write_grid_file(grid_data, cp + "_" + measure, out_var, rot)
                 print("out grid for crop: " + str(cp) + " var: " + str(out_var) + " and rotation: " + str(rot) + " ready!")
 
-def crop_grids(df, plot_vars, n_rows, n_cols, measure = "avg"):
-    
+def crop_grids(df, plot_vars, n_rows, n_cols, measure="avg"):
+    "keep crops separated"
+
     #identify available crops
     crops = set(df.crop)
 
     #subset for crop
     for cp in crops:
         crop_df = df[df.crop == cp]
-
+    
         #aggregate per cell and rotation
         if measure == "avg":
             aggr_data = crop_df.groupby(["IDcell"]).mean()
@@ -112,6 +113,33 @@ def crop_grids(df, plot_vars, n_rows, n_cols, measure = "avg"):
                     update_grid_data(aggr_data, grid_data, row, col, r_loc, c_index)
             write_grid_file(grid_data, cp + "_" + measure, out_var)
             print("out grid for crop: " + str(cp) + " var: " + str(out_var) + " ready!")
+
+def allcrops_grids(df, plot_vars, n_rows, n_cols, measure="avg"):
+    "aggregate all the crops"
+    
+    cp = "allcrops"
+
+    #aggregate per cell and rotation
+    if measure == "avg":
+        aggr_data = df.groupby(["IDcell"]).mean()
+    elif measure == "stdev":
+        aggr_data = df.groupby(["IDcell"]).std()
+    #print aggr_data
+
+    #retrieve values per cell/rotation
+    cells = aggr_data.index.get_level_values('IDcell').tolist()        
+
+    #map indexes
+    r_loc, c_loc = map_indexes(aggr_data, cells)
+
+    for out_var in plot_vars:
+        grid_data = defaultdict(lambda: defaultdict(dict)) #dict row, dict col
+        c_index = c_loc[out_var]
+        for row in range(n_rows):
+            for col in range(n_cols):
+                update_grid_data(aggr_data, grid_data, row, col, r_loc, c_index)
+        write_grid_file(grid_data, cp + "_" + measure, out_var)
+        print("out grid for crop: " + str(cp) + " var: " + str(out_var) + " ready!")
 
 def year_rotation_grids(df, plot_vars, n_rows, n_cols, measure = "avg"):
     
@@ -200,6 +228,7 @@ def testgrid(filename, n_rows, n_cols):
     write_grid_file(grid_data, "testXenia", "elevation")
 
 #read file(s)
+print("reading files...")
 df_cp_129 = pd.read_csv("out/splitted-out/129_crop.csv")
 df_cp_134 = pd.read_csv("out/splitted-out/134_crop.csv")
 df_cp_141 = pd.read_csv("out/splitted-out/141_crop.csv")
@@ -220,26 +249,26 @@ df_cp_191 = pd.read_csv("out/splitted-out/191_crop.csv")
 #df_yr_148 = pd.read_csv("out/splitted-out/148_year.csv")
 #df_yr_191 = pd.read_csv("out/splitted-out/191_year.csv")
 
+print("concatenating data frames...")
 cp_frames = [df_cp_129, df_cp_134, df_cp_141, df_cp_142, df_cp_143, df_cp_146, df_cp_147, df_cp_148, df_cp_191]
 cp_df = pd.concat(cp_frames)
 
 #yr_frames = [df_yr_129, df_yr_134, df_yr_141, df_yr_142, df_yr_143, df_yr_146, df_yr_147, df_yr_148, df_yr_191]
 #yr_df = pd.concat(yr_frames)
 
-#plot_vars_crop = ["agb", "yield"]
-plot_vars_crop = ["maxLAI", "sumGMono", "sumJMono"]
-plot_vars_year = ["deltaOC", "waterperc", "Nleach"]
+plot_vars_crop = ["Nleach"]
+plot_vars_year = ["deltaOC"]
 n_rows = 241
 n_cols = 250
 
 #testgrid("NRW_General_Metadata.csv", n_rows, n_cols)
 
 #TODO: use either "avg" or "stdev" as last parameter of the following functions
+print("creating grids...")
 #crop_rotation_grids(cp_df, plot_vars, n_rows, n_cols)
 crop_grids(cp_df, plot_vars_crop, n_rows, n_cols)
-#crop_grids(cp_df, plot_vars_crop, n_rows, n_cols, "stdev")
+#allcrops_grids(cp_df, plot_vars_crop, n_rows, n_cols)
 #year_rotation_grids(yr_df, plot_vars, n_rows, n_cols)
 #year_grids(yr_df, plot_vars_year, n_rows, n_cols)
-#year_grids(yr_df, plot_vars_year, n_rows, n_cols, "stdev")
 
 print "finished!"

@@ -88,7 +88,7 @@ def soc_trajectories():
     yr_frames = [df_yr_129, df_yr_134, df_yr_141, df_yr_142, df_yr_143, df_yr_146, df_yr_147, df_yr_148, df_yr_191]
     yr_df = pd.concat(yr_frames)
 
-    with open("rotations.json") as _:
+    with open("rotations_dynamic_harv.json") as _:
         rotations = json.load(_)
     
     #summary_data = defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))

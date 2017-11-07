@@ -23,7 +23,8 @@
 				["Rh", "SUM"], 
 				["NEP", "SUM"], 
 				["Yield", "LAST"], 
-				["Act_ET", "SUM"]
+				["Act_ET", "SUM"],
+				["SecondaryYield", "LAST"]
 			]
 		]
 	},
@@ -60,7 +61,8 @@
 				["NFert", "SUM"], 
 				["N2O", "SUM"], 
 				["Nstress", "AVG"], 
-				["Irrig", "SUM"]
+				["Irrig", "SUM"],
+				["SecondaryYield", "LAST"]
 			]
 		]
 	},
@@ -106,7 +108,8 @@
 				["N2O", "SUM"], 
 				["Nstress", "AVG"],
 				["TraDef", "AVG"],
-				["PercolationRate", 20, "SUM"]				
+				["PercolationRate", 20, "SUM"],
+				["SecondaryYield", "LAST"]				
 			],
 			
 			{"at": "anthesis"}, [
@@ -158,7 +161,8 @@
 				["Act_ET", "SUM"], 
 				["Act_Ev", "SUM"], 
 				["PercolationRate", 20, "SUM"], 
-				["Irrig", "SUM"]
+				["Irrig", "SUM"],
+				["SecondaryYield", "LAST"]
 			]
 		]
 	},
@@ -190,7 +194,8 @@
 				["Yield", "LAST"], 
 				["Act_ET", "SUM"], 
 				["Act_Ev", "SUM"], 
-				["PercolationRate", 20, "SUM"]
+				["PercolationRate", 20, "SUM"],
+				["SecondaryYield", "LAST"]
 			]
 		]
 	}

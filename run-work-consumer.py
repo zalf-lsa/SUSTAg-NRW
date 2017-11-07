@@ -46,7 +46,7 @@ def create_year_output(oids, row, col, rotation, prod_level, values):
                 oid = oids[iii]
                 val = values[iii][kkk]
                 if iii == 1:
-                    vals[oid["name"]] = (values[iii+1][kkk] - val) / val if val > 0 else 0.0
+                    vals[oid["name"]] = (values[iii+1][kkk] - val) / val * 100 if val > 0 else 0.0
                 elif iii == 2:
                     continue
                 else:
@@ -78,10 +78,11 @@ def create_year_output(oids, row, col, rotation, prod_level, values):
     return out
 
 
-def create_crop_output(oids, row, col, rotation, prod_level, values):
+def create_crop_output(oids, row, col, rotation, prod_level, values, use_secondary_yields):
     "create crop output lines"
     row_col = "{}{:03d}".format(row, col)
     out = []
+    last_year = values[0][-1]
     if len(values) > 0:
         for kkk in range(0, len(values[0])):
             vals = {}
@@ -91,11 +92,15 @@ def create_crop_output(oids, row, col, rotation, prod_level, values):
                 if iii == 2:
                     start = datetime.strptime(val, "%Y-%m-%d")
                     end = datetime.strptime(values[iii+1][kkk], "%Y-%m-%d")
+                    if end == datetime(last_year, 12, 31):
+                        #the crop is harvested early due to the end of the simulation period,
+                        #values of this crop should be ignored.
+                        vals["skip"] = True
                     vals[oid["name"]] = (end - start).days
                 elif iii == 3:
                     continue
                 elif iii == 4:
-                    vals[oid["name"]] = (values[iii+1][kkk] - val) / val if val > 0 else 0.0
+                    vals[oid["name"]] = (values[iii+1][kkk] - val) / val * 100 if val > 0 else 0.0
                 elif iii == 5:
                     continue
                 else:
@@ -104,8 +109,32 @@ def create_crop_output(oids, row, col, rotation, prod_level, values):
                             vals[oid["name"]] = val_
                     else:
                         vals[oid["name"]] = val
+            
+            def retuned_exported_residues(agb, primary_yield, secondary_yield, use_secondary_yields, rootCrop):
+                return_residues = agb
+                if not rootCrop:
+                    return_residues -= primary_yield
+                export_residues = 0
 
-            if vals.get("Year", 0) > start_recording_out:
+                if use_secondary_yields:
+                    return_residues -= secondary_yield
+                    export_residues += secondary_yield
+
+                return return_residues, export_residues
+            
+            def is_root_crop(cp):
+                out = False
+                root_cps = ["potato", "sugar beet"]
+                for root_cp in root_cps:
+                    if root_cp in cp:
+                        out = True
+                        break
+                return out
+
+            rootCrop =  is_root_crop(vals["Crop"])
+            return_residues, export_residues = retuned_exported_residues(float(vals["AbBiom"]), float(vals["Yield"]), float(vals["SecondaryYield"]), use_secondary_yields, rootCrop)
+
+            if vals.get("Year", 0) > start_recording_out and not vals.get("skip", False):
                 out.append([
                     row_col,
                     rotation,
@@ -130,7 +159,9 @@ def create_crop_output(oids, row, col, rotation, prod_level, values):
                     vals.get("NFert", "NA"),
                     vals.get("N2O", "NA"),
                     vals.get("Nstress", "NA"),
-                    vals.get("TraDef", "NA")
+                    vals.get("TraDef", "NA"),
+                    export_residues,
+                    return_residues
                 ])
 
     return out
@@ -175,7 +206,7 @@ def write_data(region_id, year_data, crop_data, pheno_data):
 
     if not os.path.isfile(path_to_crop_file):
         with open(path_to_crop_file, "w") as _:
-            _.write("IDcell,rotation,crop,prodlevel,year,cyclelength,deltaOC,CO2emission,NEP,yield,agb,LAImax,Stageharv,RelDev,ET,EV,waterperc,irr,Nleach,Nup,Nminfert,N2Oem,Nstress,Wstress\n")
+            _.write("IDcell,rotation,crop,prodlevel,year,cyclelength,deltaOC,CO2emission,NEP,yield,agb,LAImax,Stageharv,RelDev,ET,EV,waterperc,irr,Nleach,Nup,Nminfert,N2Oem,Nstress,Wstress,ExportResidues,ReturnResidues\n")
 
     with open(path_to_crop_file, 'ab') as _:
         writer = csv.writer(_, delimiter=",")
@@ -236,6 +267,12 @@ def collector():
         elif not write_normal_output_files:
             print "received work result ", i, " customId: ", result.get("customId", ""), " len(year_data): ", len((year_data.values()[:1] or [[]])[0])
 
+            def True_False_string(str_in):
+                out = True
+                if str_in.lower() == "false":
+                    out = False
+                return out
+
             custom_id = result["customId"]
             ci_parts = custom_id.split("|")
             rotation = ci_parts[0]
@@ -243,6 +280,7 @@ def collector():
             row_, col_ = ci_parts[3][1:-1].split("/")
             row, col = (int(row_), int(col_))
             region_id = ci_parts[4]
+            use_secondary_yields = True_False_string(ci_parts[6])
 
             for data in result.get("data", []):
                 results = data.get("results", [])
@@ -253,7 +291,7 @@ def collector():
                         res = create_year_output(output_ids, row, col, rotation, prod_level, results)
                         year_data[region_id].extend(res)
                     elif orig_spec == '"crop"':
-                        res = create_crop_output(output_ids, row, col, rotation, prod_level, results)
+                        res = create_crop_output(output_ids, row, col, rotation, prod_level, results, use_secondary_yields)
                         crop_data[region_id].extend(res)
                     #if re.search('anthesis', orig_spec) or re.search('maturity', orig_spec) or re.search('Harvest', orig_spec):
                     #    update_pheno_output(output_ids, row, col, rotation, prod_level, results, pheno_data, region_id)

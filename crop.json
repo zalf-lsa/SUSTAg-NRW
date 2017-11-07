@@ -3,63 +3,243 @@
 		"SM": {
 			"cropParams": {
 				"species": ["include-from-file", "monica-parameters/projects/sustag/maize.json"],
-				"cultivar": ["include-from-file", "monica-parameters/projects/sustag/silage-maize.json"]
+				"cultivar": {
+					"=": ["include-from-file", "monica-parameters/projects/sustag/silage-maize.json"],
+					"OrganIdsForSecondaryYield": [
+						{
+							"organId": 2,
+							"type": "YieldComponent",
+							"yieldDryMatter": 0.32,
+							"yieldPercentage": 0.1
+						},
+						{
+							"organId": 3,
+							"type": "YieldComponent",
+							"yieldDryMatter": 0.32,
+							"yieldPercentage": 0.1
+						}
+					]
+				}
 			},
 			"residueParams": ["include-from-file", "monica-parameters/crop-residues/maize.json"]
 		},
 		"WW": {
 			"cropParams": {
 				"species": ["include-from-file", "monica-parameters/projects/sustag/wheat.json"],
-				"cultivar": ["include-from-file", "monica-parameters/projects/sustag/winter-wheat.json"]
+				"cultivar": {
+					"=": ["include-from-file", "monica-parameters/projects/sustag/winter-wheat.json"],
+					"OrganIdsForSecondaryYield": [
+						{
+							"organId": 2,
+							"type": "YieldComponent",
+							"yieldDryMatter": 0.86,
+							"yieldPercentage": 1
+						},
+						{
+							"organId": 3,
+							"type": "YieldComponent",
+							"yieldDryMatter": 0.86,
+							"yieldPercentage": 1
+						},
+						{
+							"organId": 4,
+							"type": "YieldComponent",
+							"yieldDryMatter": 0.86,
+							"yieldPercentage": 0.15
+						}
+					]
+				}
 			},
 			"residueParams": ["include-from-file", "monica-parameters/crop-residues/wheat.json"]
 		},
 		"WB": {
 			"cropParams": {
 				"species": ["include-from-file", "monica-parameters/projects/sustag/barley.json"],
-				"cultivar": ["include-from-file", "monica-parameters/projects/sustag/winter-barley.json"]
+				"cultivar": {
+					"=": ["include-from-file", "monica-parameters/projects/sustag/winter-barley.json"],
+					"OrganIdsForSecondaryYield": [
+							{
+								"organId": 2,
+								"type": "YieldComponent",
+								"yieldDryMatter": 0.86,
+								"yieldPercentage": 1
+							},
+							{
+								"organId": 3,
+								"type": "YieldComponent",
+								"yieldDryMatter": 0.86,
+								"yieldPercentage": 1
+							},
+							{
+								"organId": 4,
+								"type": "YieldComponent",
+								"yieldDryMatter": 0.86,
+								"yieldPercentage": 0.15
+							}
+					]
+				}
 			},
 			"residueParams": ["include-from-file", "monica-parameters/crop-residues/barley.json"]
 		},
 		"SB": {
 			"cropParams": {
 				"species": ["include-from-file", "monica-parameters/projects/sustag/barley.json"],
-				"cultivar": ["include-from-file", "monica-parameters/projects/sustag/spring-barley.json"]
+				"cultivar": {
+					"=": ["include-from-file", "monica-parameters/projects/sustag/spring-barley.json"],
+					"OrganIdsForSecondaryYield": [
+						{
+							"organId": 2,
+							"type": "YieldComponent",
+							"yieldDryMatter": 0.86,
+							"yieldPercentage": 1
+						},
+						{
+							"organId": 3,
+							"type": "YieldComponent",
+							"yieldDryMatter": 0.86,
+							"yieldPercentage": 1
+						},
+						{
+							"organId": 4,
+							"type": "YieldComponent",
+							"yieldDryMatter": 0.86,
+							"yieldPercentage": 0.05
+						}
+					]
+				}
 			},
 			"residueParams": ["include-from-file", "monica-parameters/crop-residues/barley.json"]
 		},
 		"WRa": {
 			"cropParams": {
 				"species": ["include-from-file", "monica-parameters/projects/sustag/rape.json"],
-				"cultivar": ["include-from-file", "monica-parameters/projects/sustag/winter-rape.json"]
+				"cultivar": {
+					"=": ["include-from-file", "monica-parameters/projects/sustag/winter-rape.json"],
+					"OrganIdsForSecondaryYield": [
+						{
+							"organId": 2,
+							"type": "YieldComponent",
+							"yieldDryMatter": 0.35,
+							"yieldPercentage": 1
+						},
+						{
+							"organId": 3,
+							"type": "YieldComponent",
+							"yieldDryMatter": 0.35,
+							"yieldPercentage": 1
+						},
+						{
+							"organId": 4,
+							"type": "YieldComponent",
+							"yieldDryMatter": 0.91,
+							"yieldPercentage": 0.45
+						}
+					]
+				}
 			},
 			"residueParams": ["include-from-file", "monica-parameters/crop-residues/rape.json"]
 		},
 		"PO": {			
 			"cropParams": {
 				"species": ["include-from-file", "monica-parameters/projects/sustag/potato.json"],
-				"cultivar": ["include-from-file", "monica-parameters/projects/sustag/moderately-early-potato.json"]
+				"cultivar": {
+					"=": ["include-from-file", "monica-parameters/projects/sustag/moderately-early-potato.json"],
+					"OrganIdsForSecondaryYield": [
+						{
+							"organId": 2,
+							"type": "YieldComponent",
+							"yieldDryMatter": 0.16,
+							"yieldPercentage": 1
+						},
+						{
+							"organId": 3,
+							"type": "YieldComponent",
+							"yieldDryMatter": 0.86,
+							"yieldPercentage": 1
+						}
+					]
+				}
 			},			
 			"residueParams": ["include-from-file", "monica-parameters/crop-residues/potato.json"]
 		},
 		"SBee": {			
 			"cropParams": {
 				"species": ["include-from-file", "monica-parameters/projects/sustag/sugar-beet.json"],
-				"cultivar": ["include-from-file", "monica-parameters/projects/sustag/sugar-beet-cv.json"]
+				"cultivar": {
+					"=": ["include-from-file", "monica-parameters/projects/sustag/sugar-beet-cv.json"],
+					"OrganIdsForSecondaryYield": [
+						{
+							"organId": 2,
+							"type": "YieldComponent",
+							"yieldDryMatter": 0.16,
+							"yieldPercentage": 1
+						},
+						{
+							"organId": 3,
+							"type": "YieldComponent",
+							"yieldDryMatter": 0.86,
+							"yieldPercentage": 1
+						}
+					]
+				}
 			},			
 			"residueParams": ["include-from-file", "monica-parameters/crop-residues/beet.json"]
 		},
 		"WTr": {			
 			"cropParams": {
 				"species": ["include-from-file", "monica-parameters/projects/sustag/triticale.json"],
-				"cultivar": ["include-from-file", "monica-parameters/projects/sustag/winter-triticale.json"]
+				"cultivar": {
+					"=": ["include-from-file", "monica-parameters/projects/sustag/winter-triticale.json"],
+					"OrganIdsForSecondaryYield": [
+						{
+							"organId": 2,
+							"type": "YieldComponent",
+							"yieldDryMatter": 0.86,
+							"yieldPercentage": 1
+						},
+						{
+							"organId": 3,
+							"type": "YieldComponent",
+							"yieldDryMatter": 0.86,
+							"yieldPercentage": 1
+						},
+						{
+							"organId": 4,
+							"type": "YieldComponent",
+							"yieldDryMatter": 0.86,
+							"yieldPercentage": 0.15
+						}
+					]
+				}
 			},			
 			"residueParams": ["include-from-file", "monica-parameters/crop-residues/triticale.json"]
 		},
 		"GM": {			
 			"cropParams": {
 				"species": ["include-from-file", "monica-parameters/projects/sustag/maize.json"],
-				"cultivar": ["include-from-file", "monica-parameters/projects/sustag/grain-maize.json"]
+				"cultivar": {
+					"=": ["include-from-file", "monica-parameters/projects/sustag/grain-maize.json"],
+					"OrganIdsForSecondaryYield": [
+						{
+							"organId": 2,
+							"type": "YieldComponent",
+							"yieldDryMatter": 0.86,
+							"yieldPercentage": 1
+						},
+						{
+							"organId": 3,
+							"type": "YieldComponent",
+							"yieldDryMatter": 0.86,
+							"yieldPercentage": 1
+						},
+						{
+							"organId": 4,
+							"type": "YieldComponent",
+							"yieldDryMatter": 0.86,
+							"yieldPercentage": 0.22
+						}
+					]
+				}
 			},			
 			"residueParams": ["include-from-file", "monica-parameters/crop-residues/maize.json"]
 		}

@@ -39,7 +39,7 @@
 	
 	"SoilOrganicParameters": {
 		"DEFAULT": ["include-from-file", "monica-parameters/general/soil-organic.json"],
-		"SOM_SlowDecCoeffStandard": 0.000033
+		"___SOM_SlowDecCoeffStandard": 0.000033
 	},
 
 	"SoilTransportParameters": ["include-from-file", "monica-parameters/general/soil-transport.json"],

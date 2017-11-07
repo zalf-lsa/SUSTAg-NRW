@@ -1,8 +1,13 @@
 
+#https://stackoverflow.com/questions/9436947/legend-properties-when-legend-only-t-raster-package
+#http://neondataskills.org/R/Plot-Rasters-In-R/
+
+
 # Clear Environment Variables
 rm(list = ls())
 
 library(raster)
+library(rgdal)
 
 setwd("C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/grids")
 
@@ -46,11 +51,11 @@ title(main="soil-profile-id_nrw_gk3")
 #############
 r <- raster("yearly_avg_Nleach_.asc") 
 plot(r)
-title(main="avg N leaching (yr-1)")
+title(main="avg N leaching (kg yr-1)")
 
 r <- raster("yearly_stdev_Nleach_.asc") 
 plot(r)
-title(main="st dev N leaching (yr-1)")
+title(main="st dev N leaching (kg yr-1)")
 
 ##########
 
@@ -105,3 +110,56 @@ r <- raster("barley_winter-barley_avg_yield_.asc")
 plot(r)
 title(main="avg winter barley yield")
 
+##################
+#Poster SUSTAg
+r <- raster("allcrops_avg_pot_residues_.asc") 
+plot(r,
+     axes=FALSE)
+title(main="Potential residue yield (kg ha-1 year-1)", cex.main=2)
+
+r <- raster("yearly_avg_deltaOC_.asc") 
+plot(r,
+     axes=FALSE)
+title(main="Relative SOC change in topsoil (% year-1)", cex.main=2)
+
+r <- raster("yearly_avg_Nleach_.asc") 
+plot(r,
+     axes=FALSE)
+title(main="Nitrogen leaching (kg N ha-1 year-1)", cex.main=2)
+
+###Laura Klemens grids
+r <- raster("maize_silage-maize_avg_Nleach_.asc") 
+plot(r)
+title(main="avg silage maize Nleach Nmin method")
+
+r <- raster("barley_winter-barley_avg_Nleach_.asc") 
+plot(r)
+title(main="avg winter barley Nleach Nmin method")
+
+r <- raster("sugar-beet__avg_Nleach_.asc") 
+plot(r)
+title(main="avg sugar beet Nleach Nmin method")
+
+r <- raster("rape_winter-rape_avg_Nleach_.asc") 
+plot(r)
+title(main="avg winter rape Nleach Nmin method")
+
+r <- raster("maize_grain-maize_avg_Nleach_.asc") 
+plot(r)
+title(main="avg grain maize Nleach Nmin method")
+
+r <- raster("potato_moderately-early-potato_avg_Nleach_.asc") 
+plot(r)
+title(main="avg potato Nleach Nmin method")
+
+r <- raster("wheat_winter-wheat_avg_Nleach_.asc") 
+plot(r)
+title(main="avg winter wheat Nleach Nmin method")
+
+r <- raster("barley_spring-barley_avg_Nleach_.asc") 
+plot(r)
+title(main="avg spring barley Nleach Nmin method")
+
+r <- raster("triticale_winter-triticale_avg_Nleach_.asc") 
+plot(r)
+title(main="avg winter triticale Nleach Nmin method")
