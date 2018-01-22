@@ -29,6 +29,7 @@ import soil_io
 import ascii_io
 from datetime import date, timedelta
 import copy
+import os
 
 USER = "stella"
 
@@ -121,7 +122,7 @@ def main():
         if export_rate == "custom":
             for cp in crop["crops"].iteritems():
                 for organ in cp[1]["cropParams"]["cultivar"]["OrganIdsForSecondaryYield"]:
-                    organ["yieldPercentage"] = export_presets["custom"]
+                    organ["yieldPercentage"] *= export_presets["custom"]
 
     sim["include-file-base-path"] = PATHS[USER]["INCLUDE_FILE_BASE_PATH"]
 
@@ -280,7 +281,8 @@ def main():
         return AOM_fresh
 
     simulated_cells = 0
-    no_kreis = 0
+    no_kreis = 0    
+
     for (row, col), gmd in general_metadata.iteritems():
 
         if (row, col) in soil_ids and (row, col) in bkr_ids and (row, col) in lu_ids:
@@ -288,7 +290,7 @@ def main():
             bkr_id = bkr_ids[(row, col)]
             
             ########for testing
-            #if bkr_id != 142:
+            #if bkr_id != 129:
             #    continue
             
             soil_id = soil_ids[(row, col)]
@@ -302,7 +304,12 @@ def main():
                 print "-----------------------------------------------------"
 
             simulated_cells += 1
+
             update_soil_crop_dates(row, col)
+
+            #row_col = "{}{:03d}".format(row, col)
+            #topsoil_carbon[row_col] = site["SiteParameters"]["SoilProfileParameters"][0]["SoilOrganicCarbon"][0]
+            #continue
 
             for rot_id, rotation in rotations[str(bkr_id)].iteritems():
                 
@@ -368,5 +375,13 @@ def main():
     print "simulated cells: ", simulated_cells, "; not found kreise for org N: ", no_kreis
 
 
-
+#topsoil_carbon = {}
 main()
+
+#with open("topsoilC.csv", "wb") as _:
+#    writer = csv.writer(_, delimiter=",")
+#    header = ["IDcell", "ini_SOCtop"]
+#    writer.writerow(header)
+#    for row_col in topsoil_carbon.keys():
+#        row = [row_col, topsoil_carbon[row_col]]
+#        writer.writerow(row)

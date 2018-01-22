@@ -84,7 +84,12 @@
 				["Act_ET", "SUM"], 
 				["Act_Ev", "SUM"],
 				["N2O", "SUM"],
-				["PercolationRate", 20, "SUM"]
+				["PercolationRate", 20, "SUM"],
+				["Tavg", "AVG"],
+				["Precip", "SUM"],
+				["Clay", [1, 3, "AVG"], "AVG"],
+				["Silt", [1, 3, "AVG"], "AVG"],
+				["Sand", [1, 3, "AVG"], "AVG"]
 			],
 			"crop", [
 				["Year", "LAST"], 

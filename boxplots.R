@@ -40,3 +40,95 @@ plot <- ggplot(cp_dataset, aes(x = bkr, y = hi)) +
   geom_boxplot(aes(fill=factor(rotation)))
 plot <- plot + theme_bw()
 plot
+
+#Kuopio meeting
+rm(list = ls())
+library(datasets)
+library(ggplot2)
+
+setwd("C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/out-kuopio/splitted-out/")
+setwd("C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/out-kuopio/splitted-out/out-kuopio-2030-Nmin-33removal/")
+
+#list files in the nested directories
+mylist <- list.files(pattern="*_year.csv", recursive=TRUE)
+
+#temp_dataset$resremoval <- rep(33,nrow(temp_dataset)) # make new column 
+
+for (file in mylist){
+  
+  # if the merged dataset doesn't exist, create it
+  if (!exists("dataset")){
+    dataset <- read.table(file, header=TRUE, sep=",")
+  }
+  
+  # if the merged dataset does exist, append to it
+  if (exists("dataset")){
+    temp_dataset <-read.table(file, header=TRUE, sep=",")
+    dataset<-rbind(dataset, temp_dataset)
+    rm(temp_dataset)
+  }
+  
+}
+
+levels(dataset$crop)[levels(dataset$crop)=="barley_spring-barley"] <- "SB"
+levels(dataset$crop)[levels(dataset$crop)=="barley_winter-barley"] <- "WB"
+levels(dataset$crop)[levels(dataset$crop)=="maize_silage-maize"] <- "SM"
+levels(dataset$crop)[levels(dataset$crop)=="mustard_"] <- "CC"
+levels(dataset$crop)[levels(dataset$crop)=="rape_winter-rape"] <- "WRa"
+levels(dataset$crop)[levels(dataset$crop)=="triticale_winter-triticale"] <- "WTr"
+levels(dataset$crop)[levels(dataset$crop)=="wheat_winter-wheat"] <- "WW"
+levels(dataset$crop)[levels(dataset$crop)=="potato_moderately-early-potato"] <- "PO"
+levels(dataset$crop)[levels(dataset$crop)=="sugar-beet_"] <- "SBee"
+levels(dataset$crop)[levels(dataset$crop)=="maize_grain-maize"] <- "GM"
+
+#yield, Nleach, Nminfert
+plot <- ggplot(dataset, aes(x = crop, y = yield)) + 
+  geom_boxplot(aes(fill=factor(RemovalRate)))
+plot <- plot + theme_bw()
+plot
+
+dataset$rotation <- factor(dataset$rotation)
+levels(dataset$rotation)
+
+levels(dataset$rotation)[levels(dataset$rotation)=="1110"] <- "WW-WB-SM"
+levels(dataset$rotation)[levels(dataset$rotation)=="1120"] <- "WW-WB-WTr-WRa"
+levels(dataset$rotation)[levels(dataset$rotation)=="1130"] <- "GM-WTr"
+levels(dataset$rotation)[levels(dataset$rotation)=="2110"] <- "WB-SM-WTr"
+levels(dataset$rotation)[levels(dataset$rotation)=="2120"] <- "WW-WB-GM"
+levels(dataset$rotation)[levels(dataset$rotation)=="2130"] <- "SM-GM"
+levels(dataset$rotation)[levels(dataset$rotation)=="3110"] <- "WW-WB-SM"
+levels(dataset$rotation)[levels(dataset$rotation)=="3120"] <- "WW-WB-WTr-WRa"
+levels(dataset$rotation)[levels(dataset$rotation)=="3130"] <- "WW-GM"
+levels(dataset$rotation)[levels(dataset$rotation)=="4110"] <- "WW-SM-WB-WRa"
+levels(dataset$rotation)[levels(dataset$rotation)=="4120"] <- "WW-WB-WTr-GM"
+levels(dataset$rotation)[levels(dataset$rotation)=="5110"] <- "WW-WB-WRa"
+levels(dataset$rotation)[levels(dataset$rotation)=="5120"] <- "WW-WB-SM"
+levels(dataset$rotation)[levels(dataset$rotation)=="5130"] <- "WW-WTr-WRa"
+levels(dataset$rotation)[levels(dataset$rotation)=="6110"] <- "WW-WB-SM"
+levels(dataset$rotation)[levels(dataset$rotation)=="6120"] <- "WW-WRa-GM"
+levels(dataset$rotation)[levels(dataset$rotation)=="6130"] <- "WW-SBee-WW-PO"
+levels(dataset$rotation)[levels(dataset$rotation)=="7110"] <- "WW-WB-WRa"
+levels(dataset$rotation)[levels(dataset$rotation)=="7120"] <- "WW-WB-SM"
+levels(dataset$rotation)[levels(dataset$rotation)=="7130"] <- "WW-SB-WTr-SM"
+levels(dataset$rotation)[levels(dataset$rotation)=="8110"] <- "WW-WB-SBee"
+levels(dataset$rotation)[levels(dataset$rotation)=="8120"] <- "WW-SM-WW-PO"
+levels(dataset$rotation)[levels(dataset$rotation)=="8130"] <- "WW-WW-SBee"
+levels(dataset$rotation)[levels(dataset$rotation)=="9110"] <- "WW-SB-WRa"
+levels(dataset$rotation)[levels(dataset$rotation)=="9120"] <- "WW-WB-SM"
+levels(dataset$rotation)[levels(dataset$rotation)=="9130"] <- "WW-WB-WTr"
+
+bkr191_dataset <- subset(dataset, bkr == "191")
+
+#yield, Nleach, Nminfert
+plot <- ggplot(bkr191_dataset, aes(x = rotation, y = deltaOC)) + 
+  geom_boxplot(aes(fill=factor(RemovalRate)))
+plot <- plot + theme_bw()
+plot
+
+
+dataset$bkr <- factor(dataset$bkr)
+plot <- ggplot(dataset, aes(x = bkr, y = Nleach)) + 
+  geom_boxplot(aes(fill=factor(rotation)))
+plot <- plot + theme_bw()
+plot <- plot + ylim(NA, 200)
+plot

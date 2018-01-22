@@ -72,7 +72,12 @@ def create_year_output(oids, row, col, rotation, prod_level, values):
                     vals.get("NLeach", "NA"),
                     vals.get("ActNup", "NA"),
                     vals.get("NFert", "NA"),
-                    vals.get("N2O", "NA")
+                    vals.get("N2O", "NA"),
+                    vals.get("Precip", "NA"),
+                    vals.get("Tavg", "NA"),
+                    vals.get("Clay", "NA"),
+                    vals.get("Silt", "NA"),
+                    vals.get("Sand", "NA")
                 ])
 
     return out
@@ -196,7 +201,7 @@ def write_data(region_id, year_data, crop_data, pheno_data):
 
     if not os.path.isfile(path_to_year_file):
         with open(path_to_year_file, "w") as _:
-            _.write("IDcell,rotation,prodlevel,year,deltaOC,CO2emission,NEP,ET,EV,waterperc,irr,Nleach,Nup,Nfert,N2Oem\n")
+            _.write("IDcell,rotation,prodlevel,year,deltaOC,CO2emission,NEP,ET,EV,waterperc,irr,Nleach,Nup,Nfert,N2Oem,Precip,yearTavg,Clay,Silt,Sand\n")
 
     with open(path_to_year_file, 'ab') as _:
         writer = csv.writer(_, delimiter=",")

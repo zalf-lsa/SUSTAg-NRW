@@ -229,15 +229,25 @@ def testgrid(filename, n_rows, n_cols):
 
 #read file(s)
 print("reading files...")
-df_cp_129 = pd.read_csv("out/splitted-out/129_crop.csv")
-df_cp_134 = pd.read_csv("out/splitted-out/134_crop.csv")
-df_cp_141 = pd.read_csv("out/splitted-out/141_crop.csv")
-df_cp_142 = pd.read_csv("out/splitted-out/142_crop.csv")
-df_cp_143 = pd.read_csv("out/splitted-out/143_crop.csv")
-df_cp_146 = pd.read_csv("out/splitted-out/146_crop.csv")
-df_cp_147 = pd.read_csv("out/splitted-out/147_crop.csv")
-df_cp_148 = pd.read_csv("out/splitted-out/148_crop.csv")
-df_cp_191 = pd.read_csv("out/splitted-out/191_crop.csv")
+#df_cp_129 = pd.read_csv("out/splitted-out/129_crop.csv")
+#df_cp_134 = pd.read_csv("out/splitted-out/134_crop.csv")
+#df_cp_141 = pd.read_csv("out/splitted-out/141_crop.csv")
+#df_cp_142 = pd.read_csv("out/splitted-out/142_crop.csv")
+#df_cp_143 = pd.read_csv("out/splitted-out/143_crop.csv")
+#df_cp_146 = pd.read_csv("out/splitted-out/146_crop.csv")
+#df_cp_147 = pd.read_csv("out/splitted-out/147_crop.csv")
+#df_cp_148 = pd.read_csv("out/splitted-out/148_crop.csv")
+#df_cp_191 = pd.read_csv("out/splitted-out/191_crop.csv")
+
+#df_yr_129 = pd.read_csv("out/out-kuopio/splitted-out/out-kuopio-2030-Ndem-noremoval/129_year.csv")
+#df_yr_134 = pd.read_csv("out/out-kuopio/splitted-out/out-kuopio-2030-Ndem-noremoval/134_year.csv")
+#df_yr_141 = pd.read_csv("out/out-kuopio/splitted-out/out-kuopio-2030-Ndem-noremoval/141_year.csv")
+#df_yr_142 = pd.read_csv("out/out-kuopio/splitted-out/out-kuopio-2030-Ndem-noremoval/142_year.csv")
+#df_yr_143 = pd.read_csv("out/out-kuopio/splitted-out/out-kuopio-2030-Ndem-noremoval/143_year.csv")
+#df_yr_146 = pd.read_csv("out/out-kuopio/splitted-out/out-kuopio-2030-Ndem-noremoval/146_year.csv")
+#df_yr_147 = pd.read_csv("out/out-kuopio/splitted-out/out-kuopio-2030-Ndem-noremoval/147_year.csv")
+#df_yr_148 = pd.read_csv("out/out-kuopio/splitted-out/out-kuopio-2030-Ndem-noremoval/148_year.csv")
+#df_yr_191 = pd.read_csv("out/out-kuopio/splitted-out/out-kuopio-2030-Ndem-noremoval/191_year.csv")
 
 #df_yr_129 = pd.read_csv("out/splitted-out/129_year.csv")
 #df_yr_134 = pd.read_csv("out/splitted-out/134_year.csv")
@@ -250,14 +260,16 @@ df_cp_191 = pd.read_csv("out/splitted-out/191_crop.csv")
 #df_yr_191 = pd.read_csv("out/splitted-out/191_year.csv")
 
 print("concatenating data frames...")
-cp_frames = [df_cp_129, df_cp_134, df_cp_141, df_cp_142, df_cp_143, df_cp_146, df_cp_147, df_cp_148, df_cp_191]
-cp_df = pd.concat(cp_frames)
+#cp_frames = [df_cp_129, df_cp_134, df_cp_141, df_cp_142, df_cp_143, df_cp_146, df_cp_147, df_cp_148, df_cp_191]
+#cp_df = pd.concat(cp_frames)
 
 #yr_frames = [df_yr_129, df_yr_134, df_yr_141, df_yr_142, df_yr_143, df_yr_146, df_yr_147, df_yr_148, df_yr_191]
 #yr_df = pd.concat(yr_frames)
 
-plot_vars_crop = ["Nleach"]
-plot_vars_year = ["deltaOC"]
+yr_df = pd.read_csv("out/topsoilC.csv")
+
+#plot_vars_crop = ["ExportResidues"]
+plot_vars_year = ["ini_SOCtop"]
 n_rows = 241
 n_cols = 250
 
@@ -266,9 +278,9 @@ n_cols = 250
 #TODO: use either "avg" or "stdev" as last parameter of the following functions
 print("creating grids...")
 #crop_rotation_grids(cp_df, plot_vars, n_rows, n_cols)
-crop_grids(cp_df, plot_vars_crop, n_rows, n_cols)
+#crop_grids(cp_df, plot_vars_crop, n_rows, n_cols)
 #allcrops_grids(cp_df, plot_vars_crop, n_rows, n_cols)
 #year_rotation_grids(yr_df, plot_vars, n_rows, n_cols)
-#year_grids(yr_df, plot_vars_year, n_rows, n_cols)
+year_grids(yr_df, plot_vars_year, n_rows, n_cols)
 
 print "finished!"

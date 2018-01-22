@@ -1,0 +1,10 @@
+Legend,Crop,Target,fixed fertilization at sowing,NDem1,NDem2,NDem3,stage1,stage2,stage3,depth1,depth2,depth3
+SM,Silage maize,190,20,170,,,31-May,,,60,,
+GM,Grain maize,190,20,170,,,31-May,,,60,,
+SB,Spring barley,150,,100,50,,0,3,,60,60,
+WTr,Winter-Triticale,190,,50,70,70,0,3,4,90,90,90
+WRa,Winter rape,180,,40,70,70,0,1-Mar,3,90,90,90
+SBee,Sugarbeet,180,,120,60,,0,2,,90,90,
+WW,Winter wheat,200,,50,75,75,0,3,4,90,90,90
+WB,Winter barley,180,,50,65,65,0,3,4,90,90,90
+PO,Potato,160,,160,,,0,,,60,,

@@ -2,14 +2,15 @@ import os
 import csv
 
 basepath = os.path.dirname(os.path.abspath(__file__))
-dir_name = basepath + "/out/out-sowTG_dynHarv_noWEresponse_1976-2005/"
-out_dir = basepath + "/out/splitted-out/"
+dir_name = basepath + "/out/out-kuopio/out-kuopio-2030-Nmin-33removal/"
+out_dir = basepath + "/out/out-kuopio/splitted-out/out-kuopio-2030-Nmin-33removal/"
 
-#extract_vars_cp = ["IDcell", "rotation", "crop", "yield", "RelDev", "Nminfert"]
-extract_vars_cp = ["IDcell", "crop", "Nleach"]
-extract_vars_yr = ["IDcell", "year", "rotation", "deltaOC"]
 
-def split(suffix, extract_vars, tag_bkr=True, calc_hi=False, pot_cp_residue=False):
+#extract_vars_cp = ["IDcell", "crop", "rotation", "yield", "Nleach", "Nminfert", "RemovalRate", "FertMethod"]
+extract_vars_cp = ["crop", "yield"]
+extract_vars_yr = ["IDcell", "rotation", "Nleach"]
+
+def split(suffix, extract_vars, tag_bkr=True, calc_hi=False, pot_cp_residue=False, excludecc=False):
     for filename in os.listdir(dir_name):
         if ".csv" in filename and suffix in filename:
             print("opening " + filename)
@@ -22,6 +23,9 @@ def split(suffix, extract_vars, tag_bkr=True, calc_hi=False, pot_cp_residue=Fals
                 for i in range(len(header)):
                     field_map[header[i]] = i
                 for row in reader:
+                    if suffix == "_crop" and excludecc:
+                        if "mustard" in row[field_map["crop"]]:
+                            continue
                     line = []
                     for v in extract_vars:
                         line.append(row[field_map[v]])                        
@@ -54,7 +58,37 @@ def split(suffix, extract_vars, tag_bkr=True, calc_hi=False, pot_cp_residue=Fals
                     writer.writerow(row_)
             print(filename + " done!")
 
-split("_crop", extract_vars_cp, tag_bkr=True, calc_hi=False, pot_cp_residue=False)
-#split("_year", extract_vars_yr, tag_bkr=True)
+#split("_crop", extract_vars_cp, tag_bkr=True, calc_hi=False, pot_cp_residue=False, excludecc=False)
+split("_year", extract_vars_yr, tag_bkr=True)
+
+def add_out_colums(col_names, col_vals, directory):
+    #create a new file with added cols
+    for filename in os.listdir(dir_name):
+        with open(dir_name + filename) as file_:
+            with open(dir_name + "_new_" + filename, 'wb') as _:
+                writer = csv.writer(_, delimiter=",")
+                print("opening " + filename)
+                reader = csv.reader(file_, delimiter=",")
+                header = reader.next()
+                for var in col_names:
+                    header.append(var)
+                writer.writerow(header)
+                for row in reader:
+                    for val in col_vals:
+                        row.append(val)
+                    writer.writerow(row)
+    #delete old files
+    for filename in os.listdir(dir_name):
+        if "_new_" not in filename:
+            os.remove(dir_name + filename)
+    #rename new files
+    for filename in os.listdir(dir_name):
+        new_name = filename.replace("_new_", "")
+        os.rename(dir_name + filename, dir_name + new_name)
+
+col_names = ["RemovalRate", "FertMethod"]
+col_vals = ["0", "Nmin"]
+
+#add_out_colums(col_names, col_vals, dir_name)
 
 print("finished")

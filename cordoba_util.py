@@ -74,7 +74,8 @@ def kreise_N_amount():
 
     write_grid_file(kreise_ids, "Kreise", "N_amount")
 
-def soc_trajectories():
+def soc_trajectories(start_year, end_year):
+    print("reading files...")
     df_yr_129 = pd.read_csv("out/splitted-out/129_year.csv")
     df_yr_134 = pd.read_csv("out/splitted-out/134_year.csv")
     df_yr_141 = pd.read_csv("out/splitted-out/141_year.csv")
@@ -85,14 +86,16 @@ def soc_trajectories():
     df_yr_148 = pd.read_csv("out/splitted-out/148_year.csv")
     df_yr_191 = pd.read_csv("out/splitted-out/191_year.csv")
 
+    print("concatenating data frames...")
     yr_frames = [df_yr_129, df_yr_134, df_yr_141, df_yr_142, df_yr_143, df_yr_146, df_yr_147, df_yr_148, df_yr_191]
     yr_df = pd.concat(yr_frames)
 
     with open("rotations_dynamic_harv.json") as _:
         rotations = json.load(_)
-    
+
     #summary_data = defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))
     
+    print("writing output file...")
     with open("SOC_trajectories.csv", "wb") as _:
         writer = csv.writer(_, delimiter=",")
         header = ["rotation", "year", "dSOCavg", "dSOCstd", "dSOCmin", "dSOCmax"]
@@ -101,9 +104,9 @@ def soc_trajectories():
             for rot_id, crop_data in rot_info.iteritems():
                 rot_data = yr_df.loc[yr_df['rotation'] == int(rot_id)]
                 #print rot_data
-                for year in range(1975,2006):
+                for year in range(start_year, end_year + 1):
                     line = []
-                    if year == 1975:
+                    if year == start_year:
                         line.append(rot_id)
                         line.append(year)
                         line.append(100)
@@ -123,6 +126,6 @@ def soc_trajectories():
     
 
 #kreise_N_amount()
-soc_trajectories()
+soc_trajectories(2006, 2030)
 
 print "finished!"
