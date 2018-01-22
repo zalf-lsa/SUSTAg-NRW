@@ -132,3 +132,76 @@ plot <- ggplot(dataset, aes(x = bkr, y = Nleach)) +
 plot <- plot + theme_bw()
 plot <- plot + ylim(NA, 200)
 plot
+
+
+#test to define OrgN classes
+orgNdata = c(42,
+             42,
+             47,
+             49,
+             50,
+             51,
+             51,
+             52,
+             58,
+             62,
+             65,
+             67,
+             70,
+             74,
+             76,
+             80,
+             81,
+             83,
+             85,
+             86,
+             88,
+             88,
+             90,
+             91,
+             91,
+             92,
+             92,
+             93,
+             96,
+             96,
+             96,
+             99,
+             99,
+             101,
+             101,
+             102,
+             102,
+             103,
+             103,
+             106,
+             107,
+             111,
+             115,
+             116,
+             116,
+             117,
+             121,
+             126,
+             129,
+             132,
+             134,
+             135,
+             137,
+             137,
+             140,
+             148,
+             155,
+             191,
+             193
+)
+
+hist(orgNdata, breaks=3, col="red")
+
+x <- orgNdata 
+h<-hist(x, breaks=10, col="red",  
+        main="Histogram with Normal Curve") 
+xfit<-seq(min(x),max(x),length=40) 
+yfit<-dnorm(xfit,mean=mean(x),sd=sd(x)) 
+yfit <- yfit*diff(h$mids[1:2])*length(x) 
+lines(xfit, yfit, col="blue", lwd=2)

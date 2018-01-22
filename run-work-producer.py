@@ -30,6 +30,7 @@ import ascii_io
 from datetime import date, timedelta
 import copy
 import os
+from collections import defaultdict
 
 USER = "stella"
 
@@ -62,7 +63,7 @@ timeframes = {
 #Configure producer
 tf = "2030"
 LOCAL_RUN = False
-USE_NDEM_FERTILIZATION = True #if false, Nmin method by default
+FERT_STRATEGY = "BASE" #options: "NDEM", "NMIN", "BASE"
 residues_exported = True
 if residues_exported:
     export_rate = "custom"
@@ -72,9 +73,12 @@ if residues_exported:
     }
 #end of user configuration
 
-rotations_file = "rotations_dynamic_harv.json"
-if USE_NDEM_FERTILIZATION:
+if FERT_STRATEGY == "NMIN":
+    rotations_file = "rotations_dynamic_harv.json"
+elif FERT_STRATEGY == "NDEM":
     rotations_file = "rotations_dynamic_harv_Ndem.json"
+elif FERT_STRATEGY == "BASE":
+    rotations_file = "rotations_dynamic_harv_Nbaseline.json"
 
 PATH_TO_CLIMATE_DATA_DIR = timeframes[tf]["cluster-path-to-climate"]
 LOCAL_PATH_TO_CLIMATE_DATA_DIR = timeframes[tf]["local-path-to-climate"]
@@ -108,13 +112,59 @@ def main():
 
     with open("sims.json") as _:
         sims = json.load(_)
-        if USE_NDEM_FERTILIZATION:
+        if FERT_STRATEGY != "NMIN":
             #turn off Nmin automatic fertilization
             for setting in sims.iteritems():
                 setting[1]["UseNMinMineralFertilisingMethod"] = False
 
     with open(rotations_file) as _:
-        rotations = json.load(_)
+        rotations = json.load(_)        
+        if FERT_STRATEGY == "BASE":            
+            #identify rotations with codes
+            rots_info = defaultdict(lambda: defaultdict(lambda: defaultdict()))
+            for bkr, rots in rotations.iteritems():
+                for rot in rots.iteritems():
+                    rot_code = int(rot[0])
+                    my_rot = []
+                    for cm in rot[1]:#["worksteps"]:
+                        for ws in range(len(cm["worksteps"])):
+                            if cm["worksteps"][ws]["type"] == "Sowing":
+                                my_rot.append(cm["worksteps"][ws]["crop"][2])
+                    rots_info[rot_code]["full_rotation"] = my_rot
+                    #for each crop, identify previous one (needed to determine expected N availability)
+                    for i in range(len(rots_info[rot_code]["full_rotation"])):
+                        current_cp = rots_info[rot_code]["full_rotation"][i]
+                        if i != 0:
+                            previous_cp = rots_info[rot_code]["full_rotation"][i-1]
+                        else:
+                            previous_cp = rots_info[rot_code]["full_rotation"][-1]
+                        rots_info[rot_code][i]["current"] = current_cp
+                        rots_info[rot_code][i]["previous"] = previous_cp
+    
+    if FERT_STRATEGY == "BASE":
+        #read additional info required for baseline fert strategy:
+        #1. expected mineral N availability
+        expected_N_availability = defaultdict(lambda: defaultdict())
+        with open ("expected_N_availability.csv") as _:
+            reader = csv.reader(_)
+            reader.next()
+            for row in reader:
+                cp_sequence = (row[0], row[1])
+                soil_type = row[2]
+                expected_N_value = float(row[3])
+                expected_N_availability[cp_sequence][soil_type] = expected_N_value
+                expected_N_availability[cp_sequence]["target_depth"] = float(row[4])
+        #2. rules to split mineral fertilization
+        mineralN_split = defaultdict(lambda: defaultdict())
+        with open ("MineralN_topdressing.csv") as _:
+            reader = csv.reader(_)
+            reader.next()
+            for row in reader:
+                cp = row[0]
+                mineralN_split[cp]["target"] = float(row[2])
+                for i in range(4, 7):
+                    if row[i] != "":
+                         mineralN_split[cp][i-4] = float(row[i])                  
 
     
     sim["UseSecondaryYields"] = residues_exported
@@ -175,9 +225,12 @@ def main():
         site["Latitude"] = general_metadata[(row, col)]["latitude"]
         site["HeightNN"] = [general_metadata[(row, col)]["elevation"], "m"]
         site["SiteParameters"]["SoilProfileParameters"] = soil_io.soil_parameters(soil_db_con, soil_ids[(row, col)])
+        KA5_txt = soil_io.sand_and_clay_to_ka5_texture(site["SiteParameters"]["SoilProfileParameters"][0]["Sand"][0], site["SiteParameters"]["SoilProfileParameters"][0]["Clay"][0])
         for layer in site["SiteParameters"]["SoilProfileParameters"]:
             layer["SoilBulkDensity"][0] = max(layer["SoilBulkDensity"][0], 600)
             layer["SoilOrganicCarbon"][0] = layer["SoilOrganicCarbon"][0] * 0.6 #correction factor suggested by TGaiser
+        
+        return KA5_txt
     
     def read_ascii_grid(path_to_file, include_no_data=False, row_offset=0, col_offset=0):
         "read an ascii grid into a map, without the no-data values"
@@ -279,6 +332,79 @@ def main():
         AOM_fresh = AOM_dry / AOM_DryMatterContent
 
         return AOM_fresh
+    
+    def update_fert_values(rotation, rot_id, rots_info, expected_N_availability, mineralN_split, KA5_class, orgN_applied):
+        "function to mimic baseline fertilization"
+        
+        light_soils = ["Ss", "Su2", "Su3", "Su4", "St2", "Sl3", "Sl2"]
+        heavy_soils = ["Tu3", "Tu4", "Lt3", "Ts2", "Tl", "Tu2", "Tt"]
+        soil_type = "medium"
+        if KA5_class in light_soils:
+            soil_type = "light"
+        elif KA5_class in heavy_soils:
+            soil_type = "heavy"
+
+        has_cover = ["SM", "GM", "SB", "PO", "SBee"] #same as "insert_cover_before"
+        cc_effect = { #temporary values, ask TGaiser
+            "present": {
+                60: +5,
+                90: -10
+            },
+            "absent": {
+                60: -5,
+                90: +10
+            }
+        }
+
+        orgN = "medium"
+        if orgN_applied > 120:
+            orgN = "high"
+        elif orgN_applied < 80:
+            orgN = "low"
+
+        orgN_effect = { #temporary values, ask TGaiser
+            "low": {
+                60: -6,
+                90: -9
+            },
+            "medium":{
+                60: 0,
+                90: 0
+            },
+            "high": {
+                60: +6,
+                90: +9
+            },
+        }
+        
+        for cm in range(len(rotation)):
+            current_cp = rots_info[rot_id][cm]["current"]
+            previous_cp = rots_info[rot_id][cm]["previous"]
+
+            N_target = mineralN_split[current_cp]["target"]
+            expected_Nmin = expected_N_availability[(current_cp, previous_cp)][soil_type]
+            
+            #modify expected Nmin depending on livestock pressure and presence of cover crop
+            target_depth = expected_N_availability[(current_cp, previous_cp)]["target_depth"]
+            if current_cp in has_cover:
+                expected_Nmin += cc_effect["present"][target_depth]
+            else:
+                expected_Nmin += cc_effect["absent"][target_depth]
+            expected_Nmin += orgN_effect[orgN][target_depth]
+            
+            #calculate N to be applied with mineral fertilization
+            sum_Nfert = max(N_target - expected_Nmin, 0)
+            
+            #map the fertilization worksteps
+            ref_fert = 0
+            for ws in range(len(rotation[cm]["worksteps"])):
+                workstep = rotation[cm]["worksteps"][ws]
+                if workstep["type"] == "MineralFertilization" and workstep["amount"][0] == 0:
+                    workstep["amount"][0] = sum_Nfert * mineralN_split[current_cp][ref_fert]
+                    ref_fert += 1
+
+            #print (rot_id, cm, current_cp, previous_cp)
+        return rotation
 
     simulated_cells = 0
     no_kreis = 0    
@@ -305,7 +431,7 @@ def main():
 
             simulated_cells += 1
 
-            update_soil_crop_dates(row, col)
+            KA5_txt = update_soil_crop_dates(row, col)
 
             #row_col = "{}{:03d}".format(row, col)
             #topsoil_carbon[row_col] = site["SiteParameters"]["SoilProfileParameters"][0]["SoilOrganicCarbon"][0]
@@ -314,10 +440,14 @@ def main():
             for rot_id, rotation in rotations[str(bkr_id)].iteritems():
                 
                 ########for testing
-                #if rot_id != "9120":
+                #if rot_id != "6110":
                 #    continue
+                if FERT_STRATEGY == "BASE":
+                    updated_rot = update_fert_values(copy.deepcopy(rotation), int(rot_id), rots_info, expected_N_availability, mineralN_split, KA5_txt, orgN_kreise[kreis_id])
+                    crop["cropRotation"] = updated_rot
 
-                crop["cropRotation"] = rotation
+                else:
+                    crop["cropRotation"] = rotation
 
                 env = monica_io.create_env_json_from_json_config({
                     "crop": crop,
@@ -363,6 +493,18 @@ def main():
                                         + "|" + str(bkr_id) \
                                         + "|" + str(rot) \
                                         + "|" + str(sim["UseSecondaryYields"])
+                        ##TEST
+                        #my_rot = []
+                        #for cm in env["cropRotation"]:
+                        #    if "is-cover-crop" in cm.keys():
+                        #        my_rot.append("cover")
+                        #    else:
+                        #        for ws in cm["worksteps"]:
+                        #            if ws["type"] == "Sowing":
+                        #                cv_params = ws["crop"]["cropParams"]["cultivar"]
+                        #                my_rot.append(cv_params["="]["CultivarName"])
+                        #print my_rot
+
                         socket.send_json(env) 
                         print "sent env ", i, " customId: ", env["customId"]
                         i += 1
