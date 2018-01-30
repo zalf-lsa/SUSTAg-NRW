@@ -33,9 +33,8 @@ import zmq
 import monica_io
 import re
 
-start_recording_out = 1975
 
-def create_year_output(oids, row, col, rotation, prod_level, values):
+def create_year_output(oids, row, col, rotation, prod_level, values, start_recording_out):
     "create year output lines"
     row_col = "{}{:03d}".format(row, col)
     out = []
@@ -83,7 +82,7 @@ def create_year_output(oids, row, col, rotation, prod_level, values):
     return out
 
 
-def create_crop_output(oids, row, col, rotation, prod_level, values, use_secondary_yields):
+def create_crop_output(oids, row, col, rotation, prod_level, values, use_secondary_yields, start_recording_out):
     "create crop output lines"
     row_col = "{}{:03d}".format(row, col)
     out = []
@@ -286,6 +285,7 @@ def collector():
             row, col = (int(row_), int(col_))
             region_id = ci_parts[4]
             use_secondary_yields = True_False_string(ci_parts[6])
+            start_recording_out = int(ci_parts[7])
 
             for data in result.get("data", []):
                 results = data.get("results", [])
@@ -293,10 +293,10 @@ def collector():
                 output_ids = data.get("outputIds", [])
                 if len(results) > 0:
                     if orig_spec == '"yearly"':
-                        res = create_year_output(output_ids, row, col, rotation, prod_level, results)
+                        res = create_year_output(output_ids, row, col, rotation, prod_level, results, start_recording_out)
                         year_data[region_id].extend(res)
                     elif orig_spec == '"crop"':
-                        res = create_crop_output(output_ids, row, col, rotation, prod_level, results, use_secondary_yields)
+                        res = create_crop_output(output_ids, row, col, rotation, prod_level, results, use_secondary_yields, start_recording_out)
                         crop_data[region_id].extend(res)
                     #if re.search('anthesis', orig_spec) or re.search('maturity', orig_spec) or re.search('Harvest', orig_spec):
                     #    update_pheno_output(output_ids, row, col, rotation, prod_level, results, pheno_data, region_id)

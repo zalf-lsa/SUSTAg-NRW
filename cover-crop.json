@@ -1,62 +1,33 @@
-    {
-        "crops": {
-            "CC-M": {
-                "cropParams": {
-                    "species": {
-                       "=": ["include-from-file", "monica-parameters/projects/sustag/mustard.json"],
-                       "TargetN30": 0,
-                       "TargetNSamplingDepth": 0
-                    },
-                    "cultivar": {
-                        "=": ["include-from-file", "monica-parameters/projects/sustag/mustard-cv.json"],
-                        "OrganIdsForPrimaryYield": [],
-                        "OrganIdsForSecondaryYield": []
-                    }
-                },
-                "residueParams": ["include-from-file", "monica-parameters/crop-residues/mustard.json"]
+{
+    "CM": {
+        "is-cover-crop": true,
+        "worksteps": [
+            { 
+                "type": "AutomaticSowing", 
+                "crop": ["ref", "crops", "CC-M"],
+                "earliest-date": "0000-08-20",
+                "latest-date": "0000-09-20",
+                "min-temp": 22,
+                "days-in-temp-window": 10,
+                "min-%-asw": 0,
+                "max-%-asw": 97,
+                "max-3d-precip-sum": 2,
+                "max-curr-day-precip": 0.1,
+                "temp-sum-above-base-temp": 0,
+                "base-temp": 0
+            },
+            { 
+                "type": "AutomaticHarvest", 
+                "latest-date": "0001-03-20",
+                "min-%-asw": 0,
+                "max-%-asw": 100,
+                "max-3d-precip-sum": 2,
+                "max-curr-day-precip": 0.1,
+                "harvest-time": "maturity",
+                "exported": false
             }
-        },
-        
-        "fert-params": {
-            "AN": ["include-from-file", "monica-parameters/mineral-fertilisers/AN.json"],
-            "CADLM": ["include-from-file", "monica-parameters/organic-fertilisers/CADLM.json"]
-        }, 	
+        ]
+    }
+}            
 
-        "cropRotation": [
-            {
-                "is-cover-crop": true,
-                "worksteps": [
-                    { 
-                        "type": "AutomaticSowing", 
-                        "crop": ["ref", "crops", "CC-M"],
-                        "earliest-date": "0000-08-20",
-                        "latest-date": "0000-09-20",
-                        "min-temp": 22,
-                        "days-in-temp-window": 10,
-                        "min-%-asw": 0,
-                        "max-%-asw": 97,
-                        "max-3d-precip-sum": 2,
-                        "max-curr-day-precip": 0.1,
-                        "temp-sum-above-base-temp": 0,
-                        "base-temp": 0
-                    },
-                    { 
-                        "type": "AutomaticHarvest", 
-                        "latest-date": "0001-03-20",
-                        "min-%-asw": 0,
-                        "max-%-asw": 100,
-                        "max-3d-precip-sum": 2,
-                        "max-curr-day-precip": 0.1,
-                        "harvest-time": "maturity",
-                        "exported": false
-                    }
-                ]
-            }            
-        ],	
-        
-
-        "CropParameters": {
-            "DEFAULT": ["include-from-file", "monica-parameters/general/crop.json"]
-        }
-}
     

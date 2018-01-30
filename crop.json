@@ -242,6 +242,21 @@
 				}
 			},			
 			"residueParams": ["include-from-file", "monica-parameters/crop-residues/maize.json"]
+		},
+		"CC-M": {
+			"cropParams": {
+				"species": {
+					"=": ["include-from-file", "monica-parameters/projects/sustag/mustard.json"],
+					"TargetN30": 0,
+					"TargetNSamplingDepth": 0
+				},
+				"cultivar": {
+					"=": ["include-from-file", "monica-parameters/projects/sustag/mustard-cv.json"],
+					"OrganIdsForPrimaryYield": [],
+					"OrganIdsForSecondaryYield": []
+				}
+			},
+			"residueParams": ["include-from-file", "monica-parameters/crop-residues/mustard.json"]
 		}
 	},
 	

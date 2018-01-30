@@ -45,14 +45,23 @@ PATHS = {
 
 timeframes = {
     "historical": {
-        "start-date": "1975-01-01",
+        "start-date": "1976-01-01",
         "end-date": "2005-12-31",
+        "start-recording-out": 1985,
         "cluster-path-to-climate": "/archiv-daten/md/data/climate/isimip/csvs/earth/",
         "local-path-to-climate": "z:/data/climate/isimip/csvs/earth/"
     },
     "2030": {
-        "start-date": "2006-01-01",
+        "start-date": "2001-01-01",
         "end-date": "2030-12-31",
+        "start-recording-out": 2011,
+        "cluster-path-to-climate": "/archiv-daten/md/data/climate/isimip/csvs/germany-nrw/", #rcp 2.6
+        "local-path-to-climate": "z:/data/climate/isimip/csvs/germany-nrw/" #rcp 2.6
+    },
+    "2050": {
+        "start-date": "2021-01-01",
+        "end-date": "2050-12-31",
+        "start-recording-out": 2031,
         "cluster-path-to-climate": "/archiv-daten/md/data/climate/isimip/csvs/germany-nrw/", #rcp 2.6
         "local-path-to-climate": "z:/data/climate/isimip/csvs/germany-nrw/" #rcp 2.6
     }
@@ -61,15 +70,27 @@ timeframes = {
 #PATH_TO_CLIMATE_DATA_DIR ="/archiv-daten/md/projects/sustag/MACSUR_WP3_NRW_1x1/" #"Z:/projects/sustag/MACSUR_WP3_NRW_1x1/"
 
 #Configure producer
-tf = "2030"
+TF = "historical"
 LOCAL_RUN = False
-FERT_STRATEGY = "BASE" #options: "NDEM", "NMIN", "BASE"
-residues_exported = True
-if residues_exported:
-    export_rate = "custom"
-    export_presets = {
+FERT_STRATEGY = "NDEM" #options: "NDEM", "NMIN", "BASE"
+COVER_CROP_FREQ = { 
+    #always use int for insert-cc-every and out-of
+    #keep out-of as small as possible (to ensure uniform spatial distribution)
+    "insert-cc-every": 1, #CM
+    "out-of": 1 #CM
+}
+COVER_BEFORE = ["SM", "GM", "SB", "PO", "SBee"]
+RESIDUES_EXPORTED = True
+if RESIDUES_EXPORTED:
+    EXPORT_RATE = "baseline"
+    EXPORT_PRESETS = {
         "all": "export all residues available according to MONICA secondary yield params",
-        "custom": 0.33 #33% exported, 67% left on the field
+        "baseline": {
+            #cereals (except SM): 33% removal; other crops: 0%
+            #crops: fraction
+            ("WW", "WB", "SB", "WTr", "GM") : 0.33, #67% left on the field
+            ("SM", "WRa", "PO", "SBee") : 0
+        }
     }
 #end of user configuration
 
@@ -80,8 +101,8 @@ elif FERT_STRATEGY == "NDEM":
 elif FERT_STRATEGY == "BASE":
     rotations_file = "rotations_dynamic_harv_Nbaseline.json"
 
-PATH_TO_CLIMATE_DATA_DIR = timeframes[tf]["cluster-path-to-climate"]
-LOCAL_PATH_TO_CLIMATE_DATA_DIR = timeframes[tf]["local-path-to-climate"]
+PATH_TO_CLIMATE_DATA_DIR = timeframes[TF]["cluster-path-to-climate"]
+LOCAL_PATH_TO_CLIMATE_DATA_DIR = timeframes[TF]["local-path-to-climate"]
 
 def main():
     "main function"
@@ -98,8 +119,8 @@ def main():
 
     with open("sim.json") as _:
         sim = json.load(_)
-        sim["start-date"] = timeframes[tf]["start-date"]
-        sim["end-date"] = timeframes[tf]["end-date"]
+        sim["start-date"] = timeframes[TF]["start-date"]
+        sim["end-date"] = timeframes[TF]["end-date"]
 
     with open("site.json") as _:
         site = json.load(_)
@@ -108,7 +129,7 @@ def main():
         crop = json.load(_)
 
     with open("cover-crop.json") as _:
-        cover_crop = json.load(_)
+        cover_crop = json.load(_)["CM"]
 
     with open("sims.json") as _:
         sims = json.load(_)
@@ -119,27 +140,29 @@ def main():
 
     with open(rotations_file) as _:
         rotations = json.load(_)        
-        if FERT_STRATEGY == "BASE":            
-            #identify rotations with codes
-            rots_info = defaultdict(lambda: defaultdict(lambda: defaultdict()))
-            for bkr, rots in rotations.iteritems():
-                for rot in rots.iteritems():
-                    rot_code = int(rot[0])
-                    my_rot = []
-                    for cm in rot[1]:#["worksteps"]:
-                        for ws in range(len(cm["worksteps"])):
-                            if cm["worksteps"][ws]["type"] == "Sowing":
-                                my_rot.append(cm["worksteps"][ws]["crop"][2])
-                    rots_info[rot_code]["full_rotation"] = my_rot
-                    #for each crop, identify previous one (needed to determine expected N availability)
-                    for i in range(len(rots_info[rot_code]["full_rotation"])):
-                        current_cp = rots_info[rot_code]["full_rotation"][i]
-                        if i != 0:
-                            previous_cp = rots_info[rot_code]["full_rotation"][i-1]
-                        else:
-                            previous_cp = rots_info[rot_code]["full_rotation"][-1]
-                        rots_info[rot_code][i]["current"] = current_cp
-                        rots_info[rot_code][i]["previous"] = previous_cp
+        #identify rotations with codes
+        rots_info = {}
+        for bkr, rots in rotations.iteritems():
+            for rot in rots.iteritems():
+                rot_code = int(rot[0])
+                my_rot = []
+                for cm in rot[1]:#["worksteps"]:
+                    for ws in range(len(cm["worksteps"])):
+                        if cm["worksteps"][ws]["type"] == "Sowing":
+                            my_rot.append(cm["worksteps"][ws]["crop"][2])
+                #for each crop, identify previous main one (needed to determine expected N availability)
+                rot_info = []
+                for i in range(len(my_rot)):
+                    cm_info = {}
+                    current_cp = my_rot[i]
+                    if i != 0:
+                        previous_cp = my_rot[i-1]
+                    else:
+                        previous_cp = my_rot[-1]
+                    cm_info["current"] = current_cp
+                    cm_info["previous"] = previous_cp
+                    rot_info.append(cm_info)
+                rots_info[rot_code] = rot_info
     
     if FERT_STRATEGY == "BASE":
         #read additional info required for baseline fert strategy:
@@ -167,12 +190,15 @@ def main():
                          mineralN_split[cp][i-4] = float(row[i])                  
 
     
-    sim["UseSecondaryYields"] = residues_exported
-    if residues_exported:
-        if export_rate == "custom":
+    sim["UseSecondaryYields"] = RESIDUES_EXPORTED
+    if RESIDUES_EXPORTED:
+        if EXPORT_RATE != "all":
             for cp in crop["crops"].iteritems():
+                for k in EXPORT_PRESETS[EXPORT_RATE].keys():
+                    if cp[0] in k:
+                        my_rate = EXPORT_PRESETS[EXPORT_RATE][k]
                 for organ in cp[1]["cropParams"]["cultivar"]["OrganIdsForSecondaryYield"]:
-                    organ["yieldPercentage"] *= export_presets["custom"]
+                    organ["yieldPercentage"] *= my_rate
 
     sim["include-file-base-path"] = PATHS[USER]["INCLUDE_FILE_BASE_PATH"]
 
@@ -275,14 +301,13 @@ def main():
         "rotate the crops in the rotation"
         crop_rotation.insert(0, crop_rotation.pop())
 
-    def insert_cc(crop_rotation):
+    def insert_cc(crop_rotation, cc_data):
         "insert cover crops in the rotation"
-        insert_cover_before = ["maize", "spring barley", "potato", "sugar beet"]
         insert_cover_here = []
         for cultivation_method in range(len(crop_rotation)):
             for workstep in crop_rotation[cultivation_method]["worksteps"]:
                 if workstep["type"] == "Sowing":
-                    if workstep["crop"]["cropParams"]["species"]["SpeciesName"] in insert_cover_before or workstep["crop"]["cropParams"]["cultivar"]["="]["CultivarName"] in insert_cover_before:
+                    if workstep["crop"][2] in COVER_BEFORE:
                         insert_cover_here.append((cultivation_method, workstep["date"]))
                         break
         for position, mydate in reversed(insert_cover_here): 
@@ -292,24 +317,6 @@ def main():
             latest_harvest_cc = unicode("0001-" + str(latest_harvest_cc.month).zfill(2) + "-" + str(latest_harvest_cc.day).zfill(2))
             crop_rotation.insert(position, copy.deepcopy(cc_data))
             crop_rotation[position]["worksteps"][1]["latest-date"] = latest_harvest_cc
-
-    #def remove_cc(crop_rotation):
-    #    "remove cover crops from the rotation"
-    #    for cultivation_method in reversed(range(len(crop_rotation))):
-    #        if "is-cover-crop" in crop_rotation[cultivation_method]:
-    #            del crop_rotation[cultivation_method]
-
-    #env built only to have structured data for cover crop
-    cover_env = monica_io.create_env_json_from_json_config({
-        "crop": cover_crop,
-        "site": site,
-        "sim": sim,
-        "climate": ""
-        })
-    cc_data = cover_env["cropRotation"][0]
-
-    i = 0
-    start_send = time.clock()
 
     def calculate_orgfert_amount(N_applied, fert_type, soilCN=10):
         "convert N applied in amount of fresh org fert"
@@ -333,7 +340,7 @@ def main():
 
         return AOM_fresh
     
-    def update_fert_values(rotation, rot_id, rots_info, expected_N_availability, mineralN_split, KA5_class, orgN_applied):
+    def update_fert_values(rotation, rot_info, cc_in_cm, expected_N_availability, mineralN_split, KA5_class, orgN_applied):
         "function to mimic baseline fertilization"
         
         light_soils = ["Ss", "Su2", "Su3", "Su4", "St2", "Sl3", "Sl2"]
@@ -344,7 +351,6 @@ def main():
         elif KA5_class in heavy_soils:
             soil_type = "heavy"
 
-        has_cover = ["SM", "GM", "SB", "PO", "SBee"] #same as "insert_cover_before"
         cc_effect = { #temporary values, ask TGaiser
             "present": {
                 60: +5,
@@ -377,16 +383,28 @@ def main():
             },
         }
         
+        #insert cc in rotation info
+        for cm in reversed(range(len(rot_info))):
+            rot_info[cm]["has_cover_before"] = False
+            if rot_info[cm]["current"] in COVER_BEFORE and cc_in_cm:
+                rot_info[cm]["has_cover_before"] = True
+                cc_info = {"current": "CC"}
+                rot_info.insert(cm, cc_info)
+
         for cm in range(len(rotation)):
-            current_cp = rots_info[rot_id][cm]["current"]
-            previous_cp = rots_info[rot_id][cm]["previous"]
+            if rot_info[cm]["current"] == "CC":
+                #cover crops do not receive any fertilization
+                continue
+            current_cp = rot_info[cm]["current"]
+            previous_cp = rot_info[cm]["previous"]
+            has_cover = rot_info[cm]["has_cover_before"]
 
             N_target = mineralN_split[current_cp]["target"]
             expected_Nmin = expected_N_availability[(current_cp, previous_cp)][soil_type]
             
             #modify expected Nmin depending on livestock pressure and presence of cover crop
             target_depth = expected_N_availability[(current_cp, previous_cp)]["target_depth"]
-            if current_cp in has_cover:
+            if has_cover:
                 expected_Nmin += cc_effect["present"][target_depth]
             else:
                 expected_Nmin += cc_effect["absent"][target_depth]
@@ -404,11 +422,12 @@ def main():
                     ref_fert += 1
 
             #print (rot_id, cm, current_cp, previous_cp)
-        return rotation
-
+    
+    sent_id = 0
+    start_send = time.clock()
     simulated_cells = 0
-    no_kreis = 0    
-
+    no_kreis = 0
+    
     for (row, col), gmd in general_metadata.iteritems():
 
         if (row, col) in soil_ids and (row, col) in bkr_ids and (row, col) in lu_ids:
@@ -416,8 +435,8 @@ def main():
             bkr_id = bkr_ids[(row, col)]
             
             ########for testing
-            #if bkr_id != 129:
-            #    continue
+            if bkr_id != 148:
+                continue
             
             soil_id = soil_ids[(row, col)]
             meteo_id = meteo_ids[(row, col)]
@@ -426,11 +445,11 @@ def main():
             else:
                 no_kreis += 1
                 print "-----------------------------------------------------"
-                print "kreis not found for calculation of organic N" #TODO find out a solution
+                print "kreis not found for calculation of organic N"
                 print "-----------------------------------------------------"
 
             simulated_cells += 1
-
+            
             KA5_txt = update_soil_crop_dates(row, col)
 
             #row_col = "{}{:03d}".format(row, col)
@@ -438,16 +457,35 @@ def main():
             #continue
 
             for rot_id, rotation in rotations[str(bkr_id)].iteritems():
-                
-                ########for testing
-                #if rot_id != "6110":
-                #    continue
-                if FERT_STRATEGY == "BASE":
-                    updated_rot = update_fert_values(copy.deepcopy(rotation), int(rot_id), rots_info, expected_N_availability, mineralN_split, KA5_txt, orgN_kreise[kreis_id])
-                    crop["cropRotation"] = updated_rot
 
-                else:
-                    crop["cropRotation"] = rotation
+                ########for testing
+                if rot_id != "2120":
+                    continue
+                
+                #extend rotation
+                ext_rot = []
+                for i in range(COVER_CROP_FREQ["out-of"]):
+                    ext_rot.append(copy.deepcopy(rotation)) 
+
+                #insert CC in a subset of CM
+                cc_in_cm = {}
+                for cm in range(len(ext_rot)):
+                    cc_in_cm[cm] = False
+                    if (cm+1) <= COVER_CROP_FREQ["insert-cc-every"]:
+                        insert_cc(ext_rot[cm], cover_crop)
+                        cc_in_cm[cm] = True
+                
+                #update mineral fert (baseline N scenario)
+                if FERT_STRATEGY == "BASE":
+                    for cm in range(len(ext_rot)):
+                        update_fert_values(ext_rot[cm], copy.deepcopy(rots_info[int(rot_id)]), cc_in_cm[cm], expected_N_availability, mineralN_split, KA5_txt, orgN_kreise[kreis_id])
+                
+                #compose the rotation
+                composed_rot = []
+                for rot in ext_rot:
+                    for cm in rot:
+                        composed_rot.append(cm)
+                crop["cropRotation"] = composed_rot
 
                 env = monica_io.create_env_json_from_json_config({
                     "crop": crop,
@@ -456,16 +494,14 @@ def main():
                     "climate": ""
                 })
 
-                #with open("test_crop.json", "w") as _:
-                #    _.write(json.dumps(crop, indent=4))
-
-                insert_cc(env["cropRotation"])
-
                 #assign amount of organic fertilizer
                 for cultivation_method in env["cropRotation"]:
                     for workstep in cultivation_method["worksteps"]:
                         if workstep["type"] == "OrganicFertilization":
-                            workstep["amount"] = calculate_orgfert_amount(orgN_kreise[kreis_id], workstep["parameters"]) #TODO: assign soilCN param dynamically
+                            workstep["amount"][0] = calculate_orgfert_amount(orgN_kreise[kreis_id], workstep["parameters"]) #TODO: assign soilCN param dynamically
+
+                #with open("test_crop.json", "w") as _:
+                #    _.write(json.dumps(crop, indent=4))
 
                 #climate is read by the server
                 env["csvViaHeaderOptions"] = sim["climate.csv-options"]
@@ -485,30 +521,25 @@ def main():
                     env["params"]["simulationParameters"]["UseAutomaticIrrigation"] = sim_["UseAutomaticIrrigation"]
                     env["params"]["simulationParameters"]["UseNMinMineralFertilisingMethod"] = sim_["UseNMinMineralFertilisingMethod"]
 
-                    for rot in range(0, len(env["cropRotation"])):
+                    for main_cp_iteration in range(0, len(rots_info[int(rot_id)])):
+                        #do not allow crop rotation to start with a CC
+                        if "is-cover-crop" in env["cropRotation"][0].keys() and env["cropRotation"][0]["is-cover-crop"] == True:
+                            rotate(env["cropRotation"])
+
                         env["customId"] = rot_id \
                                         + "|" + sim_id \
                                         + "|" + str(soil_id) \
                                         + "|(" + str(row) + "/" + str(col) + ")" \
                                         + "|" + str(bkr_id) \
-                                        + "|" + str(rot) \
-                                        + "|" + str(sim["UseSecondaryYields"])
-                        ##TEST
-                        #my_rot = []
-                        #for cm in env["cropRotation"]:
-                        #    if "is-cover-crop" in cm.keys():
-                        #        my_rot.append("cover")
-                        #    else:
-                        #        for ws in cm["worksteps"]:
-                        #            if ws["type"] == "Sowing":
-                        #                cv_params = ws["crop"]["cropParams"]["cultivar"]
-                        #                my_rot.append(cv_params["="]["CultivarName"])
-                        #print my_rot
-
+                                        + "|" + str(main_cp_iteration) \
+                                        + "|" + str(sim["UseSecondaryYields"]) \
+                                        + "|" + str(timeframes[TF]["start-recording-out"])
+                        
                         socket.send_json(env) 
-                        print "sent env ", i, " customId: ", env["customId"]
-                        i += 1
+                        print "sent env ", sent_id, " customId: ", env["customId"]
+                        sent_id += 1
                         rotate(env["cropRotation"])
+                        
 
 
     stop_send = time.clock()
