@@ -116,7 +116,7 @@
 				["PercolationRate", 20, "SUM"],
 				["SecondaryYield", "LAST"]				
 			],
-			
+
 			{"at": "anthesis"}, [
 				["Year"],
 				["Crop"],

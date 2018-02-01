@@ -1081,7 +1081,7 @@
                     },
                     {
                         "type": "NDemandFertilization",
-                        "stage": 0,
+                        "stage":1,
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "N-demand": [120, "kg"],
                         "depth": [0.9, "m"]
@@ -1188,7 +1188,7 @@
                     }, 
                     {
                         "type": "NDemandFertilization",
-                        "stage": 0,
+                        "stage":1,
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "N-demand": [160, "kg"],
                         "depth": [0.6, "m"]
@@ -2171,7 +2171,7 @@
                     },
                     {
                         "type": "NDemandFertilization",
-                        "stage": 0,
+                        "stage":1,
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "N-demand": [120, "kg"],
                         "depth": [0.9, "m"]
@@ -2337,7 +2337,7 @@
                     }, 
                     {
                         "type": "NDemandFertilization",
-                        "stage": 0,
+                        "stage":1,
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "N-demand": [120, "kg"],
                         "depth": [0.9, "m"]
@@ -2552,7 +2552,7 @@
                     }, 
                     {
                         "type": "NDemandFertilization",
-                        "stage": 0,
+                        "stage":1,
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "N-demand": [160, "kg"],
                         "depth": [0.6, "m"]
@@ -3527,7 +3527,7 @@
                     },
                     {
                         "type": "NDemandFertilization",
-                        "stage": 0,
+                        "stage":1,
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "N-demand": [100, "kg"],
                         "depth": [0.6, "m"]
@@ -4240,7 +4240,7 @@
                     }, 
                     {
                         "type": "NDemandFertilization",
-                        "stage": 0,
+                        "stage":1,
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "N-demand": [100, "kg"],
                         "depth": [0.6, "m"]

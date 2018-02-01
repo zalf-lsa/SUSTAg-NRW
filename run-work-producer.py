@@ -47,23 +47,23 @@ timeframes = {
     "historical": {
         "start-date": "1976-01-01",
         "end-date": "2005-12-31",
-        "start-recording-out": 1985,
-        "cluster-path-to-climate": "/archiv-daten/md/data/climate/isimip/csvs/earth/",
-        "local-path-to-climate": "z:/data/climate/isimip/csvs/earth/"
+        "start-recording-out": 1986,
+        "cluster-path-to-climate": ["/archiv-daten/md/data/climate/isimip/csvs/earth/"],
+        "local-path-to-climate": ["z:/data/climate/isimip/csvs/earth/"]
     },
     "2030": {
         "start-date": "2001-01-01",
         "end-date": "2030-12-31",
         "start-recording-out": 2011,
-        "cluster-path-to-climate": "/archiv-daten/md/data/climate/isimip/csvs/germany-nrw/", #rcp 2.6
-        "local-path-to-climate": "z:/data/climate/isimip/csvs/germany-nrw/" #rcp 2.6
+        "cluster-path-to-climate": ["/archiv-daten/md/data/climate/isimip/csvs/earth/", "/archiv-daten/md/data/climate/isimip/csvs/germany-nrw/"], #base + rcp 2.6
+        "local-path-to-climate": ["z:/data/climate/isimip/csvs/earth/", "z:/data/climate/isimip/csvs/germany-nrw/"] #base + rcp 2.6
     },
     "2050": {
         "start-date": "2021-01-01",
         "end-date": "2050-12-31",
         "start-recording-out": 2031,
-        "cluster-path-to-climate": "/archiv-daten/md/data/climate/isimip/csvs/germany-nrw/", #rcp 2.6
-        "local-path-to-climate": "z:/data/climate/isimip/csvs/germany-nrw/" #rcp 2.6
+        "cluster-path-to-climate": ["/archiv-daten/md/data/climate/isimip/csvs/germany-nrw/"], #rcp 2.6
+        "local-path-to-climate": ["z:/data/climate/isimip/csvs/germany-nrw/"] #rcp 2.6
     }
 }
 #macsur climate data:
@@ -72,7 +72,7 @@ timeframes = {
 #Configure producer
 TF = "historical"
 LOCAL_RUN = False
-FERT_STRATEGY = "NDEM" #options: "NDEM", "NMIN", "BASE"
+FERT_STRATEGY = "BASE" #options: "NDEM", "NMIN", "BASE"
 COVER_CROP_FREQ = { 
     #always use int for insert-cc-every and out-of
     #keep out-of as small as possible (to ensure uniform spatial distribution)
@@ -101,17 +101,20 @@ elif FERT_STRATEGY == "NDEM":
 elif FERT_STRATEGY == "BASE":
     rotations_file = "rotations_dynamic_harv_Nbaseline.json"
 
-PATH_TO_CLIMATE_DATA_DIR = timeframes[TF]["cluster-path-to-climate"]
-LOCAL_PATH_TO_CLIMATE_DATA_DIR = timeframes[TF]["local-path-to-climate"]
+if LOCAL_RUN:
+    PATH_TO_CLIMATE_DATA_DIR = timeframes[TF]["local-path-to-climate"]
+else:
+    PATH_TO_CLIMATE_DATA_DIR = timeframes[TF]["cluster-path-to-climate"]
+    
 
 def main():
     "main function"
 
     context = zmq.Context()
     socket = context.socket(zmq.PUSH)
-    port = 6666 if len(sys.argv) == 1 else sys.argv[1]
+    port = 66663 if len(sys.argv) == 1 else sys.argv[1]
     if LOCAL_RUN:
-        socket.connect("tcp://localhost:" + str(port))
+        socket.connect("tcp://localhost:6666")
     else:
         socket.connect("tcp://cluster2:" + str(port))
 
@@ -339,50 +342,23 @@ def main():
         AOM_fresh = AOM_dry / AOM_DryMatterContent
 
         return AOM_fresh
-    
+
     def update_fert_values(rotation, rot_info, cc_in_cm, expected_N_availability, mineralN_split, KA5_class, orgN_applied):
         "function to mimic baseline fertilization"
-        
+
         light_soils = ["Ss", "Su2", "Su3", "Su4", "St2", "Sl3", "Sl2"]
         heavy_soils = ["Tu3", "Tu4", "Lt3", "Ts2", "Tl", "Tu2", "Tt"]
+
         soil_type = "medium"
         if KA5_class in light_soils:
             soil_type = "light"
         elif KA5_class in heavy_soils:
             soil_type = "heavy"
 
-        cc_effect = { #temporary values, ask TGaiser
-            "present": {
-                60: +5,
-                90: -10
-            },
-            "absent": {
-                60: -5,
-                90: +10
-            }
-        }
+        cow_unit = 77.5
+        GVs = orgN_applied/cow_unit
+        orgN_effect = GVs * 10
 
-        orgN = "medium"
-        if orgN_applied > 120:
-            orgN = "high"
-        elif orgN_applied < 80:
-            orgN = "low"
-
-        orgN_effect = { #temporary values, ask TGaiser
-            "low": {
-                60: -6,
-                90: -9
-            },
-            "medium":{
-                60: 0,
-                90: 0
-            },
-            "high": {
-                60: +6,
-                90: +9
-            },
-        }
-        
         #insert cc in rotation info
         for cm in reversed(range(len(rot_info))):
             rot_info[cm]["has_cover_before"] = False
@@ -401,18 +377,15 @@ def main():
 
             N_target = mineralN_split[current_cp]["target"]
             expected_Nmin = expected_N_availability[(current_cp, previous_cp)][soil_type]
-            
+
             #modify expected Nmin depending on livestock pressure and presence of cover crop
-            target_depth = expected_N_availability[(current_cp, previous_cp)]["target_depth"]
             if has_cover:
-                expected_Nmin += cc_effect["present"][target_depth]
-            else:
-                expected_Nmin += cc_effect["absent"][target_depth]
-            expected_Nmin += orgN_effect[orgN][target_depth]
-            
+                expected_Nmin += 20
+            expected_Nmin += orgN_effect
+
             #calculate N to be applied with mineral fertilization
             sum_Nfert = max(N_target - expected_Nmin, 0)
-            
+
             #map the fertilization worksteps
             ref_fert = 0
             for ws in range(len(rotation[cm]["worksteps"])):
@@ -421,8 +394,6 @@ def main():
                     workstep["amount"][0] = sum_Nfert * mineralN_split[current_cp][ref_fert]
                     ref_fert += 1
 
-            #print (rot_id, cm, current_cp, previous_cp)
-    
     sent_id = 0
     start_send = time.clock()
     simulated_cells = 0
@@ -435,8 +406,8 @@ def main():
             bkr_id = bkr_ids[(row, col)]
             
             ########for testing
-            if bkr_id != 148:
-                continue
+            #if bkr_id != 129:
+            #    continue
             
             soil_id = soil_ids[(row, col)]
             meteo_id = meteo_ids[(row, col)]
@@ -459,8 +430,8 @@ def main():
             for rot_id, rotation in rotations[str(bkr_id)].iteritems():
 
                 ########for testing
-                if rot_id != "2120":
-                    continue
+                #if rot_id != "9110":
+                #    continue
                 
                 #extend rotation
                 ext_rot = []
@@ -507,10 +478,10 @@ def main():
                 env["csvViaHeaderOptions"] = sim["climate.csv-options"]
                 env["csvViaHeaderOptions"]["start-date"] = sim["start-date"]
                 env["csvViaHeaderOptions"]["end-date"] = sim["end-date"]
-                if LOCAL_RUN:
-                    env["pathToClimateCSV"] = LOCAL_PATH_TO_CLIMATE_DATA_DIR + "row-" + str(meteo_id[0]) + "/col-" + str(meteo_id[1]) + ".csv"
-                else:
-                    env["pathToClimateCSV"] = PATH_TO_CLIMATE_DATA_DIR + "row-" + str(meteo_id[0]) + "/col-" + str(meteo_id[1]) + ".csv"
+                env["pathToClimateCSV"] = []
+
+                for PATH in PATH_TO_CLIMATE_DATA_DIR:
+                    env["pathToClimateCSV"].append(PATH + "row-" + str(meteo_id[0]) + "/col-" + str(meteo_id[1]) + ".csv")
 
                 for sim_id, sim_ in sims.iteritems():
                     if sim_id != "WL.NL.rain":

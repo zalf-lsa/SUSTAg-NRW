@@ -55,7 +55,7 @@ def create_year_output(oids, row, col, rotation, prod_level, values, start_recor
                     else:
                         vals[oid["name"]] = val
 
-            if vals.get("Year", 0) > start_recording_out:
+            if vals.get("Year", 0) >= start_recording_out:
                 out.append([
                     row_col,
                     rotation,
@@ -138,7 +138,7 @@ def create_crop_output(oids, row, col, rotation, prod_level, values, use_seconda
             rootCrop =  is_root_crop(vals["Crop"])
             return_residues, export_residues = retuned_exported_residues(float(vals["AbBiom"]), float(vals["Yield"]), float(vals["SecondaryYield"]), use_secondary_yields, rootCrop)
 
-            if vals.get("Year", 0) > start_recording_out and not vals.get("skip", False):
+            if vals.get("Year", 0) >= start_recording_out and not vals.get("skip", False):
                 out.append([
                     row_col,
                     rotation,
@@ -248,7 +248,7 @@ def collector():
     i = 0
     context = zmq.Context()
     socket = context.socket(zmq.PULL)
-    socket.connect("tcp://cluster2:7777")
+    socket.connect("tcp://cluster2:77773")
     #socket.connect("tcp://localhost:7777")
     socket.RCVTIMEO = 1000
     leave = False

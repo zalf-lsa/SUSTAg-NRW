@@ -35,14 +35,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -92,14 +92,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -149,14 +149,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    }, 
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -206,7 +206,7 @@
 				    }, 
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -258,14 +258,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -315,14 +315,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -472,14 +472,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    }, 
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -533,14 +533,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -590,14 +590,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -647,14 +647,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    }, 
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -704,7 +704,7 @@
 				    }, 
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -756,14 +756,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -864,14 +864,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -921,14 +921,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -1031,14 +1031,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -1081,14 +1081,14 @@
                     },
                     {
                         "type": "MineralFertilization",
-                        "stage": 0,
+                        "at": "Stage-1",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 2,
+                        "at": "Stage-2",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -1138,14 +1138,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -1188,7 +1188,7 @@
                     }, 
                     {
                         "type": "MineralFertilization",
-                        "stage": 0,
+                        "at": "Stage-1",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -1240,14 +1240,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -1297,14 +1297,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -1405,14 +1405,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -1462,7 +1462,7 @@
 				    }, 
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -1565,14 +1565,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -1622,14 +1622,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -1730,14 +1730,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -1787,14 +1787,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -1844,7 +1844,7 @@
 				    }, 
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -1896,14 +1896,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -1953,14 +1953,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    }, 
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -2010,7 +2010,7 @@
 				    }, 
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -2064,14 +2064,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -2121,14 +2121,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -2171,14 +2171,14 @@
                     },
                     {
                         "type": "MineralFertilization",
-                        "stage": 0,
+                        "at": "Stage-1",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 2,
+                        "at": "Stage-2",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -2230,14 +2230,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -2287,14 +2287,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -2337,14 +2337,14 @@
                     }, 
                     {
                         "type": "MineralFertilization",
-                        "stage": 0,
+                        "at": "Stage-1",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 2,
+                        "at": "Stage-2",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -2396,14 +2396,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -2502,14 +2502,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -2552,7 +2552,7 @@
                     }, 
                     {
                         "type": "MineralFertilization",
-                        "stage": 0,
+                        "at": "Stage-1",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -2606,14 +2606,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -2663,14 +2663,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -2720,14 +2720,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    }, 
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -2828,14 +2828,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -2934,14 +2934,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -2991,7 +2991,7 @@
 				    }, 
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -3045,14 +3045,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -3151,14 +3151,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    }, 
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -3210,14 +3210,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -3267,14 +3267,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -3477,14 +3477,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -3527,14 +3527,14 @@
                     },
                     {
                         "type": "MineralFertilization",
-                        "stage": 0,
+                        "at": "Stage-1",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -3584,14 +3584,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    }, 
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -3692,14 +3692,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -3749,14 +3749,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -3806,7 +3806,7 @@
 				    }, 
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -3858,14 +3858,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -3915,14 +3915,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -4025,14 +4025,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -4082,14 +4082,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -4190,14 +4190,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -4240,14 +4240,14 @@
                     }, 
                     {
                         "type": "MineralFertilization",
-                        "stage": 0,
+                        "at": "Stage-1",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -4297,7 +4297,7 @@
 				    }, 
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -4349,14 +4349,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -4406,14 +4406,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
@@ -4463,14 +4463,14 @@
 				    },
                     {
                         "type": "MineralFertilization",
-                        "stage": 3,
+                        "at": "Stage-3",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
 				    }, 
                     {
                         "type": "MineralFertilization",
-                        "stage": 4,
+                        "at": "Stage-4",
                         "partition": ["include-from-file", "monica-parameters/mineral-fertilisers/U.json"],
                         "amount": [0, "kg N"]
                         
