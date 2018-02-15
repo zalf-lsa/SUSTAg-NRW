@@ -70,6 +70,7 @@ timeframes = {
 #PATH_TO_CLIMATE_DATA_DIR ="/archiv-daten/md/projects/sustag/MACSUR_WP3_NRW_1x1/" #"Z:/projects/sustag/MACSUR_WP3_NRW_1x1/"
 
 #Configure producer
+PRODUCTION_LEVEL = 'Pot' #"WL.NL.rain"
 TF = "historical"
 LOCAL_RUN = False
 FERT_STRATEGY = "BASE" #options: "NDEM", "NMIN", "BASE"
@@ -77,7 +78,7 @@ COVER_CROP_FREQ = {
     #always use int for insert-cc-every and out-of
     #keep out-of as small as possible (to ensure uniform spatial distribution)
     "insert-cc-every": 1, #CM
-    "out-of": 1 #CM
+    "out-of": 4 #CM
 }
 COVER_BEFORE = ["SM", "GM", "SB", "PO", "SBee"]
 RESIDUES_EXPORTED = True
@@ -484,7 +485,7 @@ def main():
                     env["pathToClimateCSV"].append(PATH + "row-" + str(meteo_id[0]) + "/col-" + str(meteo_id[1]) + ".csv")
 
                 for sim_id, sim_ in sims.iteritems():
-                    if sim_id != "WL.NL.rain":
+                    if sim_id != PRODUCTION_LEVEL:
                         continue
                     env["events"] = sim_["output"]
                     env["params"]["simulationParameters"]["NitrogenResponseOn"] = sim_["NitrogenResponseOn"]
@@ -515,7 +516,7 @@ def main():
 
     stop_send = time.clock()
 
-    print "sending ", i, " envs took ", (stop_send - start_send), " seconds"
+    print "sending ", sent_id, " envs took ", (stop_send - start_send), " seconds"
     print "simulated cells: ", simulated_cells, "; not found kreise for org N: ", no_kreis
 
 

@@ -11,7 +11,18 @@
 				["SOC", [1, 3, "AVG"], "LAST"], 
 				["Rh", "SUM"], 
 				["NEP", "SUM"], 
-				["Act_ET", "SUM"]
+				["NLeach", "SUM"], 
+				["ActNup", "SUM"], 
+				["NFert", "SUM"], 
+				["Act_ET", "SUM"], 
+				["Act_Ev", "SUM"],
+				["N2O", "SUM"],
+				["PercolationRate", 20, "SUM"],
+				["Tavg", "AVG"],
+				["Precip", "SUM"],
+				["Clay", [1, 3, "AVG"], "AVG"],
+				["Silt", [1, 3, "AVG"], "AVG"],
+				["Sand", [1, 3, "AVG"], "AVG"]
 			],
 			"crop", [
 				["Year", "LAST"], 
@@ -19,12 +30,42 @@
 				["Date", "FIRST"], 
 				["Date", "LAST"], 
 				["SOC", [1, 3, "AVG"], "FIRST"], 
-				["SOC", [1, 3, "AVG"], "LAST"], 
+				["SOC", [1, 3, "AVG"], "LAST"],
 				["Rh", "SUM"], 
 				["NEP", "SUM"], 
-				["Yield", "LAST"], 
-				["Act_ET", "SUM"],
-				["SecondaryYield", "LAST"]
+				["Yield", "LAST"],
+				["AbBiom", "LAST"],
+				["LAI", "MAX"],
+				["Stage", "LAST"],
+				["RelDev", "LAST"], 
+				["NLeach", "SUM"], 
+				["ActNup", "SUM"], 
+				["NFert", "SUM"], 
+				["Act_ET", "SUM"], 
+				["Act_Ev", "SUM"],
+				["N2O", "SUM"], 
+				["Nstress", "AVG"],
+				["TraDef", "AVG"],
+				["PercolationRate", 20, "SUM"],
+				["SecondaryYield", "LAST"]				
+			],
+
+			{"at": "anthesis"}, [
+				["Year"],
+				["Crop"],
+				["DOY|anthesis"]
+			],
+
+			{"at": "maturity"}, [
+				["Year"],
+				["Crop"],
+				["DOY|matur"]
+			],
+
+			{"at": "Harvest"}, [
+				["Year"],
+				["Crop"],
+				["DOY|harvest"]
 			]
 		]
 	},

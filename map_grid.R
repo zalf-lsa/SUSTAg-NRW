@@ -57,7 +57,7 @@ title(main="st dev water perc (yr-1)")
 
 r <- raster("yearly_avg_deltaOC_.asc") 
 plot(r)
-title(main="avg delta OC (yr-1)")
+title(main="avg delta OC (% yr-1)")
 
 r <- raster("yearly_stdev_deltaOC_.asc") 
 plot(r)

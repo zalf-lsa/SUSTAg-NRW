@@ -46,11 +46,11 @@ rm(list = ls())
 library(datasets)
 library(ggplot2)
 
-setwd("C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/out-kuopio/splitted-out/")
-setwd("C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/out-kuopio/splitted-out/out-kuopio-2030-Nmin-33removal/")
+setwd("C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/splitted-out/")
+#setwd("C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/out-kuopio/splitted-out/out-kuopio-2030-Nmin-33removal/")
 
 #list files in the nested directories
-mylist <- list.files(pattern="*_year.csv", recursive=TRUE)
+mylist <- list.files(pattern="*_crop.csv", recursive=TRUE)
 
 #temp_dataset$resremoval <- rep(33,nrow(temp_dataset)) # make new column 
 
@@ -81,9 +81,13 @@ levels(dataset$crop)[levels(dataset$crop)=="potato_moderately-early-potato"] <- 
 levels(dataset$crop)[levels(dataset$crop)=="sugar-beet_"] <- "SBee"
 levels(dataset$crop)[levels(dataset$crop)=="maize_grain-maize"] <- "GM"
 
+dataset$bkr <- factor(dataset$bkr)
+
 #yield, Nleach, Nminfert
-plot <- ggplot(dataset, aes(x = crop, y = yield)) + 
-  geom_boxplot(aes(fill=factor(RemovalRate)))
+plot <- ggplot(dataset, aes(x = bkr, y = yield)) + 
+  #geom_boxplot(aes(fill=factor(RemovalRate)))
+  geom_boxplot(aes(fill=factor(rotation)))
+plot <- plot + facet_wrap(~ crop)
 plot <- plot + theme_bw()
 plot
 
@@ -117,7 +121,7 @@ levels(dataset$rotation)[levels(dataset$rotation)=="9110"] <- "WW-SB-WRa"
 levels(dataset$rotation)[levels(dataset$rotation)=="9120"] <- "WW-WB-SM"
 levels(dataset$rotation)[levels(dataset$rotation)=="9130"] <- "WW-WB-WTr"
 
-bkr191_dataset <- subset(dataset, bkr == "191")
+#bkr191_dataset <- subset(dataset, bkr == "191")
 
 #yield, Nleach, Nminfert
 plot <- ggplot(bkr191_dataset, aes(x = rotation, y = deltaOC)) + 
@@ -127,10 +131,10 @@ plot
 
 
 dataset$bkr <- factor(dataset$bkr)
-plot <- ggplot(dataset, aes(x = bkr, y = Nleach)) + 
+plot <- ggplot(dataset, aes(x = bkr, y = deltaOC)) + 
   geom_boxplot(aes(fill=factor(rotation)))
 plot <- plot + theme_bw()
-plot <- plot + ylim(NA, 200)
+#plot <- plot + ylim(NA, 200)
 plot
 
 

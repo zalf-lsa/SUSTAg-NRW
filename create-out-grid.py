@@ -239,37 +239,28 @@ print("reading files...")
 #df_cp_148 = pd.read_csv("out/splitted-out/148_crop.csv")
 #df_cp_191 = pd.read_csv("out/splitted-out/191_crop.csv")
 
-#df_yr_129 = pd.read_csv("out/out-kuopio/splitted-out/out-kuopio-2030-Ndem-noremoval/129_year.csv")
-#df_yr_134 = pd.read_csv("out/out-kuopio/splitted-out/out-kuopio-2030-Ndem-noremoval/134_year.csv")
-#df_yr_141 = pd.read_csv("out/out-kuopio/splitted-out/out-kuopio-2030-Ndem-noremoval/141_year.csv")
-#df_yr_142 = pd.read_csv("out/out-kuopio/splitted-out/out-kuopio-2030-Ndem-noremoval/142_year.csv")
-#df_yr_143 = pd.read_csv("out/out-kuopio/splitted-out/out-kuopio-2030-Ndem-noremoval/143_year.csv")
-#df_yr_146 = pd.read_csv("out/out-kuopio/splitted-out/out-kuopio-2030-Ndem-noremoval/146_year.csv")
-#df_yr_147 = pd.read_csv("out/out-kuopio/splitted-out/out-kuopio-2030-Ndem-noremoval/147_year.csv")
-#df_yr_148 = pd.read_csv("out/out-kuopio/splitted-out/out-kuopio-2030-Ndem-noremoval/148_year.csv")
-#df_yr_191 = pd.read_csv("out/out-kuopio/splitted-out/out-kuopio-2030-Ndem-noremoval/191_year.csv")
-
-#df_yr_129 = pd.read_csv("out/splitted-out/129_year.csv")
-#df_yr_134 = pd.read_csv("out/splitted-out/134_year.csv")
-#df_yr_141 = pd.read_csv("out/splitted-out/141_year.csv")
-#df_yr_142 = pd.read_csv("out/splitted-out/142_year.csv")
-#df_yr_143 = pd.read_csv("out/splitted-out/143_year.csv")
-#df_yr_146 = pd.read_csv("out/splitted-out/146_year.csv")
-#df_yr_147 = pd.read_csv("out/splitted-out/147_year.csv")
-#df_yr_148 = pd.read_csv("out/splitted-out/148_year.csv")
-#df_yr_191 = pd.read_csv("out/splitted-out/191_year.csv")
+df_yr_129 = pd.read_csv("out/splitted-out/129_year.csv")
+df_yr_134 = pd.read_csv("out/splitted-out/134_year.csv")
+df_yr_141 = pd.read_csv("out/splitted-out/141_year.csv")
+df_yr_142 = pd.read_csv("out/splitted-out/142_year.csv")
+df_yr_143 = pd.read_csv("out/splitted-out/143_year.csv")
+df_yr_146 = pd.read_csv("out/splitted-out/146_year.csv")
+df_yr_147 = pd.read_csv("out/splitted-out/147_year.csv")
+df_yr_148 = pd.read_csv("out/splitted-out/148_year.csv")
+df_yr_191 = pd.read_csv("out/splitted-out/191_year.csv")
 
 print("concatenating data frames...")
 #cp_frames = [df_cp_129, df_cp_134, df_cp_141, df_cp_142, df_cp_143, df_cp_146, df_cp_147, df_cp_148, df_cp_191]
 #cp_df = pd.concat(cp_frames)
 
-#yr_frames = [df_yr_129, df_yr_134, df_yr_141, df_yr_142, df_yr_143, df_yr_146, df_yr_147, df_yr_148, df_yr_191]
-#yr_df = pd.concat(yr_frames)
+yr_frames = [df_yr_129, df_yr_134, df_yr_141, df_yr_142, df_yr_143, df_yr_146, df_yr_147, df_yr_148, df_yr_191]
+yr_df = pd.concat(yr_frames)
 
-yr_df = pd.read_csv("out/topsoilC.csv")
+#yr_df = pd.read_csv("out/topsoilC.csv")
 
 #plot_vars_crop = ["ExportResidues"]
-plot_vars_year = ["ini_SOCtop"]
+#plot_vars_year = ["ini_SOCtop"]
+plot_vars_year = ["Nleach", "deltaOC"]
 n_rows = 241
 n_cols = 250
 

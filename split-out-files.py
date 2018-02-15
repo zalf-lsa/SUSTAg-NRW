@@ -2,13 +2,13 @@ import os
 import csv
 
 basepath = os.path.dirname(os.path.abspath(__file__))
-dir_name = basepath + "/out/out-kuopio/out-kuopio-2030-Nmin-33removal/"
-out_dir = basepath + "/out/out-kuopio/splitted-out/out-kuopio-2030-Nmin-33removal/"
+dir_name = basepath + "/out/out-020218-baseline-POT/"
+out_dir = basepath + "/out/splitted-out/"
 
 
 #extract_vars_cp = ["IDcell", "crop", "rotation", "yield", "Nleach", "Nminfert", "RemovalRate", "FertMethod"]
-extract_vars_cp = ["crop", "yield"]
-extract_vars_yr = ["IDcell", "rotation", "Nleach"]
+extract_vars_cp = ["crop", "rotation", "yield", "ReturnResidues"]
+extract_vars_yr = ["IDcell", "rotation", "Nleach", "deltaOC"]
 
 def split(suffix, extract_vars, tag_bkr=True, calc_hi=False, pot_cp_residue=False, excludecc=False):
     for filename in os.listdir(dir_name):
@@ -58,8 +58,8 @@ def split(suffix, extract_vars, tag_bkr=True, calc_hi=False, pot_cp_residue=Fals
                     writer.writerow(row_)
             print(filename + " done!")
 
-#split("_crop", extract_vars_cp, tag_bkr=True, calc_hi=False, pot_cp_residue=False, excludecc=False)
-split("_year", extract_vars_yr, tag_bkr=True)
+split("_crop", extract_vars_cp, tag_bkr=True, calc_hi=False, pot_cp_residue=False, excludecc=False)
+#split("_year", extract_vars_yr, tag_bkr=True)
 
 def add_out_colums(col_names, col_vals, directory):
     #create a new file with added cols
@@ -86,8 +86,8 @@ def add_out_colums(col_names, col_vals, directory):
         new_name = filename.replace("_new_", "")
         os.rename(dir_name + filename, dir_name + new_name)
 
-col_names = ["RemovalRate", "FertMethod"]
-col_vals = ["0", "Nmin"]
+#col_names = ["RemovalRate", "FertMethod"]
+#col_vals = ["0", "Nmin"]
 
 #add_out_colums(col_names, col_vals, dir_name)
 
