@@ -47,7 +47,10 @@
 				["Nstress", "AVG"],
 				["TraDef", "AVG"],
 				["PercolationRate", 20, "SUM"],
-				["SecondaryYield", "LAST"]				
+				["SecondaryYield", "LAST"],
+				["optCarbonReturnedResidues", "LAST"],
+				["optCarbonExportedResidues", "LAST"],
+				["humusBalanceCarryOver", "LAST"]				
 			],
 
 			{"at": "anthesis"}, [
@@ -155,7 +158,10 @@
 				["Nstress", "AVG"],
 				["TraDef", "AVG"],
 				["PercolationRate", 20, "SUM"],
-				["SecondaryYield", "LAST"]				
+				["SecondaryYield", "LAST"],
+				["optCarbonReturnedResidues", "LAST"],
+				["optCarbonExportedResidues", "LAST"],
+				["humusBalanceCarryOver", "LAST"]				
 			],
 
 			{"at": "anthesis"}, [

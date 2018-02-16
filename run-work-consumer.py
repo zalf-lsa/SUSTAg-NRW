@@ -7,6 +7,7 @@
 
 # Authors:
 # Michael Berg-Mohnicke <michael.berg@zalf.de>
+# Tommaso Stella <tommaso.stella@zalf.de>
 #
 # Maintainers:
 # Currently maintained by the authors.
@@ -33,6 +34,7 @@ import zmq
 import monica_io
 import re
 
+LOCAL_RUN = False
 
 def create_year_output(oids, row, col, rotation, prod_level, values, start_recording_out):
     "create year output lines"
@@ -82,7 +84,7 @@ def create_year_output(oids, row, col, rotation, prod_level, values, start_recor
     return out
 
 
-def create_crop_output(oids, row, col, rotation, prod_level, values, use_secondary_yields, start_recording_out):
+def create_crop_output(oids, row, col, rotation, prod_level, values, use_secondary_yields, start_recording_out, residue_humus_balance):
     "create crop output lines"
     row_col = "{}{:03d}".format(row, col)
     out = []
@@ -136,7 +138,12 @@ def create_crop_output(oids, row, col, rotation, prod_level, values, use_seconda
                 return out
 
             rootCrop =  is_root_crop(vals["Crop"])
-            return_residues, export_residues = retuned_exported_residues(float(vals["AbBiom"]), float(vals["Yield"]), float(vals["SecondaryYield"]), use_secondary_yields, rootCrop)
+            if residue_humus_balance:
+                return_residues = vals.get("optCarbonReturnedResidues", "NA")
+                export_residues = vals.get("optCarbonExportedResidues", "NA")
+            else:
+                return_residues, export_residues = retuned_exported_residues(float(vals["AbBiom"]), float(vals["Yield"]), float(vals["SecondaryYield"]), use_secondary_yields, rootCrop)
+
 
             if vals.get("Year", 0) >= start_recording_out and not vals.get("skip", False):
                 out.append([
@@ -165,7 +172,8 @@ def create_crop_output(oids, row, col, rotation, prod_level, values, use_seconda
                     vals.get("Nstress", "NA"),
                     vals.get("TraDef", "NA"),
                     export_residues,
-                    return_residues
+                    return_residues,
+                    vals.get("humusBalanceCarryOver", "NA")
                 ])
 
     return out
@@ -191,12 +199,12 @@ def update_pheno_output(oids, row, col, rotation, prod_level, values, pheno_data
                     vals[oid_name] = val
             pheno_data[region_id][vals.get("Crop")][vals.get("Year")].update(vals)
 
-def write_data(region_id, year_data, crop_data, pheno_data):
+def write_data(region_id, year_data, crop_data, pheno_data, suffix):
     "write data"
 
-    path_to_crop_file = "out/" + str(region_id) + "_crop.csv"
-    path_to_year_file = "out/" + str(region_id) + "_year.csv"
-    path_to_pheno_file = "out/" + str(region_id) + "_pheno.csv"
+    path_to_crop_file = "out/" + str(region_id) + suffix + "crop.csv"
+    path_to_year_file = "out/" + str(region_id) + suffix + "year.csv"
+    path_to_pheno_file = "out/" + str(region_id) + suffix + "pheno.csv"
 
     if not os.path.isfile(path_to_year_file):
         with open(path_to_year_file, "w") as _:
@@ -210,7 +218,7 @@ def write_data(region_id, year_data, crop_data, pheno_data):
 
     if not os.path.isfile(path_to_crop_file):
         with open(path_to_crop_file, "w") as _:
-            _.write("IDcell,rotation,crop,prodlevel,year,cyclelength,deltaOC,CO2emission,NEP,yield,agb,LAImax,Stageharv,RelDev,ET,EV,waterperc,irr,Nleach,Nup,Nminfert,N2Oem,Nstress,Wstress,ExportResidues,ReturnResidues\n")
+            _.write("IDcell,rotation,crop,prodlevel,year,cyclelength,deltaOC,CO2emission,NEP,yield,agb,LAImax,Stageharv,RelDev,ET,EV,waterperc,irr,Nleach,Nup,Nminfert,N2Oem,Nstress,Wstress,ExportResidues,ReturnResidues,CarryOver\n")
 
     with open(path_to_crop_file, 'ab') as _:
         writer = csv.writer(_, delimiter=",")
@@ -248,8 +256,10 @@ def collector():
     i = 0
     context = zmq.Context()
     socket = context.socket(zmq.PULL)
-    socket.connect("tcp://cluster2:77773")
-    #socket.connect("tcp://localhost:7777")
+    if LOCAL_RUN:
+        socket.connect("tcp://localhost:77773")
+    else:
+        socket.connect("tcp://cluster2:77773")
     socket.RCVTIMEO = 1000
     leave = False
     write_normal_output_files = False
@@ -261,7 +271,7 @@ def collector():
         except:
             for region_id in year_data.keys():
                 if len(year_data[region_id]) > 0:
-                    write_data(region_id, year_data, crop_data, pheno_data)
+                    write_data(region_id, year_data, crop_data, pheno_data, suffix)
             continue
 
         if result["type"] == "finish":
@@ -286,6 +296,8 @@ def collector():
             region_id = ci_parts[4]
             use_secondary_yields = True_False_string(ci_parts[6])
             start_recording_out = int(ci_parts[7])
+            residue_humus_balance = True_False_string(ci_parts[8])
+            suffix = ci_parts[9]
 
             for data in result.get("data", []):
                 results = data.get("results", [])
@@ -296,7 +308,7 @@ def collector():
                         res = create_year_output(output_ids, row, col, rotation, prod_level, results, start_recording_out)
                         year_data[region_id].extend(res)
                     elif orig_spec == '"crop"':
-                        res = create_crop_output(output_ids, row, col, rotation, prod_level, results, use_secondary_yields, start_recording_out)
+                        res = create_crop_output(output_ids, row, col, rotation, prod_level, results, use_secondary_yields, start_recording_out, residue_humus_balance)
                         crop_data[region_id].extend(res)
                     #if re.search('anthesis', orig_spec) or re.search('maturity', orig_spec) or re.search('Harvest', orig_spec):
                     #    update_pheno_output(output_ids, row, col, rotation, prod_level, results, pheno_data, region_id)
@@ -304,7 +316,7 @@ def collector():
 
             for region_id in year_data.keys():
                 if len(year_data[region_id]) > start_writing_lines_threshold:
-                    write_data(region_id, year_data, crop_data, pheno_data)
+                    write_data(region_id, year_data, crop_data, pheno_data, suffix)
 
             i = i + 1
 

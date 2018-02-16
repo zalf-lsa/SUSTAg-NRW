@@ -66,11 +66,31 @@ timeframes = {
         "local-path-to-climate": ["z:/data/climate/isimip/csvs/germany-nrw/"] #rcp 2.6
     }
 }
+
+humus_equivalent = {
+    "crop": { #Heq
+        "SBee": -760, #Zucker- und Futterruebe, einschliesslich Samentraeger, Kartoffeln und 1. Gruppe Gemuese / Gewuerz- und Heilpflanzen
+        "PO": -760,
+        "SM": -560, #Silomais, Koernermais und 2. Gruppe Gemuese / Gewuerz- und Heilpflanzen
+        "GM": -560,
+        "SB": -280, #Getreide einschliesslich Oel- und Faserpflanzen, Sonnenblumen sowie 3. Gruppe Gemuese / Gewuerz- und Heilpflanzen
+        "WTr": -280,
+        "WRa": -280,
+        "WW": -280,
+        "WB": -280,
+        "CC": 140
+    },
+    "material": { #Heq t-1 DM
+        "straw": 116,
+        "green-manure": 80,
+        "pig-slurry": 100
+    }
+}
 #macsur climate data:
 #PATH_TO_CLIMATE_DATA_DIR ="/archiv-daten/md/projects/sustag/MACSUR_WP3_NRW_1x1/" #"Z:/projects/sustag/MACSUR_WP3_NRW_1x1/"
 
 #Configure producer
-PRODUCTION_LEVEL = 'Pot' #"WL.NL.rain"
+PRODUCTION_LEVEL = 'WL.NL.rain' #options: "Pot", "WL.NL.rain"
 TF = "historical"
 LOCAL_RUN = False
 FERT_STRATEGY = "BASE" #options: "NDEM", "NMIN", "BASE"
@@ -78,22 +98,36 @@ COVER_CROP_FREQ = {
     #always use int for insert-cc-every and out-of
     #keep out-of as small as possible (to ensure uniform spatial distribution)
     "insert-cc-every": 1, #CM
-    "out-of": 4 #CM
+    "out-of": 4, #CM
+    "suffix": "25" #REMEMBER to set it (for output file name)
 }
 COVER_BEFORE = ["SM", "GM", "SB", "PO", "SBee"]
 RESIDUES_EXPORTED = True
 if RESIDUES_EXPORTED:
-    EXPORT_RATE = "baseline"
+    EXPORT_RATE = "base"
     EXPORT_PRESETS = {
         "all": "export all residues available according to MONICA secondary yield params",
-        "baseline": {
+        "base": {
             #cereals (except SM): 33% removal; other crops: 0%
             #crops: fraction
             ("WW", "WB", "SB", "WTr", "GM") : 0.33, #67% left on the field
             ("SM", "WRa", "PO", "SBee") : 0
         }
     }
+RESIDUES_HUMUS_BALANCE = False #mgt complying with humus balance approach of NRW: if true, RESIDUE_EXPORTED has no effect!
+CC_USAGE = "green-manure" #"green-manure" returns all the CC in the soil at harvest, "biomass-production" will calculate CC residues exported/returned according to humus balance approach
 #end of user configuration
+
+#assemble file name suffix for out
+suffix = "_"
+suffix += TF + "_"
+suffix += "fert-" + FERT_STRATEGY.lower() + "_"
+if RESIDUES_HUMUS_BALANCE:
+    suffix += "res-humbal_"
+else:
+    suffix += "res-" + EXPORT_RATE + "_"
+suffix += "cc-" + COVER_CROP_FREQ["suffix"] + "_"
+suffix += "pl-" + PRODUCTION_LEVEL.replace(".","") + "_"
 
 if FERT_STRATEGY == "NMIN":
     rotations_file = "rotations_dynamic_harv.json"
@@ -115,7 +149,7 @@ def main():
     socket = context.socket(zmq.PUSH)
     port = 66663 if len(sys.argv) == 1 else sys.argv[1]
     if LOCAL_RUN:
-        socket.connect("tcp://localhost:6666")
+        socket.connect("tcp://localhost:66663")
     else:
         socket.connect("tcp://cluster2:" + str(port))
 
@@ -134,6 +168,15 @@ def main():
 
     with open("cover-crop.json") as _:
         cover_crop = json.load(_)["CM"]
+        if RESIDUES_HUMUS_BALANCE:
+            #inject additional harvest params
+            for ws in range(len(cover_crop["worksteps"])):
+                if cover_crop["worksteps"][ws]["type"] == "AutomaticHarvest":
+                    cover_crop["worksteps"][ws]["opt-carbon-conservation"] = True
+                    cover_crop["worksteps"][ws]["crop-impact-on-humus-balance"] = [humus_equivalent["crop"]["CC"], "Humus equivalent [Heq]"]
+                    cover_crop["worksteps"][ws]["residue-heq"] = [humus_equivalent["material"]["green-manure"], "Heq ton-1 DM"]
+                    cover_crop["worksteps"][ws]["cover-crop-usage"] = CC_USAGE
+                    cover_crop["worksteps"][ws]["exported"] = True #if true and cover-crop-usage="green-manure" --> the crop is anyway returned to the soil
 
     with open("sims.json") as _:
         sims = json.load(_)
@@ -167,6 +210,22 @@ def main():
                     cm_info["previous"] = previous_cp
                     rot_info.append(cm_info)
                 rots_info[rot_code] = rot_info
+        if RESIDUES_HUMUS_BALANCE:
+            #inject additional harvest params
+            for bkr, rots in rotations.iteritems():
+                for rot in rots.iteritems():
+                    rot_code = int(rot[0])
+                    rot_info = rots_info[rot_code]
+                    cp_index = 0
+                    for cm in rot[1]:#["worksteps"]:
+                        for ws in range(len(cm["worksteps"])):
+                            cp = rot_info[cp_index]["current"]
+                            if cm["worksteps"][ws]["type"] == "AutomaticHarvest":
+                                cm["worksteps"][ws]["opt-carbon-conservation"] = True
+                                cm["worksteps"][ws]["crop-impact-on-humus-balance"] = [humus_equivalent["crop"][cp], "Humus equivalent [Heq]"]
+                                cm["worksteps"][ws]["residue-heq"] = [humus_equivalent["material"]["straw"], "Heq ton-1 DM"]
+                                cm["worksteps"][ws]["organic-fertilizer-heq"] = [humus_equivalent["material"]["pig-slurry"], "Heq ton-1 DM"]
+                                cp_index += 1
     
     if FERT_STRATEGY == "BASE":
         #read additional info required for baseline fert strategy:
@@ -407,8 +466,8 @@ def main():
             bkr_id = bkr_ids[(row, col)]
             
             ########for testing
-            #if bkr_id != 129:
-            #    continue
+            if bkr_id != 142:
+                continue
             
             soil_id = soil_ids[(row, col)]
             meteo_id = meteo_ids[(row, col)]
@@ -505,7 +564,9 @@ def main():
                                         + "|" + str(bkr_id) \
                                         + "|" + str(main_cp_iteration) \
                                         + "|" + str(sim["UseSecondaryYields"]) \
-                                        + "|" + str(timeframes[TF]["start-recording-out"])
+                                        + "|" + str(timeframes[TF]["start-recording-out"]) \
+                                        + "|" + str(RESIDUES_HUMUS_BALANCE) \
+                                        + "|" + suffix
                         
                         socket.send_json(env) 
                         print "sent env ", sent_id, " customId: ", env["customId"]
