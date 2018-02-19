@@ -69,10 +69,11 @@ def create_year_output(oids, row, col, rotation, prod_level, values, start_recor
                     vals.get("Act_ET", "NA"),
                     vals.get("Act_Ev", "NA"),
                     vals.get("PercolationRate", "NA"),
-                    vals.get("Irrig", "NA"),
+                    #vals.get("Irrig", "NA"),
                     vals.get("NLeach", "NA"),
                     vals.get("ActNup", "NA"),
                     vals.get("NFert", "NA"),
+                    vals.get("NOrgFert", "NA"),
                     vals.get("N2O", "NA"),
                     vals.get("Precip", "NA"),
                     vals.get("Tavg", "NA"),
@@ -164,10 +165,11 @@ def create_crop_output(oids, row, col, rotation, prod_level, values, use_seconda
                     vals.get("Act_ET", "NA"),
                     vals.get("Act_Ev", "NA"),
                     vals.get("PercolationRate", "NA"),
-                    vals.get("Irrig", "NA"),
+                    #vals.get("Irrig", "NA"),
                     vals.get("NLeach", "NA"),
                     vals.get("ActNup", "NA"),
                     vals.get("NFert", "NA"),
+                    vals.get("NOrgFert", "NA"),
                     vals.get("N2O", "NA"),
                     vals.get("Nstress", "NA"),
                     vals.get("TraDef", "NA"),
@@ -208,7 +210,7 @@ def write_data(region_id, year_data, crop_data, pheno_data, suffix):
 
     if not os.path.isfile(path_to_year_file):
         with open(path_to_year_file, "w") as _:
-            _.write("IDcell,rotation,prodlevel,year,deltaOC,CO2emission,NEP,ET,EV,waterperc,irr,Nleach,Nup,Nfert,N2Oem,Precip,yearTavg,Clay,Silt,Sand\n")
+            _.write("IDcell,rotation,prodlevel,year,deltaOC,CO2emission,NEP,ET,EV,waterperc,Nleach,Nup,Nminfert,Norgfert,N2Oem,Precip,yearTavg,Clay,Silt,Sand\n")
 
     with open(path_to_year_file, 'ab') as _:
         writer = csv.writer(_, delimiter=",")
@@ -218,7 +220,7 @@ def write_data(region_id, year_data, crop_data, pheno_data, suffix):
 
     if not os.path.isfile(path_to_crop_file):
         with open(path_to_crop_file, "w") as _:
-            _.write("IDcell,rotation,crop,prodlevel,year,cyclelength,deltaOC,CO2emission,NEP,yield,agb,LAImax,Stageharv,RelDev,ET,EV,waterperc,irr,Nleach,Nup,Nminfert,N2Oem,Nstress,Wstress,ExportResidues,ReturnResidues,CarryOver\n")
+            _.write("IDcell,rotation,crop,prodlevel,year,cyclelength,deltaOC,CO2emission,NEP,yield,agb,LAImax,Stageharv,RelDev,ET,EV,waterperc,Nleach,Nup,Nminfert,Norgfert,N2Oem,Nstress,Wstress,ExportResidues,ReturnResidues,CarryOver\n")
 
     with open(path_to_crop_file, 'ab') as _:
         writer = csv.writer(_, delimiter=",")

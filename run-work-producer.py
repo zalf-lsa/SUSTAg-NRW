@@ -88,62 +88,76 @@ humus_equivalent = {
 }
 #macsur climate data:
 #PATH_TO_CLIMATE_DATA_DIR ="/archiv-daten/md/projects/sustag/MACSUR_WP3_NRW_1x1/" #"Z:/projects/sustag/MACSUR_WP3_NRW_1x1/"
+LOCAL_RUN = False 
 
-#Configure producer
-PRODUCTION_LEVEL = 'WL.NL.rain' #options: "Pot", "WL.NL.rain"
-TF = "historical"
-LOCAL_RUN = False
-FERT_STRATEGY = "BASE" #options: "NDEM", "NMIN", "BASE"
-COVER_CROP_FREQ = { 
-    #always use int for insert-cc-every and out-of
-    #keep out-of as small as possible (to ensure uniform spatial distribution)
-    "insert-cc-every": 1, #CM
-    "out-of": 4, #CM
-    "suffix": "25" #REMEMBER to set it (for output file name)
+EXPORT_PRESETS = {
+    "all": "export all residues available according to MONICA secondary yield params",
+    "base": {
+        #cereals (except SM): 33% removal; other crops: 0%
+        #crops: fraction
+        ("WW", "WB", "SB", "WTr", "GM") : 0.33, #67% left on the field
+        ("SM", "WRa", "PO", "SBee") : 0
+    }
 }
 COVER_BEFORE = ["SM", "GM", "SB", "PO", "SBee"]
 RESIDUES_EXPORTED = True
-if RESIDUES_EXPORTED:
-    EXPORT_RATE = "base"
-    EXPORT_PRESETS = {
-        "all": "export all residues available according to MONICA secondary yield params",
-        "base": {
-            #cereals (except SM): 33% removal; other crops: 0%
-            #crops: fraction
-            ("WW", "WB", "SB", "WTr", "GM") : 0.33, #67% left on the field
-            ("SM", "WRa", "PO", "SBee") : 0
-        }
-    }
-RESIDUES_HUMUS_BALANCE = False #mgt complying with humus balance approach of NRW: if true, RESIDUE_EXPORTED has no effect!
-CC_USAGE = "green-manure" #"green-manure" returns all the CC in the soil at harvest, "biomass-production" will calculate CC residues exported/returned according to humus balance approach
-#end of user configuration
+CC_USAGE = "green-manure" #"green-manure" returns all the CC in the soil at harvest, "biomass-production" will calculate CC residues exported/returned according to humus balance approach    
 
-#assemble file name suffix for out
-suffix = "_"
-suffix += TF + "_"
-suffix += "fert-" + FERT_STRATEGY.lower() + "_"
-if RESIDUES_HUMUS_BALANCE:
-    suffix += "res-humbal_"
-else:
-    suffix += "res-" + EXPORT_RATE + "_"
-suffix += "cc-" + COVER_CROP_FREQ["suffix"] + "_"
-suffix += "pl-" + PRODUCTION_LEVEL.replace(".","") + "_"
-
-if FERT_STRATEGY == "NMIN":
-    rotations_file = "rotations_dynamic_harv.json"
-elif FERT_STRATEGY == "NDEM":
-    rotations_file = "rotations_dynamic_harv_Ndem.json"
-elif FERT_STRATEGY == "BASE":
-    rotations_file = "rotations_dynamic_harv_Nbaseline.json"
-
-if LOCAL_RUN:
-    PATH_TO_CLIMATE_DATA_DIR = timeframes[TF]["local-path-to-climate"]
-else:
-    PATH_TO_CLIMATE_DATA_DIR = timeframes[TF]["cluster-path-to-climate"]
-    
-
-def main():
+def producer(setup=None):
     "main function"
+
+    #Configure producer
+    if setup == None:
+        #playground
+        run_id = "custom"
+        PRODUCTION_LEVEL = 'WL.NL.rain' #options: "Pot", "WL.NL.rain"
+        TF = "historical"
+        FERT_STRATEGY = "BASE" #options: "NDEM", "NMIN", "BASE"
+        COVER_CROP_FREQ = { 
+            #always use int for insert-cc-every and out-of
+            #keep out-of as small as possible (to ensure uniform spatial distribution)
+            "insert-cc-every": 1, #CM
+            "out-of": 4, #CM
+            "suffix": "25" #REMEMBER to set it (for output file name)
+        }
+        EXPORT_RATE = "base"
+        RESIDUES_HUMUS_BALANCE = False #mgt complying with humus balance approach of NRW: if true, RESIDUE_EXPORTED has no effect!
+    else:
+        run_id = setup["id"]
+        PRODUCTION_LEVEL = setup["PRODUCTION_LEVEL"]
+        TF = setup["TF"]
+        FERT_STRATEGY = setup["FERT_STRATEGY"]
+        COVER_CROP_FREQ = setup["COVER_CROP_FREQ"]
+        if setup["res_mgt"] == "RESIDUES_HUMUS_BALANCE":
+            RESIDUES_HUMUS_BALANCE = True
+            RESIDUES_EXPORTED = False
+        else:
+            RESIDUES_HUMUS_BALANCE = False
+            EXPORT_RATE = setup["res_mgt"]
+    #end of user configuration
+
+    #assemble file name suffix for out
+    suffix = "_id" + run_id + "_"
+    suffix += TF + "_"
+    suffix += "fert-" + FERT_STRATEGY.lower() + "_"
+    if RESIDUES_HUMUS_BALANCE:
+        suffix += "res-humbal_"
+    else:
+        suffix += "res-" + EXPORT_RATE + "_"
+    suffix += "cc-" + COVER_CROP_FREQ["suffix"] + "_"
+    suffix += "pl-" + PRODUCTION_LEVEL.replace(".","") + "_"
+
+    if FERT_STRATEGY == "NMIN":
+        rotations_file = "rotations_dynamic_harv.json"
+    elif FERT_STRATEGY == "NDEM":
+        rotations_file = "rotations_dynamic_harv_Ndem.json"
+    elif FERT_STRATEGY == "BASE":
+        rotations_file = "rotations_dynamic_harv_Nbaseline.json"
+
+    if LOCAL_RUN:
+        PATH_TO_CLIMATE_DATA_DIR = timeframes[TF]["local-path-to-climate"]
+    else:
+        PATH_TO_CLIMATE_DATA_DIR = timeframes[TF]["cluster-path-to-climate"]
 
     context = zmq.Context()
     socket = context.socket(zmq.PUSH)
@@ -461,6 +475,10 @@ def main():
     
     for (row, col), gmd in general_metadata.iteritems():
 
+        #test
+        #if int(row) != 359 or int(col) != 78:
+        #    continue
+
         if (row, col) in soil_ids and (row, col) in bkr_ids and (row, col) in lu_ids:
 
             bkr_id = bkr_ids[(row, col)]
@@ -490,7 +508,7 @@ def main():
             for rot_id, rotation in rotations[str(bkr_id)].iteritems():
 
                 ########for testing
-                #if rot_id != "9110":
+                #if rot_id != "2130":
                 #    continue
                 
                 #extend rotation
@@ -508,8 +526,8 @@ def main():
                 
                 #update mineral fert (baseline N scenario)
                 if FERT_STRATEGY == "BASE":
-                    for cm in range(len(ext_rot)):
-                        update_fert_values(ext_rot[cm], copy.deepcopy(rots_info[int(rot_id)]), cc_in_cm[cm], expected_N_availability, mineralN_split, KA5_txt, orgN_kreise[kreis_id])
+                    for rot in range(len(ext_rot)):
+                        update_fert_values(ext_rot[rot], copy.deepcopy(rots_info[int(rot_id)]), cc_in_cm[rot], expected_N_availability, mineralN_split, KA5_txt, orgN_kreise[kreis_id])
                 
                 #compose the rotation
                 composed_rot = []
@@ -582,7 +600,31 @@ def main():
 
 
 #topsoil_carbon = {}
-main()
+
+with open("setup_sims.csv") as setup_file:
+    setups = []
+    reader = csv.reader(setup_file)
+    reader.next()
+    for row in reader:
+        cc_set = row[5].split("_outof_")
+        setup = {
+            "id": row[0],
+            "TF": row[2],
+            "FERT_STRATEGY": row[3],
+            "res_mgt": row[4],
+            "COVER_CROP_FREQ": { 
+                "insert-cc-every": int(cc_set[0]), #CM
+                "out-of": int(cc_set[1]), #CM
+                "suffix": str(int(float(cc_set[0])/float(cc_set[1])*100)) 
+            },
+            "PRODUCTION_LEVEL": row[6]
+        }
+        setups.append(setup)
+
+for setup in setups:
+    producer(setup)
+
+#producer()
 
 #with open("topsoilC.csv", "wb") as _:
 #    writer = csv.writer(_, delimiter=",")

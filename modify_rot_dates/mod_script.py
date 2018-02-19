@@ -64,8 +64,25 @@ def dynamic_harvest():
     with open("rotations_dynamic_harv.json", "w") as _:
         _.write(json.dumps(rots, indent=4))
 
+def add_days_to_ws(fpath, target_ws, ndays, relyear):
+    
+    with open(fpath) as _:
+        template = json.load(_)
+
+    for bkr in template:
+        for rot in template[bkr]:
+            for cp in template[bkr][rot]:
+                for ws in cp["worksteps"]:
+                    if ws["type"] == "OrganicFertilization":
+                        current_date = ws["date"].split("-")
+                        new_date = date(2017, int(current_date[1]), int(current_date[2])) + timedelta(days = ndays)
+                        ws["date"] = unicode(relyear + "-" + str(new_date.month).zfill(2) + "-" + str(new_date.day).zfill(2))
+    
+    with open(fpath, "w") as _:
+        _.write(json.dumps(template, indent=4))
 
 #fixed_sowing_harvest()
-dynamic_harvest()
+#dynamic_harvest()
+add_days_to_ws("dyn_harv_files/rotations_dynamic_harv_Ndem.json", "OrganicFertilization", 1, "0000")
 
 print "done!"

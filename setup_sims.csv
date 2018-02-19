@@ -1,0 +1,23 @@
+ID,Purpose,Timeframe,Fert strategy,Residues management,Cover crops,Production level,rcp,climate model
+0,Landscape2018,historical,BASE,base,1_outof_4,Pot,-,-
+1,Landscape2018,2030,BASE,base,1_outof_4,Pot,2.6,IPSL-CM5A-LR 
+2,Landscape2018,2050,BASE,base,1_outof_4,Pot,2.6,IPSL-CM5A-LR 
+3,Landscape2018,2030,NDEM,RESIDUES_HUMUS_BALANCE,1_outof_1,Pot,2.6,IPSL-CM5A-LR 
+4,Landscape2018,2050,NDEM,RESIDUES_HUMUS_BALANCE,1_outof_1,Pot,2.6,IPSL-CM5A-LR 
+5,Landscape2018,2030,NDEM,base,1_outof_4,Pot,2.6,IPSL-CM5A-LR 
+6,Landscape2018,2050,NDEM,base,1_outof_4,Pot,2.6,IPSL-CM5A-LR 
+7,Landscape2018,2030,BASE,RESIDUES_HUMUS_BALANCE,1_outof_4,Pot,2.6,IPSL-CM5A-LR 
+8,Landscape2018,2050,BASE,RESIDUES_HUMUS_BALANCE,1_outof_4,Pot,2.6,IPSL-CM5A-LR 
+9,Landscape2018,2030,BASE,base,1_outof_1,Pot,2.6,IPSL-CM5A-LR 
+10,Landscape2018,2050,BASE,base,1_outof_1,Pot,2.6,IPSL-CM5A-LR 
+11,Landscape2018,historical,BASE,base,1_outof_4,WL.NL.rain,-,-
+12,Landscape2018,2030,BASE,base,1_outof_4,WL.NL.rain,2.6,IPSL-CM5A-LR 
+13,Landscape2018,2050,BASE,base,1_outof_4,WL.NL.rain,2.6,IPSL-CM5A-LR 
+14,Landscape2018,2030,NDEM,RESIDUES_HUMUS_BALANCE,1_outof_1,WL.NL.rain,2.6,IPSL-CM5A-LR 
+15,Landscape2018,2050,NDEM,RESIDUES_HUMUS_BALANCE,1_outof_1,WL.NL.rain,2.6,IPSL-CM5A-LR 
+16,Landscape2018,2030,NDEM,base,1_outof_4,WL.NL.rain,2.6,IPSL-CM5A-LR 
+17,Landscape2018,2050,NDEM,base,1_outof_4,WL.NL.rain,2.6,IPSL-CM5A-LR 
+18,Landscape2018,2030,BASE,RESIDUES_HUMUS_BALANCE,1_outof_4,WL.NL.rain,2.6,IPSL-CM5A-LR 
+19,Landscape2018,2050,BASE,RESIDUES_HUMUS_BALANCE,1_outof_4,WL.NL.rain,2.6,IPSL-CM5A-LR 
+20,Landscape2018,2030,BASE,base,1_outof_1,WL.NL.rain,2.6,IPSL-CM5A-LR 
+21,Landscape2018,2050,BASE,base,1_outof_1,WL.NL.rain,2.6,IPSL-CM5A-LR 
