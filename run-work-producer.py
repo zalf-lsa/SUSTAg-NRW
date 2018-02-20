@@ -100,7 +100,6 @@ EXPORT_PRESETS = {
     }
 }
 COVER_BEFORE = ["SM", "GM", "SB", "PO", "SBee"]
-RESIDUES_EXPORTED = True
 CC_USAGE = "green-manure" #"green-manure" returns all the CC in the soil at harvest, "biomass-production" will calculate CC residues exported/returned according to humus balance approach    
 
 def producer(setup=None):
@@ -120,6 +119,7 @@ def producer(setup=None):
             "out-of": 4, #CM
             "suffix": "25" #REMEMBER to set it (for output file name)
         }
+        RESIDUES_EXPORTED = True
         EXPORT_RATE = "base"
         RESIDUES_HUMUS_BALANCE = False #mgt complying with humus balance approach of NRW: if true, RESIDUE_EXPORTED has no effect!
     else:
@@ -133,6 +133,7 @@ def producer(setup=None):
             RESIDUES_EXPORTED = False
         else:
             RESIDUES_HUMUS_BALANCE = False
+            RESIDUES_EXPORTED = True
             EXPORT_RATE = setup["res_mgt"]
     #end of user configuration
 
