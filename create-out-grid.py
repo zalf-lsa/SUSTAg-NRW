@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import csv
+import os
 from collections import defaultdict
 
 def map_indexes(aggr_data, cells, rotations=None):
@@ -114,7 +115,7 @@ def crop_grids(df, plot_vars, n_rows, n_cols, measure="avg"):
             write_grid_file(grid_data, cp + "_" + measure, out_var)
             print("out grid for crop: " + str(cp) + " var: " + str(out_var) + " ready!")
 
-def allcrops_grids(df, plot_vars, n_rows, n_cols, measure="avg"):
+def allcrops_grids(df, plot_vars, n_rows, n_cols, measure="avg", suffix=""):
     "aggregate all the crops"
     
     cp = "allcrops"
@@ -138,7 +139,7 @@ def allcrops_grids(df, plot_vars, n_rows, n_cols, measure="avg"):
         for row in range(n_rows):
             for col in range(n_cols):
                 update_grid_data(aggr_data, grid_data, row, col, r_loc, c_index)
-        write_grid_file(grid_data, cp + "_" + measure, out_var)
+        write_grid_file(grid_data, cp + "_" + measure + "_" + suffix, out_var)
         print("out grid for crop: " + str(cp) + " var: " + str(out_var) + " ready!")
 
 def year_rotation_grids(df, plot_vars, n_rows, n_cols, measure = "avg"):
@@ -167,7 +168,7 @@ def year_rotation_grids(df, plot_vars, n_rows, n_cols, measure = "avg"):
             write_grid_file(grid_data, "yearly_" + measure, out_var, rot)
             print("out grid for yearly out var: " + str(out_var) + " and rotation: " + str(rot) + " ready!")
 
-def year_grids(df, plot_vars, n_rows, n_cols, measure = "avg"):
+def year_grids(df, plot_vars, n_rows, n_cols, measure = "avg", suffix=""):
     
     #aggregate per cell and rotation
     if measure == "avg":
@@ -188,7 +189,7 @@ def year_grids(df, plot_vars, n_rows, n_cols, measure = "avg"):
         for row in range(n_rows):
             for col in range(n_cols):
                 update_grid_data(aggr_data, grid_data, row, col, r_loc, c_index)
-        write_grid_file(grid_data, "yearly_" + measure, out_var)
+        write_grid_file(grid_data, "yearly_" + measure + "_" + suffix, out_var)
         print("out grid for yearly out var: " + str(out_var) + " ready!")
 
 def testgrid(filename, n_rows, n_cols):
@@ -227,6 +228,7 @@ def testgrid(filename, n_rows, n_cols):
 
     write_grid_file(grid_data, "testXenia", "elevation")
 
+'''
 #read file(s)
 print("reading files...")
 #df_cp_129 = pd.read_csv("out/splitted-out/129_crop.csv")
@@ -275,3 +277,37 @@ print("creating grids...")
 year_grids(yr_df, plot_vars_year, n_rows, n_cols)
 
 print "finished!"
+'''
+
+#for Ioanna
+n_rows = 241
+n_cols = 250
+
+base_dir = "Z:/projects/sustag/out-NRW-2018-02-22-fixes-and-additions/splitted/"
+
+plot_vars_crop = ["ExportResidues", "ReturnResidues", "Exp_ratio", "yield"]
+plot_vars_year = ["Nleach", "deltaOC"]
+
+for grid_type in ["_crop"]:#, "_year"]:
+    for my_dir in os.listdir(base_dir):
+        dframes = []
+        merged_df = None
+        for f in os.listdir(base_dir + my_dir):
+            if ".asc" in f:
+                continue
+            fname = f.split("_")
+            id_sim = fname[1][2:]
+            if grid_type in f:
+                print(" appending " + f)
+                dframes.append(pd.read_csv(base_dir + my_dir + "/" + f))
+        print("concatenating data frames...")
+        merged_df = pd.concat(dframes)
+        if grid_type == "_crop":
+            allcrops_grids(merged_df, plot_vars_crop, n_rows, n_cols, suffix=id_sim)
+        elif grid_type == "_year":
+            year_grids(merged_df, plot_vars_year, n_rows, n_cols, suffix=id_sim)
+
+print "finished!"
+
+
+

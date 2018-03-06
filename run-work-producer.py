@@ -88,7 +88,7 @@ humus_equivalent = {
 }
 #macsur climate data:
 #PATH_TO_CLIMATE_DATA_DIR ="/archiv-daten/md/projects/sustag/MACSUR_WP3_NRW_1x1/" #"Z:/projects/sustag/MACSUR_WP3_NRW_1x1/"
-LOCAL_RUN = False 
+LOCAL_RUN = True 
 
 EXPORT_PRESETS = {
     "all": "export all residues available according to MONICA secondary yield params",
@@ -485,7 +485,7 @@ def producer(setup=None):
             bkr_id = bkr_ids[(row, col)]
             
             ########for testing
-            if bkr_id != 142:
+            if bkr_id != 129:
                 continue
             
             soil_id = soil_ids[(row, col)]
@@ -602,7 +602,7 @@ def producer(setup=None):
 
 #topsoil_carbon = {}
 
-with open("setup_sims.csv") as setup_file:
+with open("setup_sims_test.csv") as setup_file:
     setups = []
     reader = csv.reader(setup_file)
     reader.next()

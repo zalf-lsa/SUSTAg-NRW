@@ -34,7 +34,7 @@ import zmq
 import monica_io
 import re
 
-LOCAL_RUN = False
+LOCAL_RUN = True
 
 def create_year_output(oids, row, col, rotation, prod_level, values, start_recording_out):
     "create year output lines"
