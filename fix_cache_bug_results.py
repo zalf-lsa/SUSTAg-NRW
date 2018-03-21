@@ -17,39 +17,10 @@ def main():
 
         files[(bkr_id, setup_id, crop_or_year)] = [path, filename]
 
-    def move_year_lines(number_of_lines, from_setup_id, to_setup_id):
-        "move lines from one year file to other"
-        fp21 = files[(bkr_id, from_setup_id, "year")]
-        fp20 = files[(bkr_id, to_setup_id, "year")] 
-        
-        os.rename("".join(fp21), fp21[0] + "_" + fp21[1])
-
-        f_21 = open(fp21[0] + "_" + fp21[1])
-        f21 = open("".join(fp21), "w")
-        f20 = open("".join(fp20), "a")
-
-        f21.write(f_21.readline())
-        for _ in range(number_of_lines):
-            f20.write(f_21.readline())
-        
-        while True:
-            l = f_21.readline()
-            if l:
-                f21.write(l)
-            else:
-                break  
-
-        f_21.close()
-        f21.close()
-        f20.close()
-
-        print "moved", number_of_lines, "from", fp21, "to", fp20
-
-
-    def move_crop_lines(first_id_cell, from_setup_id, to_setup_id):
+    def move_lines(crop_or_year, first_id_cell, from_setup_id, to_setup_id):
         "move lines from one file to other"
-        fp21 = files[(bkr_id, from_setup_id, "crop")]
-        fp20 = files[(bkr_id, to_setup_id, "crop")] 
+        fp21 = files[(bkr_id, from_setup_id, crop_or_year)]
+        fp20 = files[(bkr_id, to_setup_id, crop_or_year)] 
         
         os.rename("".join(fp21), fp21[0] + "_" + fp21[1])
 
@@ -86,20 +57,20 @@ def main():
 
 
     for bkr_id, first_id_cell in [(129, 505058), (134, 402211), (141, 479045), (142, 360157), (143, 392152), (146, 309204), (147, 333197), (148, 369081), (191, 303128)]:
-        move_crop_lines(first_id_cell, 21, 20)
-        move_year_lines(240, 21, 20)
+        #move_lines("crop", first_id_cell, 21, 20)
+        move_lines("year", first_id_cell, 21, 20)
 
-        move_crop_lines(first_id_cell, 11, 10)
-        move_crop_lines(first_id_cell, 10, 9)
+        #move_lines("crop", first_id_cell, 11, 10)
+        #move_lines("crop", first_id_cell, 10, 9)
 
-        move_year_lines(480, 11, 10)
-        move_year_lines(240, 10, 9)
+        move_lines("year", first_id_cell, 11, 10)
+        move_lines("year", first_id_cell, 10, 9)
  
-        move_crop_lines(first_id_cell, 5, 4)
-        move_crop_lines(first_id_cell, 4, 3)
+        #move_lines("crop", first_id_cell, 5, 4)
+        #move_lines("crop", first_id_cell, 4, 3)
 
-        move_year_lines(480, 5, 4)
-        move_year_lines(240, 4, 3)
+        move_lines("year", first_id_cell, 5, 4)
+        move_lines("year", first_id_cell, 4, 3)
 
 
 if __name__ == "__main__":
