@@ -36,7 +36,7 @@ import re
 
 LOCAL_RUN = False
 
-def create_year_output(oids, row, col, rotation, prod_level, values, start_recording_out):
+def create_year_output(oids, row, col, rotation, prod_level, values, start_recording_out, KA5_txt, soil_type):
     "create year output lines"
     row_col = "{}{:03d}".format(row, col)
     out = []
@@ -77,9 +77,11 @@ def create_year_output(oids, row, col, rotation, prod_level, values, start_recor
                     vals.get("N2O", "NA"),
                     vals.get("Precip", "NA"),
                     vals.get("Tavg", "NA"),
-                    vals.get("Clay", "NA"),
-                    vals.get("Silt", "NA"),
-                    vals.get("Sand", "NA")
+                    KA5_txt,
+                    soil_type
+                    #vals.get("Clay", "NA"),
+                    #vals.get("Silt", "NA"),
+                    #vals.get("Sand", "NA")
                 ])
 
     return out
@@ -210,7 +212,7 @@ def write_data(region_id, year_data, crop_data, pheno_data, suffix):
 
     if not os.path.isfile(path_to_year_file):
         with open(path_to_year_file, "w") as _:
-            _.write("IDcell,rotation,prodlevel,year,deltaOC,CO2emission,NEP,ET,EV,waterperc,Nleach,Nup,Nminfert,Norgfert,N2Oem,Precip,yearTavg,Clay,Silt,Sand\n")
+            _.write("IDcell,rotation,prodlevel,year,deltaOC,CO2emission,NEP,ET,EV,waterperc,Nleach,Nup,Nminfert,Norgfert,N2Oem,Precip,yearTavg,KA5class,soiltype\n")
 
     with open(path_to_year_file, 'ab') as _:
         writer = csv.writer(_, delimiter=",")
@@ -261,7 +263,7 @@ def collector():
     if LOCAL_RUN:
         socket.connect("tcp://localhost:77773")
     else:
-        socket.connect("tcp://cluster2:77773")
+        socket.connect("tcp://cluster3:77773")
     socket.RCVTIMEO = 1000
     leave = False
     write_normal_output_files = False
@@ -300,6 +302,8 @@ def collector():
             start_recording_out = int(ci_parts[7])
             residue_humus_balance = True_False_string(ci_parts[8])
             suffix = ci_parts[9]
+            KA5_txt = ci_parts[10]
+            soil_type = ci_parts[11]
 
             for data in result.get("data", []):
                 results = data.get("results", [])
@@ -307,7 +311,7 @@ def collector():
                 output_ids = data.get("outputIds", [])
                 if len(results) > 0:
                     if orig_spec == '"yearly"':
-                        res = create_year_output(output_ids, row, col, rotation, prod_level, results, start_recording_out)
+                        res = create_year_output(output_ids, row, col, rotation, prod_level, results, start_recording_out, KA5_txt, soil_type)
                         year_data[region_id].extend(res)
                     elif orig_spec == '"crop"':
                         res = create_crop_output(output_ids, row, col, rotation, prod_level, results, use_secondary_yields, start_recording_out, residue_humus_balance)

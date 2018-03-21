@@ -4,6 +4,7 @@
 		"WaterDeficitResponseOn": false,
 		"UseAutomaticIrrigation": false,
 		"UseNMinMineralFertilisingMethod": false,
+		"FrostKillOn": false,
 		"output": [
 			"yearly", [
 				"Year", 
@@ -71,7 +72,7 @@
 				["Year"],
 				["Crop"],
 				["DOY|harvest"]
-			]
+			]			
 		]
 	},
 	"WL.NL.irr": {
@@ -79,6 +80,7 @@
 		"WaterDeficitResponseOn": true,
 		"UseAutomaticIrrigation": true,
 		"UseNMinMineralFertilisingMethod": true,
+		"FrostKillOn": false,
 		"output": [
 			"yearly", [
 				"Year", 
@@ -117,6 +119,7 @@
 		"WaterDeficitResponseOn": true,
 		"UseAutomaticIrrigation": false,
 		"UseNMinMineralFertilisingMethod": true,
+		"FrostKillOn": false,
 		"output": [
 			"yearly", [
 				"Year", 
@@ -184,7 +187,7 @@
 				["Year"],
 				["Crop"],
 				["DOY|harvest"]
-			]
+			]			
 		]
 	},
 	"WL.irr": {
@@ -192,6 +195,7 @@
 		"WaterDeficitResponseOn": true,
 		"UseAutomaticIrrigation": true,
 		"UseNMinMineralFertilisingMethod": false,
+		"FrostKillOn": false,
 		"output": [
 			"yearly", [
 				"Year", 
@@ -227,6 +231,7 @@
 		"WaterDeficitResponseOn": true,
 		"UseAutomaticIrrigation": false,
 		"UseNMinMineralFertilisingMethod": false,
+		"FrostKillOn": false,
 		"output": [
 			"yearly", [
 				"Year", 

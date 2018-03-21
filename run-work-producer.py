@@ -59,11 +59,11 @@ timeframes = {
         "local-path-to-climate": ["z:/data/climate/isimip/csvs/earth/", "z:/data/climate/isimip/csvs/germany-nrw/"] #base + rcp 2.6
     },
     "2050": {
-        "start-date": "2021-01-01",
+        "start-date": "2001-01-01",
         "end-date": "2050-12-31",
         "start-recording-out": 2031,
-        "cluster-path-to-climate": ["/archiv-daten/md/data/climate/isimip/csvs/germany-nrw/"], #rcp 2.6
-        "local-path-to-climate": ["z:/data/climate/isimip/csvs/germany-nrw/"] #rcp 2.6
+        "cluster-path-to-climate": ["/archiv-daten/md/data/climate/isimip/csvs/earth/", "/archiv-daten/md/data/climate/isimip/csvs/germany-nrw/"], #base + rcp 2.6
+        "local-path-to-climate": ["z:/data/climate/isimip/csvs/earth/", "z:/data/climate/isimip/csvs/germany-nrw/"] #base + rcp 2.6
     }
 }
 
@@ -166,7 +166,7 @@ def producer(setup=None):
     if LOCAL_RUN:
         socket.connect("tcp://localhost:66663")
     else:
-        socket.connect("tcp://cluster2:" + str(port))
+        socket.connect("tcp://cluster3:" + str(port))
 
     soil_db_con = sqlite3.connect("soil.sqlite")
 
@@ -418,17 +418,8 @@ def producer(setup=None):
 
         return AOM_fresh
 
-    def update_fert_values(rotation, rot_info, cc_in_cm, expected_N_availability, mineralN_split, KA5_class, orgN_applied):
+    def update_fert_values(rotation, rot_info, cc_in_cm, expected_N_availability, mineralN_split, soil_type, orgN_applied):
         "function to mimic baseline fertilization"
-
-        light_soils = ["Ss", "Su2", "Su3", "Su4", "St2", "Sl3", "Sl2"]
-        heavy_soils = ["Tu3", "Tu4", "Lt3", "Ts2", "Tl", "Tu2", "Tt"]
-
-        soil_type = "medium"
-        if KA5_class in light_soils:
-            soil_type = "light"
-        elif KA5_class in heavy_soils:
-            soil_type = "heavy"
 
         cow_unit = 77.5
         GVs = orgN_applied/cow_unit
@@ -477,7 +468,7 @@ def producer(setup=None):
     for (row, col), gmd in general_metadata.iteritems():
 
         #test
-        #if int(row) != 359 or int(col) != 78:
+        #if int(row) != 505 or int(col) != 58:
         #    continue
 
         if (row, col) in soil_ids and (row, col) in bkr_ids and (row, col) in lu_ids:
@@ -485,8 +476,8 @@ def producer(setup=None):
             bkr_id = bkr_ids[(row, col)]
             
             ########for testing
-            if bkr_id != 142:
-                continue
+            #if bkr_id != 129:
+            #    continue
             
             soil_id = soil_ids[(row, col)]
             meteo_id = meteo_ids[(row, col)]
@@ -499,8 +490,17 @@ def producer(setup=None):
                 print "-----------------------------------------------------"
 
             simulated_cells += 1
-            
+
             KA5_txt = update_soil_crop_dates(row, col)
+
+            light_soils = ["Ss", "Su2", "Su3", "Su4", "St2", "Sl3", "Sl2"]
+            heavy_soils = ["Tu3", "Tu4", "Lt3", "Ts2", "Tl", "Tu2", "Tt"]
+
+            soil_type = "medium"
+            if KA5_txt in light_soils:
+                soil_type = "light"
+            elif KA5_txt in heavy_soils:
+                soil_type = "heavy"
 
             #row_col = "{}{:03d}".format(row, col)
             #topsoil_carbon[row_col] = site["SiteParameters"]["SoilProfileParameters"][0]["SoilOrganicCarbon"][0]
@@ -509,8 +509,8 @@ def producer(setup=None):
             for rot_id, rotation in rotations[str(bkr_id)].iteritems():
 
                 ########for testing
-                #if rot_id != "2130":
-                #    continue
+                if rot_id != "11111":
+                    continue
                 
                 #extend rotation
                 ext_rot = []
@@ -528,7 +528,7 @@ def producer(setup=None):
                 #update mineral fert (baseline N scenario)
                 if FERT_STRATEGY == "BASE":
                     for rot in range(len(ext_rot)):
-                        update_fert_values(ext_rot[rot], copy.deepcopy(rots_info[int(rot_id)]), cc_in_cm[rot], expected_N_availability, mineralN_split, KA5_txt, orgN_kreise[kreis_id])
+                        update_fert_values(ext_rot[rot], copy.deepcopy(rots_info[int(rot_id)]), cc_in_cm[rot], expected_N_availability, mineralN_split, soil_type, orgN_kreise[kreis_id])
                 
                 #compose the rotation
                 composed_rot = []
@@ -570,6 +570,7 @@ def producer(setup=None):
                     env["params"]["simulationParameters"]["WaterDeficitResponseOn"] = sim_["WaterDeficitResponseOn"]
                     env["params"]["simulationParameters"]["UseAutomaticIrrigation"] = sim_["UseAutomaticIrrigation"]
                     env["params"]["simulationParameters"]["UseNMinMineralFertilisingMethod"] = sim_["UseNMinMineralFertilisingMethod"]
+                    env["params"]["simulationParameters"]["FrostKillOn"] = sim_["FrostKillOn"]
 
                     for main_cp_iteration in range(0, len(rots_info[int(rot_id)])):
                         #do not allow crop rotation to start with a CC
@@ -585,7 +586,9 @@ def producer(setup=None):
                                         + "|" + str(sim["UseSecondaryYields"]) \
                                         + "|" + str(timeframes[TF]["start-recording-out"]) \
                                         + "|" + str(RESIDUES_HUMUS_BALANCE) \
-                                        + "|" + suffix
+                                        + "|" + suffix \
+                                        + "|" + KA5_txt \
+                                        + "|" + soil_type
                         
                         socket.send_json(env) 
                         print "sent env ", sent_id, " customId: ", env["customId"]
@@ -602,7 +605,7 @@ def producer(setup=None):
 
 #topsoil_carbon = {}
 
-with open("setup_sims.csv") as setup_file:
+with open("setup_sims_test.csv") as setup_file:
     setups = []
     reader = csv.reader(setup_file)
     reader.next()

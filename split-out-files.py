@@ -2,13 +2,13 @@ import os
 import csv
 
 basepath = os.path.dirname(os.path.abspath(__file__))
-dir_name = basepath + "/out/out-020218-baseline-POT/"
+dir_name = basepath + "/out/test-hum-bal-txt/"
 out_dir = basepath + "/out/splitted-out/"
 
 
 #extract_vars_cp = ["IDcell", "crop", "rotation", "yield", "Nleach", "Nminfert", "RemovalRate", "FertMethod"]
-extract_vars_cp = ["crop", "rotation", "yield", "ReturnResidues"]
-extract_vars_yr = ["IDcell", "rotation", "Nleach", "deltaOC"]
+#extract_vars_cp = ["crop", "rotation", "yield", "ReturnResidues"]
+extract_vars_yr = ["IDcell", "rotation", "deltaOC", "KA5class", "soiltype"]
 
 def split(suffix, extract_vars, tag_bkr=True, calc_hi=False, pot_cp_residue=False, excludecc=False):
     for filename in os.listdir(dir_name):
@@ -58,8 +58,8 @@ def split(suffix, extract_vars, tag_bkr=True, calc_hi=False, pot_cp_residue=Fals
                     writer.writerow(row_)
             print(filename + " done!")
 
-split("_crop", extract_vars_cp, tag_bkr=True, calc_hi=False, pot_cp_residue=False, excludecc=False)
-#split("_year", extract_vars_yr, tag_bkr=True)
+#split("_crop", extract_vars_cp, tag_bkr=True, calc_hi=False, pot_cp_residue=False, excludecc=False)
+split("_year", extract_vars_yr, tag_bkr=True)
 
 def add_out_colums(col_names, col_vals, directory):
     #create a new file with added cols
@@ -90,5 +90,56 @@ def add_out_colums(col_names, col_vals, directory):
 #col_vals = ["0", "Nmin"]
 
 #add_out_colums(col_names, col_vals, dir_name)
+
+#print("finished")
+
+dir_name = "Z:/projects/sustag/out-NRW-2018-02-22-fixes-and-additions/"
+
+extract_vars_cp = ["IDcell", "crop", "rotation", "yield", "ExportResidues", "ReturnResidues", "id", "bkr", "tf", "fert", "res", "cc", "pl"]
+extract_vars_yr = ["IDcell", "rotation", "Nleach", "deltaOC", "id", "bkr", "tf", "fert", "res", "cc", "pl"]
+
+
+def split_ioanna(suffix, extract_vars, calc_res_ratio=False):
+    for filename in os.listdir(dir_name):
+        if ".csv" in filename and suffix in filename:
+            print("opening " + filename)
+            fname = filename.split("_")
+            towrite = []
+            with open(dir_name + filename) as file_:
+                reader = csv.reader(file_, delimiter=",")
+                header = reader.next()
+                field_map = {}
+                for i in range(len(header)):
+                    field_map[header[i]] = i
+                for row in reader:
+                    line = []
+                    for v in extract_vars:
+                        line.append(row[field_map[v]])
+                    if calc_res_ratio:
+                        ex_res = float(row[field_map["ExportResidues"]])
+                        ret_res = float(row[field_map["ReturnResidues"]])
+                        ratio = round(ex_res / (ex_res + ret_res), 2)
+                        line.append(str(ratio))
+                    towrite.append(line)
+            
+            out_dir = dir_name + "splitted/" + fname[1][2:]
+            if not os.path.exists(out_dir):
+                os.makedirs(out_dir)
+            out_name = out_dir + "/" + filename
+
+            with open(out_name, 'wb') as _:
+                writer = csv.writer(_, delimiter=",")
+                out_header = []
+                for ev in extract_vars:
+                    out_header.append(ev)
+                if calc_res_ratio:
+                    out_header.append("Exp_ratio")
+                writer.writerow(out_header)
+                for row_ in towrite:
+                    writer.writerow(row_)
+            print(filename + " done!")
+
+#split_ioanna("_crop", extract_vars_cp, calc_res_ratio=True)
+#split_ioanna("_year", extract_vars_yr)
 
 print("finished")
