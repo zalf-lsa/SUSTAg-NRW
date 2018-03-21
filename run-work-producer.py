@@ -30,6 +30,9 @@ import ascii_io
 from datetime import date, timedelta
 import copy
 import os
+import numpy as np
+from scipy.interpolate import NearestNDInterpolator
+from pyproj import Proj, transform
 from collections import defaultdict
 
 USER = "stella"
@@ -37,9 +40,11 @@ USER = "stella"
 PATHS = {
     "stella": {
         "INCLUDE_FILE_BASE_PATH": "C:/Users/stella/Documents/GitHub",
+        "path-to-data-dir": "z:/data/",
     },
     "berg": {
-        "INCLUDE_FILE_BASE_PATH": "C:/Users/berg.ZALF-AD/MONICA"        
+        "INCLUDE_FILE_BASE_PATH": "C:/Users/berg.ZALF-AD/MONICA"  ,
+        "path-to-data-dir": "N:/",      
     }
 }
 
@@ -104,6 +109,8 @@ CC_USAGE = "green-manure" #"green-manure" returns all the CC in the soil at harv
 
 def producer(setup=None):
     "main function"
+
+    paths = PATHS[USER]
 
     #Configure producer
     if setup == None:
@@ -278,7 +285,7 @@ def producer(setup=None):
                 for organ in cp[1]["cropParams"]["cultivar"]["OrganIdsForSecondaryYield"]:
                     organ["yieldPercentage"] *= my_rate
 
-    sim["include-file-base-path"] = PATHS[USER]["INCLUDE_FILE_BASE_PATH"]
+    sim["include-file-base-path"] = paths["INCLUDE_FILE_BASE_PATH"]
 
     def read_general_metadata(path_to_file):
         "read metadata file"
@@ -336,6 +343,19 @@ def producer(setup=None):
         
         return KA5_txt
     
+    def read_header(path_to_ascii_grid_file):
+        "read metadata from esri ascii grid file"
+        metadata = {}
+        header_str = ""
+        with open(path_to_ascii_grid_file) as _:
+            for i in range(0, 6):
+                line = _.readline()
+                header_str += line
+                sline = [x for x in line.split() if len(x) > 0]
+                if len(sline) > 1:
+                    metadata[sline[0].strip().lower()] = float(sline[1].strip())
+        return metadata, header_str
+
     def read_ascii_grid(path_to_file, include_no_data=False, row_offset=0, col_offset=0):
         "read an ascii grid into a map, without the no-data values"
         def int_or_float(s):
@@ -367,6 +387,46 @@ def producer(setup=None):
     lu_ids = read_ascii_grid("lu_resampled.asc", row_offset=282)
     kreise_ids = read_ascii_grid("kreise_matrix.asc", row_offset=282)
     meteo_ids = load_mapping(row_offset=282)
+
+    soil_metadata, _ = read_header("soil-profile-id_nrw_gk3.asc")
+
+    wgs84 = Proj(init="epsg:4326")
+    gk3 = Proj(init="epsg:3396")
+    gk5 = Proj(init="epsg:31469")
+    
+    def create_ascii_grid_interpolator(arr, meta, ignore_nodata=True):
+        "read an ascii grid into a map, without the no-data values"
+
+        rows, cols = arr.shape
+
+        cellsize = int(meta["cellsize"])
+        xll = int(meta["xllcorner"])
+        yll = int(meta["yllcorner"])
+        nodata_value = meta["nodata_value"]
+
+        xll_center = xll + cellsize // 2
+        yll_center = yll + cellsize // 2
+        yul_center = yll_center + (rows - 1)*cellsize
+
+        points = []
+        values = []
+
+        for row in range(rows):
+            for col in range(cols):
+                value = arr[row, col]
+                if ignore_nodata and value == nodata_value:
+                    continue
+                r = xll_center + col * cellsize
+                h = yul_center - row * cellsize
+                points.append([r, h])
+                values.append(value)
+
+        return NearestNDInterpolator(np.array(points), np.array(values))
+
+    path_to_slope_grid = paths["path-to-data-dir"] + "/germany/slope_1000_gk5.asc"
+    slope_metadata, _ = read_header(path_to_slope_grid)
+    slope_grid = np.loadtxt(path_to_slope_grid, dtype=float, skiprows=6)
+    slope_gk5_interpolate = create_ascii_grid_interpolator(slope_grid, slope_metadata)
 
     #counter = 0
     #for k, v in bkr_ids.iteritems():
@@ -465,6 +525,16 @@ def producer(setup=None):
     simulated_cells = 0
     no_kreis = 0
     
+    export_lat_lon_coords = False
+    export_lat_lon_file = None
+    srows = int(soil_metadata["nrows"])
+    scellsize = int(soil_metadata["cellsize"])
+    sxll = int(soil_metadata["xllcorner"])
+    syll = int(soil_metadata["yllcorner"])
+    sxll_center = sxll + scellsize // 2
+    syll_center = syll + scellsize // 2
+    syul_center = syll_center + (srows - 1)*scellsize
+
     for (row, col), gmd in general_metadata.iteritems():
 
         #test
@@ -472,6 +542,23 @@ def producer(setup=None):
         #    continue
 
         if (row, col) in soil_ids and (row, col) in bkr_ids and (row, col) in lu_ids:
+
+            # get gk3 coordinates for soil row/col
+            sr_gk3 = sxll_center + col * scellsize
+            sh_gk3 = syul_center - row * scellsize
+
+            if export_lat_lon_coords:
+                if not export_lat_lon_file:
+                    export_lat_lon_file = open("soil_row_col_to_lat_lon_coords.csv", "w")
+                    export_lat_lon_file.write("row,col,lat,lon\n")
+                
+                slon, slat = transform(gk3, wgs84, sr_gk3, sh_gk3)
+                export_lat_lon_file.write(",".join(map(str, [row, col, slat, slon])) + "\n")
+
+            sr_gk5, sh_gk5 = transform(gk3, gk5, sr_gk3, sh_gk3)
+            site["SiteParameters"]["Slope"] = slope_gk5_interpolate(sr_gk5, sh_gk5) / 100.0
+
+            #continue
 
             bkr_id = bkr_ids[(row, col)]
             
@@ -595,7 +682,8 @@ def producer(setup=None):
                         sent_id += 1
                         rotate(env["cropRotation"])
                         
-
+    if export_lat_lon_file:
+        export_lat_lon_file.close()
 
     stop_send = time.clock()
 
