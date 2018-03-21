@@ -616,7 +616,7 @@
                         "max-curr-day-precip": 1, 
                         "min-%-asw": 0, 
                         "max-%-asw": 100, 
-                        "latest-date": "0000-10-29", 
+                        "latest-date": "0000-10-10", 
                         "type": "AutomaticHarvest"
                     }
                 ]
@@ -1174,7 +1174,7 @@
                         "max-curr-day-precip": 1, 
                         "min-%-asw": 0, 
                         "max-%-asw": 100, 
-                        "latest-date": "0000-10-29", 
+                        "latest-date": "0000-10-10", 
                         "type": "AutomaticHarvest"
                     }
                 ]
@@ -1564,7 +1564,7 @@
                         "max-curr-day-precip": 1, 
                         "min-%-asw": 0, 
                         "max-%-asw": 100, 
-                        "latest-date": "0000-11-20", 
+                        "latest-date": "0000-10-15", 
                         "type": "AutomaticHarvest"
                     }
                 ]
@@ -2152,7 +2152,7 @@
                         "max-curr-day-precip": 1, 
                         "min-%-asw": 0, 
                         "max-%-asw": 100, 
-                        "latest-date": "0000-11-04", 
+                        "latest-date": "0000-10-15", 
                         "type": "AutomaticHarvest"
                     }
                 ]
@@ -3104,7 +3104,7 @@
                         "max-curr-day-precip": 1, 
                         "min-%-asw": 0, 
                         "max-%-asw": 100, 
-                        "latest-date": "0000-11-20", 
+                        "latest-date": "0000-10-30", 
                         "type": "AutomaticHarvest"
                     }
                 ]
@@ -3342,7 +3342,7 @@
                         "max-curr-day-precip": 1, 
                         "min-%-asw": 0, 
                         "max-%-asw": 100, 
-                        "latest-date": "0000-11-20", 
+                        "latest-date": "0000-10-30", 
                         "type": "AutomaticHarvest"
                     }
                 ]
@@ -3948,7 +3948,7 @@
                         "max-curr-day-precip": 1, 
                         "min-%-asw": 0, 
                         "max-%-asw": 100, 
-                        "latest-date": "0000-10-30", 
+                        "latest-date": "0000-10-03", 
                         "type": "AutomaticHarvest"
                     }
                 ]
@@ -4098,7 +4098,7 @@
                         "max-curr-day-precip": 1, 
                         "min-%-asw": 0, 
                         "max-%-asw": 100, 
-                        "latest-date": "0000-10-05", 
+                        "latest-date": "0000-09-16", 
                         "type": "AutomaticHarvest"
                     }
                 ]
@@ -4720,7 +4720,7 @@
                         "max-curr-day-precip": 1, 
                         "min-%-asw": 0, 
                         "max-%-asw": 100, 
-                        "latest-date": "0000-10-16", 
+                        "latest-date": "0000-10-15", 
                         "type": "AutomaticHarvest"
                     }
                 ]
@@ -5154,7 +5154,7 @@
                         "max-curr-day-precip": 1, 
                         "min-%-asw": 0, 
                         "max-%-asw": 100, 
-                        "latest-date": "0000-10-11", 
+                        "latest-date": "0000-10-03", 
                         "type": "AutomaticHarvest"
                     }
                 ]
@@ -5626,7 +5626,7 @@
                         "max-curr-day-precip": 1, 
                         "min-%-asw": 0, 
                         "max-%-asw": 100, 
-                        "latest-date": "0000-10-11", 
+                        "latest-date": "0000-10-03", 
                         "type": "AutomaticHarvest"
                     }
                 ]
@@ -5862,7 +5862,7 @@
                         "max-curr-day-precip": 1, 
                         "min-%-asw": 0, 
                         "max-%-asw": 100, 
-                        "latest-date": "0000-10-11", 
+                        "latest-date": "0000-10-03", 
                         "type": "AutomaticHarvest"
                     }
                 ]

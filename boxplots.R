@@ -50,7 +50,7 @@ setwd("C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/splitted-out/")
 #setwd("C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/out-kuopio/splitted-out/out-kuopio-2030-Nmin-33removal/")
 
 #list files in the nested directories
-mylist <- list.files(pattern="*_crop.csv", recursive=TRUE)
+mylist <- list.files(pattern="*_year.csv", recursive=TRUE)
 
 #temp_dataset$resremoval <- rep(33,nrow(temp_dataset)) # make new column 
 
@@ -82,6 +82,14 @@ levels(dataset$crop)[levels(dataset$crop)=="sugar-beet_"] <- "SBee"
 levels(dataset$crop)[levels(dataset$crop)=="maize_grain-maize"] <- "GM"
 
 dataset$bkr <- factor(dataset$bkr)
+
+plot <- ggplot(dataset, aes(x = crop, y = yield)) + geom_boxplot() + theme_bw()
+plot + ggtitle("Pot-noheat-nofrost")
+
+
+#dataset$yieldRounded<-round(dataset$yield, digits = -1)
+#plot_viol <- ggplot(dataset, aes(x = crop, y = yieldRounded)) + geom_violin() + theme_bw()
+#plot_viol
 
 #yield, Nleach, Nminfert
 plot <- ggplot(dataset, aes(x = bkr, y = yield)) + 
@@ -129,6 +137,15 @@ plot <- ggplot(bkr191_dataset, aes(x = rotation, y = deltaOC)) +
 plot <- plot + theme_bw()
 plot
 
+#test humus balance effectivity
+dataset$KA5class <- factor(dataset$KA5class)
+dataset$soiltype <- factor(dataset$soiltype)
+plot <- ggplot(dataset, aes(x = soiltype, y = deltaOC)) + 
+  geom_boxplot()
+plot <- plot + facet_wrap(~ rotation)
+plot <- plot + theme_bw()
+plot <- plot + geom_hline(yintercept = 0)
+plot
 
 dataset$bkr <- factor(dataset$bkr)
 plot <- ggplot(dataset, aes(x = bkr, y = deltaOC)) + 
