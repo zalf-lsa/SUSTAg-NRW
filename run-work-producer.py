@@ -86,21 +86,51 @@ humus_equivalent = {
         "pig-slurry": 100
     }
 }
+#for testing: modify humus equivalent
+for cp_h in humus_equivalent["crop"].keys():
+    humus_equivalent["crop"][cp_h] -= 0
 #macsur climate data:
 #PATH_TO_CLIMATE_DATA_DIR ="/archiv-daten/md/projects/sustag/MACSUR_WP3_NRW_1x1/" #"Z:/projects/sustag/MACSUR_WP3_NRW_1x1/"
 LOCAL_RUN = False 
 
 EXPORT_PRESETS = {
-    "all": "export all residues available according to MONICA secondary yield params",
+    "all": {
+        #export all residues available according to MONICA secondary yield params
+        ("WW", "WB", "SB", "WTr", "GM") : 1, #0% left on the field
+        ("SM", "WRa", "PO", "SBee") : 1
+    },
+    "theoretical": {
+        ("WW", "WB", "SB", "WTr", "GM") : 1, #0% left on the field
+        ("SM", "WRa", "PO", "SBee") : 0
+    },
     "base": {
         #cereals (except SM): 33% removal; other crops: 0%
-        #crops: fraction
         ("WW", "WB", "SB", "WTr", "GM") : 0.33, #67% left on the field
+        ("SM", "WRa", "PO", "SBee") : 0
+    },
+    "zero": {
+        #keep all residues on the field
+        ("WW", "WB", "SB", "WTr", "GM") : 0,
         ("SM", "WRa", "PO", "SBee") : 0
     }
 }
 COVER_BEFORE = ["SM", "GM", "SB", "PO", "SBee"]
-CC_USAGE = "green-manure" #"green-manure" returns all the CC in the soil at harvest, "biomass-production" will calculate CC residues exported/returned according to humus balance approach    
+CROP_USAGE_HUMBAL = {
+    #"green-manure" returns all the CC in the soil at harvest,
+    #"biomass-production" will calculate residues exported/returned according to humus balance approach
+    "WW": "biomass-production",
+    "WB": "biomass-production",
+    "SB": "biomass-production",
+    "WTr": "biomass-production",
+    "GM": "biomass-production",
+    "SM": "green-manure",
+    "WRa": "green-manure",
+    "PO": "green-manure",
+    "SBee": "green-manure",
+    "CC": "green-manure",
+    "max-residue-recover-fraction": 0.9
+}
+
 
 def producer(setup=None):
     "main function"
@@ -135,6 +165,7 @@ def producer(setup=None):
             RESIDUES_HUMUS_BALANCE = False
             RESIDUES_EXPORTED = True
             EXPORT_RATE = setup["res_mgt"]
+        HUMBAL_CORRECTION = setup["HUMBAL_CORRECTION"]
     #end of user configuration
 
     #assemble file name suffix for out
@@ -190,8 +221,8 @@ def producer(setup=None):
                     cover_crop["worksteps"][ws]["opt-carbon-conservation"] = True
                     cover_crop["worksteps"][ws]["crop-impact-on-humus-balance"] = [humus_equivalent["crop"]["CC"], "Humus equivalent [Heq]"]
                     cover_crop["worksteps"][ws]["residue-heq"] = [humus_equivalent["material"]["green-manure"], "Heq ton-1 DM"]
-                    cover_crop["worksteps"][ws]["cover-crop-usage"] = CC_USAGE
-                    cover_crop["worksteps"][ws]["exported"] = True #if true and cover-crop-usage="green-manure" --> the crop is anyway returned to the soil
+                    cover_crop["worksteps"][ws]["crop-usage"] = CROP_USAGE_HUMBAL["CC"]
+                    cover_crop["worksteps"][ws]["exported"] = True #Needed to fire the humus balance approach; if true and crop-usage="green-manure" --> the crop is anyway returned to the soil
 
     with open("sims.json") as _:
         sims = json.load(_)
@@ -240,6 +271,8 @@ def producer(setup=None):
                                 cm["worksteps"][ws]["crop-impact-on-humus-balance"] = [humus_equivalent["crop"][cp], "Humus equivalent [Heq]"]
                                 cm["worksteps"][ws]["residue-heq"] = [humus_equivalent["material"]["straw"], "Heq ton-1 DM"]
                                 cm["worksteps"][ws]["organic-fertilizer-heq"] = [humus_equivalent["material"]["pig-slurry"], "Heq ton-1 DM"]
+                                cm["worksteps"][ws]["crop-usage"] = CROP_USAGE_HUMBAL[cp]
+                                cm["worksteps"][ws]["max-residue-recover-fraction"] = CROP_USAGE_HUMBAL["max-residue-recover-fraction"]
                                 cp_index += 1
     
     if FERT_STRATEGY == "BASE":
@@ -270,13 +303,12 @@ def producer(setup=None):
     
     sim["UseSecondaryYields"] = RESIDUES_EXPORTED
     if RESIDUES_EXPORTED:
-        if EXPORT_RATE != "all":
-            for cp in crop["crops"].iteritems():
-                for k in EXPORT_PRESETS[EXPORT_RATE].keys():
-                    if cp[0] in k:
-                        my_rate = EXPORT_PRESETS[EXPORT_RATE][k]
-                for organ in cp[1]["cropParams"]["cultivar"]["OrganIdsForSecondaryYield"]:
-                    organ["yieldPercentage"] *= my_rate
+        for cp in crop["crops"].iteritems():
+            for k in EXPORT_PRESETS[EXPORT_RATE].keys():
+                if cp[0] in k:
+                    my_rate = EXPORT_PRESETS[EXPORT_RATE][k]
+            for organ in cp[1]["cropParams"]["cultivar"]["OrganIdsForSecondaryYield"]:
+                organ["yieldPercentage"] *= my_rate
 
     sim["include-file-base-path"] = PATHS[USER]["INCLUDE_FILE_BASE_PATH"]
 
@@ -323,11 +355,11 @@ def producer(setup=None):
 
     orgN_kreise = read_orgN_kreise("NRW_orgN_balance.csv")
 
-    def update_soil_crop_dates(row, col):
+    def update_soil(row, col):
         "in place update the env"
         
-        site["Latitude"] = general_metadata[(row, col)]["latitude"]
-        site["HeightNN"] = [general_metadata[(row, col)]["elevation"], "m"]
+        site["SiteParameters"]["Latitude"] = general_metadata[(row, col)]["latitude"]
+        site["SiteParameters"]["HeightNN"] = [general_metadata[(row, col)]["elevation"], "m"]
         site["SiteParameters"]["SoilProfileParameters"] = soil_io.soil_parameters(soil_db_con, soil_ids[(row, col)])
         KA5_txt = soil_io.sand_and_clay_to_ka5_texture(site["SiteParameters"]["SoilProfileParameters"][0]["Sand"][0], site["SiteParameters"]["SoilProfileParameters"][0]["Clay"][0])
         for layer in site["SiteParameters"]["SoilProfileParameters"]:
@@ -464,6 +496,9 @@ def producer(setup=None):
     start_send = time.clock()
     simulated_cells = 0
     no_kreis = 0
+
+    #bkr2lk = defaultdict(set) #for additional info
+    #soilty2iniSOC = defaultdict(list) #for additional info
     
     for (row, col), gmd in general_metadata.iteritems():
 
@@ -483,6 +518,7 @@ def producer(setup=None):
             meteo_id = meteo_ids[(row, col)]
             if (row, col) in kreise_ids:
                 kreis_id = kreise_ids[(row, col)]
+                #bkr2lk[bkr_id].add(kreis_id)
             else:
                 no_kreis += 1
                 print "-----------------------------------------------------"
@@ -491,7 +527,7 @@ def producer(setup=None):
 
             simulated_cells += 1
 
-            KA5_txt = update_soil_crop_dates(row, col)
+            KA5_txt = update_soil(row, col)
 
             light_soils = ["Ss", "Su2", "Su3", "Su4", "St2", "Sl3", "Sl2"]
             heavy_soils = ["Tu3", "Tu4", "Lt3", "Ts2", "Tl", "Tu2", "Tt"]
@@ -502,6 +538,11 @@ def producer(setup=None):
             elif KA5_txt in heavy_soils:
                 soil_type = "heavy"
 
+            site["SiteParameters"]["SoilSpecificHumusBalanceCorrection"] = HUMBAL_CORRECTION[soil_type]
+
+            #soilty2iniSOC[soil_type].append(site["SiteParameters"]["SoilProfileParameters"][0]["SoilOrganicCarbon"][0])
+            #continue
+
             #row_col = "{}{:03d}".format(row, col)
             #topsoil_carbon[row_col] = site["SiteParameters"]["SoilProfileParameters"][0]["SoilOrganicCarbon"][0]
             #continue
@@ -509,8 +550,8 @@ def producer(setup=None):
             for rot_id, rotation in rotations[str(bkr_id)].iteritems():
 
                 ########for testing
-                if rot_id != "11111":
-                    continue
+                #if rot_id not in ["9120", "7120", "7130", "8120", "6110", "6120", "5120", "1110", "1130", "3110", "3130", "2110", "2120", "2130", "4110", "4120"]:
+                #    continue
                 
                 #extend rotation
                 ext_rot = []
@@ -594,7 +635,7 @@ def producer(setup=None):
                         print "sent env ", sent_id, " customId: ", env["customId"]
                         sent_id += 1
                         rotate(env["cropRotation"])
-                        
+
 
 
     stop_send = time.clock()
@@ -602,7 +643,24 @@ def producer(setup=None):
     print "sending ", sent_id, " envs took ", (stop_send - start_send), " seconds"
     print "simulated cells: ", simulated_cells, "; not found kreise for org N: ", no_kreis
 
+    #with open("bkr2lk.csv", "wb") as _:
+    #    writer = csv.writer(_, delimiter=",")
+    #    header = ["bkr", "lk"]
+    #    writer.writerow(header)
+    #    for bkr in bkr2lk.keys():
+    #        for lk in bkr2lk[bkr]:
+    #            row = [bkr, lk]
+    #            writer.writerow(row)
 
+    #with open("soilty2iniSOC.csv", "wb") as _:
+    #    writer = csv.writer(_, delimiter=",")
+    #    header = ["soil_type", "iniSOC"]
+    #    writer.writerow(header)
+    #    for soilty in soilty2iniSOC.keys():
+    #        for iniSOC in soilty2iniSOC[soilty]:
+    #            row = [soilty, iniSOC]
+    #            writer.writerow(row)
+    #print "done"
 #topsoil_carbon = {}
 
 with open("setup_sims_test.csv") as setup_file:
@@ -611,6 +669,11 @@ with open("setup_sims_test.csv") as setup_file:
     reader.next()
     for row in reader:
         cc_set = row[5].split("_outof_")
+        humbal_correction = {}
+        if row[10] != "":
+            humbal_correction["heavy"] = float(row[10].split("-")[0])
+            humbal_correction["medium"] = float(row[10].split("-")[1])
+            humbal_correction["light"] = float(row[10].split("-")[2])
         setup = {
             "id": row[0],
             "TF": row[2],
@@ -621,7 +684,12 @@ with open("setup_sims_test.csv") as setup_file:
                 "out-of": int(cc_set[1]), #CM
                 "suffix": str(int(float(cc_set[0])/float(cc_set[1])*100)) 
             },
-            "PRODUCTION_LEVEL": row[6]
+            "PRODUCTION_LEVEL": row[6],
+            "HUMBAL_CORRECTION": {
+                "heavy": humbal_correction.get("heavy", 0),
+                "medium": humbal_correction.get("medium", 0),
+                "light": humbal_correction.get("light", 0)
+            }
         }
         setups.append(setup)
 

@@ -46,11 +46,11 @@ rm(list = ls())
 library(datasets)
 library(ggplot2)
 
-setwd("C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/splitted-out/")
+setwd("C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/040418_humbal-50/splitted/14/")
 #setwd("C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/out-kuopio/splitted-out/out-kuopio-2030-Nmin-33removal/")
 
 #list files in the nested directories
-mylist <- list.files(pattern="*_year.csv", recursive=TRUE)
+mylist <- list.files(pattern="*_crop.csv", recursive=TRUE)
 
 #temp_dataset$resremoval <- rep(33,nrow(temp_dataset)) # make new column 
 
@@ -82,9 +82,17 @@ levels(dataset$crop)[levels(dataset$crop)=="sugar-beet_"] <- "SBee"
 levels(dataset$crop)[levels(dataset$crop)=="maize_grain-maize"] <- "GM"
 
 dataset$bkr <- factor(dataset$bkr)
+dataset$rotation <- factor(dataset$rotation)
 
-plot <- ggplot(dataset, aes(x = crop, y = yield)) + geom_boxplot() + theme_bw()
-plot + ggtitle("Pot-noheat-nofrost")
+#plot <- ggplot(dataset, aes(x = crop, y = Exp_ratio)) + geom_boxplot(aes(fill=factor(rotation))) + theme_bw()
+plot <- ggplot(dataset, aes(x = crop, y = Exp_ratio)) + geom_boxplot() + theme_bw()
+plot + ggtitle("exp ratio humbal-50")
+#plot + ggtitle("WL-NL")
+
+iniSOCdataset <- read.table("C:/Users/stella/Documents/GitHub/SUSTAg-NRW/soilty2iniSOC.csv", header=TRUE, sep=",")
+iniSOCdataset$soil_type <- factor(iniSOCdataset$soil_type)
+plot <- ggplot(iniSOCdataset, aes(x = soil_type, y = iniSOC)) + geom_boxplot() + theme_bw()
+plot + ggtitle("initial SOC")
 
 
 #dataset$yieldRounded<-round(dataset$yield, digits = -1)
@@ -92,7 +100,7 @@ plot + ggtitle("Pot-noheat-nofrost")
 #plot_viol
 
 #yield, Nleach, Nminfert
-plot <- ggplot(dataset, aes(x = bkr, y = yield)) + 
+plot <- ggplot(dataset, aes(x = bkr, y = LAImax)) + 
   #geom_boxplot(aes(fill=factor(RemovalRate)))
   geom_boxplot(aes(fill=factor(rotation)))
 plot <- plot + facet_wrap(~ crop)
@@ -140,11 +148,14 @@ plot
 #test humus balance effectivity
 dataset$KA5class <- factor(dataset$KA5class)
 dataset$soiltype <- factor(dataset$soiltype)
-plot <- ggplot(dataset, aes(x = soiltype, y = deltaOC)) + 
+plot <- ggplot(dataset, aes(x = rotation, y = deltaOC)) + 
   geom_boxplot()
-plot <- plot + facet_wrap(~ rotation)
+  #geom_boxplot(aes(fill=factor(soiltype)))
+#plot <- plot + facet_wrap(~ bkr)
 plot <- plot + theme_bw()
+plot <- plot + theme(axis.text.x = element_text(angle = 90, hjust = 0))
 plot <- plot + geom_hline(yintercept = 0)
+plot <- plot + ggtitle("humbal-300")
 plot
 
 dataset$bkr <- factor(dataset$bkr)

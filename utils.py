@@ -1,7 +1,11 @@
 import csv
 from collections import defaultdict
 import pandas as pd
+import numpy as np
 import json
+import os
+import matplotlib.pyplot as plt
+from matplotlib import colors
 
 n_rows = 241
 n_cols = 250
@@ -126,6 +130,101 @@ def soc_trajectories(start_year, end_year):
     
 
 #kreise_N_amount()
-soc_trajectories(2006, 2030)
+#soc_trajectories(2006, 2030)
+
+def produce_plot(filename, x_vals, y_dict, deltaSOC_dict, title):
+    colors = {
+        "light": "silver",
+        "medium": "gray",
+        "heavy": "black"
+    }
+    plt.clf()
+    plt.title(title)
+    plt.ylim(70, 110)
+    for soil_type, relSOC_serie in y_dict.items():
+        avg_deltaSOC = round(np.mean(deltaSOC_dict[soil_type]),2)
+        plt.plot(x_vals, relSOC_serie, "-", color=colors[soil_type], label=soil_type + ", avg deltaOC: " + str(avg_deltaSOC))
+    plt.xlabel('year')
+    plt.ylabel('rel SOC')
+    plt.legend()
+    plt.savefig(filename)
+    text = 'A figure has been saved as ' + filename
+    print(text)
+
+def soc_trajectories_plus(start_year, end_year):
+
+    base_dir = "C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/id23/splitted/23/"
+
+    ids_sim = ["23"]
+    soil_types = ["heavy", "medium", "light"]
+
+    for f_type in ["_year"]:
+        dframes = []
+        merged_df = None
+        for f in os.listdir(base_dir):
+            if ".csv" not in f:
+                continue
+            fname = f.split("_")
+            id_sim = fname[1][2:]
+            if f_type in f and id_sim in ids_sim:
+                print(" appending " + f)
+                dframes.append(pd.read_csv(base_dir + "/" + f))
+        print("concatenating data frames...")
+        merged_df = pd.concat(dframes)
+
+    with open("rotations_dynamic_harv.json") as _:
+        rotations = json.load(_)
+
+    print("writing output file...")
+    with open(base_dir + "/SOC/SOC_trajectories.csv", "wb") as _:
+        writer = csv.writer(_, delimiter=",")
+        header = ["rotation", "year", "dSOCavg", "dSOCstd", "dSOCmin", "dSOCmax", "soiltype", "relSOC"]
+        writer.writerow(header)
+        for bkr, rot_info in rotations.iteritems():
+            for rot_id, crop_data in rot_info.iteritems():
+                
+                #initialize data structures for plotting
+                years = []
+                for year in range(start_year, end_year + 1):
+                    years.append(year)
+                SOC_traj = defaultdict(list)
+                deltaSOCs = defaultdict(list)
+
+                for soil_t in soil_types:
+                    rot_data = merged_df.loc[(merged_df['rotation'] == int(rot_id)) & (merged_df['soiltype'] == soil_t)]
+                    if rot_data.empty:
+                        continue
+                    #print rot_data
+                    relSOC = 100
+                    for year in range(start_year, end_year + 1):
+                        line = []                        
+                        if year == start_year:
+                            line.append(rot_id)
+                            line.append(year)
+                            line.append(0)
+                            line.append(0)
+                            line.append(0)
+                            line.append(0)
+                            line.append(soil_t)
+                            line.append(relSOC)
+                        else: 
+                            year_data = rot_data.loc[rot_data["year"] == year]
+                            avg_deltaOC = year_data["deltaOC"].mean()
+                            relSOC += relSOC * avg_deltaOC/100
+                            #print year_data
+                            line.append(rot_id)
+                            line.append(year)
+                            line.append(avg_deltaOC)
+                            line.append(year_data["deltaOC"].std())
+                            line.append(year_data["deltaOC"].min())
+                            line.append(year_data["deltaOC"].max())
+                            line.append(soil_t)
+                            line.append(relSOC)
+                            deltaSOCs[soil_t].append(avg_deltaOC)
+                        SOC_traj[soil_t].append(relSOC)                        
+                        writer.writerow(line)
+                produce_plot(base_dir + "/SOC/" + str(rot_id) + ".png", years, SOC_traj, deltaSOCs, title=str(rot_id))
+
+soc_trajectories_plus(2011, 2030)
 
 print "finished!"
