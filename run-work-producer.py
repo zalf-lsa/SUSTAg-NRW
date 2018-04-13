@@ -87,13 +87,13 @@ humus_equivalent = {
     },
     "material": { #Heq t-1 DM
         "straw": 116,
-        "green-manure": 80,
+        "green-manure": 80, #for cover crop and sugarbeet
         "pig-slurry": 100
     }
 }
 #for testing: modify humus equivalent
-for cp_h in humus_equivalent["crop"].keys():
-    humus_equivalent["crop"][cp_h] -= 0
+#for cp_h in humus_equivalent["crop"].keys():
+#    humus_equivalent["crop"][cp_h] -= 0
 #macsur climate data:
 #PATH_TO_CLIMATE_DATA_DIR ="/archiv-daten/md/projects/sustag/MACSUR_WP3_NRW_1x1/" #"Z:/projects/sustag/MACSUR_WP3_NRW_1x1/"
 LOCAL_RUN = False 
@@ -133,7 +133,7 @@ CROP_USAGE_HUMBAL = {
     "PO": "green-manure",
     "SBee": "green-manure",
     "CC": "green-manure",
-    "max-residue-recover-fraction": 0.9
+    "max-residue-recover-fraction": 0.75
 }
 
 
@@ -276,7 +276,10 @@ def producer(setup=None):
                             if cm["worksteps"][ws]["type"] == "AutomaticHarvest":
                                 cm["worksteps"][ws]["opt-carbon-conservation"] = True
                                 cm["worksteps"][ws]["crop-impact-on-humus-balance"] = [humus_equivalent["crop"][cp], "Humus equivalent [Heq]"]
-                                cm["worksteps"][ws]["residue-heq"] = [humus_equivalent["material"]["straw"], "Heq ton-1 DM"]
+                                if cp == "SBee":
+                                    cm["worksteps"][ws]["residue-heq"] = [humus_equivalent["material"]["green-manure"], "Heq ton-1 DM"]
+                                else:
+                                    cm["worksteps"][ws]["residue-heq"] = [humus_equivalent["material"]["straw"], "Heq ton-1 DM"]
                                 cm["worksteps"][ws]["organic-fertilizer-heq"] = [humus_equivalent["material"]["pig-slurry"], "Heq ton-1 DM"]
                                 cm["worksteps"][ws]["crop-usage"] = CROP_USAGE_HUMBAL[cp]
                                 cm["worksteps"][ws]["max-residue-recover-fraction"] = CROP_USAGE_HUMBAL["max-residue-recover-fraction"]
@@ -513,7 +516,7 @@ def producer(setup=None):
     def update_fert_values(rotation, rot_info, cc_in_cm, expected_N_availability, mineralN_split, soil_type, orgN_applied):
         "function to mimic baseline fertilization"
 
-        cow_unit = 77.5
+        cow_unit = 100
         GVs = orgN_applied/cow_unit
         orgN_effect = GVs * 10
 

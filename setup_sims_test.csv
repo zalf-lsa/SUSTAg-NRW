@@ -1,0 +1,15 @@
+ID,Purpose,Timeframe,Fert strategy,Residues management,Cover crops,Production level,rcp,climate model,yield,"humbal correction (heavy, medium, light soils)"
+25,"Base, Sc1, Sc2",2030,BASE,theoretical,1_outof_4,Pot,2.6,IPSL-CM5A-LR ,Base,
+28,Base,2030,BASE,base,1_outof_4,WL.NL.rain,2.6,IPSL-CM5A-LR ,Base,
+29,Sc1 ,2030,BASE,RESIDUES_HUMUS_BALANCE,1_outof_4,WL.NL.rain,2.6,IPSL-CM5A-LR ,Base,0-0-0
+30,Sc2 ,2030,BASE,RESIDUES_HUMUS_BALANCE,1_outof_4,WL.NL.rain,2.6,IPSL-CM5A-LR ,Base,200-300-400
+31,sensitivity,2030,BASE,RESIDUES_HUMUS_BALANCE,1_outof_4,WL.NL.rain,2.6,IPSL-CM5A-LR ,Base,0-100-200
+32,sensitivity,2030,BASE,RESIDUES_HUMUS_BALANCE,1_outof_4,WL.NL.rain,2.6,IPSL-CM5A-LR ,Base,100-200-300
+33,sensitivity,2030,BASE,RESIDUES_HUMUS_BALANCE,1_outof_4,WL.NL.rain,2.6,IPSL-CM5A-LR ,Base,300-400-500
+38,"Base, Sc1, Sc2",2050,BASE,theoretical,1_outof_4,Pot,2.6,IPSL-CM5A-LR ,Base,
+41,Base,2050,BASE,base,1_outof_4,WL.NL.rain,2.6,IPSL-CM5A-LR ,Base,
+42,Sc1 ,2050,BASE,RESIDUES_HUMUS_BALANCE,1_outof_4,WL.NL.rain,2.6,IPSL-CM5A-LR ,Base,0-0-0
+43,Sc2 ,2050,BASE,RESIDUES_HUMUS_BALANCE,1_outof_4,WL.NL.rain,2.6,IPSL-CM5A-LR ,Base,200-300-400
+44,sensitivity,2050,BASE,RESIDUES_HUMUS_BALANCE,1_outof_4,WL.NL.rain,2.6,IPSL-CM5A-LR ,Base,0-100-200
+45,sensitivity,2050,BASE,RESIDUES_HUMUS_BALANCE,1_outof_4,WL.NL.rain,2.6,IPSL-CM5A-LR ,Base,100-200-300
+46,sensitivity,2050,BASE,RESIDUES_HUMUS_BALANCE,1_outof_4,WL.NL.rain,2.6,IPSL-CM5A-LR ,Base,300-400-500
