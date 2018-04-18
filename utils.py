@@ -225,6 +225,88 @@ def soc_trajectories_plus(start_year, end_year):
                         writer.writerow(line)
                 produce_plot(base_dir + "/SOC/" + str(rot_id) + ".png", years, SOC_traj, deltaSOCs, title=str(rot_id))
 
-soc_trajectories_plus(2011, 2030)
+#soc_trajectories_plus(2011, 2030)
+
+def aggregate_results():
+
+    def one_liner(df):
+        line = []
+        no_avg = ["IDcell", "crop", "rotation", "soiltype", "id", "bkr", "tf", "fert", "res", "cc", "pl"]
+        for column in df:
+            if column in no_avg:
+                line.append(df[column].iloc[0])
+            else:
+                line.append(round(df[column].mean(), 2))
+        return line
+    
+    def prepare_header(df):
+        header = []
+        for column in df:
+            header.append(column)
+        return header
+
+    base_dir = "C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/out-2018-04-16-EUBCE-processed/splitted/"
+    for dirName, subdirList, fileList in os.walk(base_dir):
+        #print('Found directory: %s' % dirName)
+        for fname in fileList:
+            print("reading " + fname)
+            towrite = []
+            header = []
+            #print('\t%s' % fname)
+            my_df = pd.read_csv(dirName + "/" + fname)
+            #print my_df.head()
+            id_cells = set(my_df["IDcell"])
+
+            for cell in id_cells:
+                cell_data = my_df.loc[(my_df["IDcell"] == cell)]
+                rotations = set(cell_data["rotation"])
+
+                for rot in rotations:
+                    cell_rot_data = cell_data.loc[(cell_data["rotation"] == rot)]
+
+                    if len(header) == 0:
+                        header = prepare_header(cell_rot_data)
+                        towrite.append(header)
+
+                    if "_year" in fname:
+                        towrite.append(one_liner(cell_rot_data))
+
+                    if "_crop" in fname:
+                        crops = set(cell_rot_data["crop"])
+                        for cp in crops:
+                            cell_rot_crop_data = cell_rot_data.loc[(cell_rot_data["crop"] == cp)]
+                            towrite.append(one_liner(cell_rot_crop_data))
+            
+            out_dir = dirName + "/aggregated/"
+            if not os.path.exists(out_dir):
+                os.makedirs(out_dir)
+
+            with open(out_dir + "/" + fname, "wb") as _:
+                writer = csv.writer(_)
+                for line in towrite:
+                    writer.writerow(line)        
+
+#aggregate_results()
+
+def concatenate_files():    
+    base_dir = "C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/out-2018-04-16-EUBCE-processed/splitted/"
+    id_sim = ""
+    for dirName, subdirList, fileList in os.walk(base_dir):
+        print('Found directory: %s' % dirName)
+        if "aggregated" in dirName:
+            for f_type in ["_year", "_crop"]:
+                dframes = []
+                for fname in fileList:
+                    fn = fname.split("_")
+                    id_sim = fn[1][2:]
+                    if f_type in fname:
+                        print(" appending " + fname)
+                        dframes.append(pd.read_csv(dirName + "/" + fname))
+                print("concatenating data frames...")
+                merged_df = pd.concat(dframes)
+                merged_df.to_csv("C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/EUBCE/" + id_sim + f_type + ".csv")
+                print("id sim " + id_sim + f_type + " processed!")
+
+concatenate_files()
 
 print "finished!"

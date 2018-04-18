@@ -1,6 +1,7 @@
 import os
 import csv
 
+'''
 basepath = os.path.dirname(os.path.abspath(__file__))
 dir_name = basepath + "/out/id22/"
 out_dir = basepath + "/out/splitted-out/"
@@ -9,6 +10,7 @@ out_dir = basepath + "/out/splitted-out/"
 #extract_vars_cp = ["IDcell", "crop", "rotation", "yield", "Nleach", "Nminfert", "RemovalRate", "FertMethod"]
 extract_vars_cp = ["IDcell", "crop", "rotation", "yield", "LAImax", "ExportResidues"]
 extract_vars_yr = ["IDcell", "rotation", "year", "deltaOC", "KA5class", "soiltype"]
+'''
 
 def split(suffix, extract_vars, tag_bkr=True, calc_hi=False, pot_cp_residue=False, excludecc=False):
     for filename in os.listdir(dir_name):
@@ -93,15 +95,17 @@ def add_out_colums(col_names, col_vals, directory):
 
 #print("finished")
 
-'''
-dir_name = "Z:/projects/sustag/out-NRW-2018-02-22-fixes-and-additions/"
 
-extract_vars_cp = ["IDcell", "crop", "rotation", "yield", "ExportResidues", "ReturnResidues", "id", "bkr", "tf", "fert", "res", "cc", "pl"]
-extract_vars_yr = ["IDcell", "rotation", "Nleach", "deltaOC", "id", "bkr", "tf", "fert", "res", "cc", "pl"]
-'''
+dir_name = "C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/out-2018-04-16-EUBCE-processed/"
+
+extract_vars_cp = ["IDcell", "crop", "rotation", "yield", "Nminfert", "Norgfert", "ExportResidues", "ReturnResidues", "CarryOver", "id", "bkr", "tf", "fert", "res", "cc", "pl"]
+extract_vars_yr = ["IDcell", "rotation", "Nleach", "deltaOC", "CO2emission", "N2Oem", "soiltype", "id", "bkr", "tf", "fert", "res", "cc", "pl"]
+
 
 def split_ioanna(suffix, extract_vars, calc_res_ratio=False):
     for filename in os.listdir(dir_name):
+        #if filename != "142_id41_2050_fert-base_res-base_cc-25_pl-WLNLrain_crop.csv":
+        #    continue
         if ".csv" in filename and suffix in filename:
             print("opening " + filename)
             fname = filename.split("_")
@@ -112,7 +116,9 @@ def split_ioanna(suffix, extract_vars, calc_res_ratio=False):
                 field_map = {}
                 for i in range(len(header)):
                     field_map[header[i]] = i
+                #rowcount=0
                 for row in reader:
+                    #rowcount +=1
                     line = []
                     for v in extract_vars:
                         line.append(row[field_map[v]])

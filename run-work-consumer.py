@@ -260,10 +260,12 @@ def collector():
     i = 0
     context = zmq.Context()
     socket = context.socket(zmq.PULL)
+    #socket = context.socket(zmq.DEALER)
+    #context.setsockopt(zmq.IDENTITY, "ts_sustag_nrw")
     if LOCAL_RUN:
         socket.connect("tcp://localhost:77773")
     else:
-        socket.connect("tcp://cluster3:77773")
+        socket.connect("tcp://cluster1:77773")
     socket.RCVTIMEO = 1000
     leave = False
     write_normal_output_files = False

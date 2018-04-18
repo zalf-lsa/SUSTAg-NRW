@@ -1,7 +1,7 @@
 import os
 import csv
 
-dir_name = "Z:/projects/sustag/test/"
+dir_name = "C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/out-2018-04-16-EUBCE-processed/"
 
 for filename in os.listdir(dir_name):
     print("opening " + filename)
@@ -10,6 +10,7 @@ for filename in os.listdir(dir_name):
     with open(dir_name + filename) as file_:
         name_parts = filename.split(".")[0].split("_")
         bkr = name_parts[0]
+        sim_id =name_parts[1][2:]
         tf = name_parts[2]
         fert = name_parts[3].split("-")[1]
         res = name_parts[4].split("-")[1]
@@ -20,6 +21,7 @@ for filename in os.listdir(dir_name):
         
         header = reader.next()
         header.append("bkr")
+        header.append("id")
         header.append("tf")
         header.append("fert")
         header.append("res")
@@ -29,6 +31,7 @@ for filename in os.listdir(dir_name):
         
         for row in reader:
             row.append(bkr)
+            row.append(sim_id)
             row.append(tf)
             row.append(fert)
             row.append(res)

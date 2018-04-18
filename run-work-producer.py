@@ -204,7 +204,7 @@ def producer(setup=None):
     if LOCAL_RUN:
         socket.connect("tcp://localhost:66663")
     else:
-        socket.connect("tcp://cluster3:" + str(port))
+        socket.connect("tcp://cluster1:" + str(port))
 
     soil_db_con = sqlite3.connect("soil.sqlite")
 
@@ -674,6 +674,7 @@ def producer(setup=None):
                     "sim": sim,
                     "climate": ""
                 })
+                #env["sharedId"] = "ts_sustag_nrw"
 
                 #assign amount of organic fertilizer
                 for cultivation_method in env["cropRotation"]:
