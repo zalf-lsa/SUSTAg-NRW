@@ -35,7 +35,7 @@ from scipy.interpolate import NearestNDInterpolator
 from pyproj import Proj, transform
 from collections import defaultdict
 
-USER = "stella"
+USER = "berg"
 
 PATHS = {
     "stella": {
@@ -43,7 +43,7 @@ PATHS = {
         "path-to-data-dir": "z:/data/",
     },
     "berg": {
-        "INCLUDE_FILE_BASE_PATH": "C:/Users/berg.ZALF-AD/MONICA"  ,
+        "INCLUDE_FILE_BASE_PATH": "C:/Users/berg.ZALF-AD/GitHub"  ,
         "path-to-data-dir": "N:/",      
     }
 }
@@ -200,7 +200,7 @@ def producer(setup=None):
 
     context = zmq.Context()
     socket = context.socket(zmq.PUSH)
-    port = 66663 if len(sys.argv) == 1 else sys.argv[1]
+    port = 6666 if len(sys.argv) == 1 else sys.argv[1]
     if LOCAL_RUN:
         socket.connect("tcp://localhost:66663")
     else:
@@ -674,7 +674,7 @@ def producer(setup=None):
                     "sim": sim,
                     "climate": ""
                 })
-                #env["sharedId"] = "ts_sustag_nrw"
+                env["sharedId"] = "ts_sustag_nrw"
 
                 #assign amount of organic fertilizer
                 for cultivation_method in env["cropRotation"]:
@@ -723,7 +723,7 @@ def producer(setup=None):
                                         + "|" + soil_type
                         
                         socket.send_json(env) 
-                        print "sent env ", sent_id, " customId: ", env["customId"]
+                        print "sent env ", sent_id, "customId:", env["customId"], "shared_id:", env["sharedId"]
                         sent_id += 1
                         rotate(env["cropRotation"])
 
