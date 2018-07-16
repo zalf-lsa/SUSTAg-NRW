@@ -1,7 +1,8 @@
 import os
 import csv
 
-dir_name = "C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/out-2018-04-16-EUBCE-processed/"
+#dir_name = "C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/out-2018-04-16-EUBCE-processed/"
+dir_name = "C:/Users/stella/Desktop/out_2018-05-08_ids-33-51-52/"
 
 for filename in os.listdir(dir_name):
     print("opening " + filename)

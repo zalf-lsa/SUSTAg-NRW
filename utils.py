@@ -146,21 +146,38 @@ def produce_plot(filename, x_vals, y_dict, deltaSOC_dict, title):
         plt.plot(x_vals, relSOC_serie, "-", color=colors[soil_type], label=soil_type + ", avg deltaOC: " + str(avg_deltaSOC))
     plt.xlabel('year')
     plt.ylabel('rel SOC')
-    plt.legend()
+    plt.legend(loc=3)
     plt.savefig(filename)
     text = 'A figure has been saved as ' + filename
     print(text)
 
+def short_report(filename, deltaSOC_dict):
+    with open(filename, "wb") as _:
+        writer = csv.writer(_, delimiter=",")
+        soils = ["light", "medium", "heavy"]
+        header = ["rotation"] + soils
+        writer.writerow(header)
+        #keys: rot, soiltype, vals: [deltaSOC]        
+        for rot in deltaSOC_dict.keys():
+            row = [rot]
+            for soil in soils:
+                if soil in deltaSOC_dict[rot].keys():
+                    row.append(round(np.mean(deltaSOC_dict[rot][soil]), 2))
+                else:
+                    row.append("NA")
+            writer.writerow(row)
+
 def soc_trajectories_plus(start_year, end_year):
 
-    base_dir = "C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/id23/splitted/23/"
+    #base_dir = "C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/id28/splitted/"
+    base_dir = "C:/Users/stella/Desktop/split_these/splitted/41/"
 
-    ids_sim = ["23"]
+    ids_sim = ["41"]
     soil_types = ["heavy", "medium", "light"]
 
     for f_type in ["_year"]:
         dframes = []
-        merged_df = None
+        merged_df = pd.DataFrame()
         for f in os.listdir(base_dir):
             if ".csv" not in f:
                 continue
@@ -168,9 +185,14 @@ def soc_trajectories_plus(start_year, end_year):
             id_sim = fname[1][2:]
             if f_type in f and id_sim in ids_sim:
                 print(" appending " + f)
-                dframes.append(pd.read_csv(base_dir + "/" + f))
-        print("concatenating data frames...")
-        merged_df = pd.concat(dframes)
+                if merged_df.empty:
+                    merged_df = pd.read_csv(base_dir + "/" + f)
+                else:
+                    merged_df = pd.concat([merged_df, pd.read_csv(base_dir + "/" + f)])
+                #merged_df = pd.concat([merged_df, pd.read_csv(base_dir + "/" + f)])
+                #dframes.append(pd.read_csv(base_dir + "/" + f))
+        #print("concatenating data frames...")
+        #merged_df = pd.concat(dframes)
 
     with open("rotations_dynamic_harv.json") as _:
         rotations = json.load(_)
@@ -180,6 +202,10 @@ def soc_trajectories_plus(start_year, end_year):
         writer = csv.writer(_, delimiter=",")
         header = ["rotation", "year", "dSOCavg", "dSOCstd", "dSOCmin", "dSOCmax", "soiltype", "relSOC"]
         writer.writerow(header)
+        
+        #keys: rot, soiltype, vals: [deltaSOC]
+        rot_deltaSOCs = defaultdict()
+
         for bkr, rot_info in rotations.iteritems():
             for rot_id, crop_data in rot_info.iteritems():
                 
@@ -221,11 +247,13 @@ def soc_trajectories_plus(start_year, end_year):
                             line.append(soil_t)
                             line.append(relSOC)
                             deltaSOCs[soil_t].append(avg_deltaOC)
-                        SOC_traj[soil_t].append(relSOC)                        
+                        SOC_traj[soil_t].append(relSOC)
                         writer.writerow(line)
+                rot_deltaSOCs[rot_id] = deltaSOCs
                 produce_plot(base_dir + "/SOC/" + str(rot_id) + ".png", years, SOC_traj, deltaSOCs, title=str(rot_id))
+        short_report(base_dir + "/SOC/short_report.csv", rot_deltaSOCs)
 
-#soc_trajectories_plus(2011, 2030)
+soc_trajectories_plus(2031, 2050)
 
 def aggregate_results():
 
@@ -245,7 +273,8 @@ def aggregate_results():
             header.append(column)
         return header
 
-    base_dir = "C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/out-2018-04-16-EUBCE-processed/splitted/"
+    #base_dir = "C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/id51/splitted/51/"
+    base_dir = "C:/Users/stella/Desktop/split_these/splitted/41/"
     for dirName, subdirList, fileList in os.walk(base_dir):
         #print('Found directory: %s' % dirName)
         for fname in fileList:
@@ -289,7 +318,9 @@ def aggregate_results():
 #aggregate_results()
 
 def concatenate_files():    
-    base_dir = "C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/out-2018-04-16-EUBCE-processed/splitted/"
+    #base_dir = "C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/id51/"
+    base_dir = "C:/Users/stella/Desktop/split_these/splitted/41/"
+    
     id_sim = ""
     for dirName, subdirList, fileList in os.walk(base_dir):
         print('Found directory: %s' % dirName)
@@ -304,9 +335,9 @@ def concatenate_files():
                         dframes.append(pd.read_csv(dirName + "/" + fname))
                 print("concatenating data frames...")
                 merged_df = pd.concat(dframes)
-                merged_df.to_csv("C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/EUBCE/" + id_sim + f_type + ".csv")
+                merged_df.to_csv("C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/" + id_sim + f_type + ".csv")
                 print("id sim " + id_sim + f_type + " processed!")
 
-concatenate_files()
+#concatenate_files()
 
 print "finished!"

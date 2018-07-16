@@ -3,6 +3,7 @@
 rm(list = ls())
 library(datasets)
 library(ggplot2)
+library(dplyr)
 
 setwd("C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/splitted-out")
 
@@ -46,11 +47,13 @@ rm(list = ls())
 library(datasets)
 library(ggplot2)
 
-setwd("C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/040418_humbal-50/splitted/14/")
+#setwd("Z:/projects/sustag/out_2018-04-16_EUBCE_processed/splitted/42/")
+setwd("Z:/projects/sustag/out_2018-05-08_ids-33-51-52/splitted/52/")
+setwd("C:/Users/stella/Desktop/split_these/splitted/52/")
 #setwd("C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/out-kuopio/splitted-out/out-kuopio-2030-Nmin-33removal/")
 
 #list files in the nested directories
-mylist <- list.files(pattern="*_crop.csv", recursive=TRUE)
+mylist <- list.files(pattern="*_crop.csv", recursive=FALSE)
 
 #temp_dataset$resremoval <- rep(33,nrow(temp_dataset)) # make new column 
 
@@ -70,6 +73,7 @@ for (file in mylist){
   
 }
 
+
 levels(dataset$crop)[levels(dataset$crop)=="barley_spring-barley"] <- "SB"
 levels(dataset$crop)[levels(dataset$crop)=="barley_winter-barley"] <- "WB"
 levels(dataset$crop)[levels(dataset$crop)=="maize_silage-maize"] <- "SM"
@@ -83,6 +87,9 @@ levels(dataset$crop)[levels(dataset$crop)=="maize_grain-maize"] <- "GM"
 
 dataset$bkr <- factor(dataset$bkr)
 dataset$rotation <- factor(dataset$rotation)
+#dataset$soiltype <- factor(dataset$soiltype)
+
+sample_dataset <- sample_n(dataset, 400000)
 
 #plot <- ggplot(dataset, aes(x = crop, y = Exp_ratio)) + geom_boxplot(aes(fill=factor(rotation))) + theme_bw()
 plot <- ggplot(dataset, aes(x = crop, y = Exp_ratio)) + geom_boxplot() + theme_bw()
@@ -92,7 +99,8 @@ plot + ggtitle("exp ratio humbal-50")
 iniSOCdataset <- read.table("C:/Users/stella/Documents/GitHub/SUSTAg-NRW/soilty2iniSOC.csv", header=TRUE, sep=",")
 iniSOCdataset$soil_type <- factor(iniSOCdataset$soil_type)
 plot <- ggplot(iniSOCdataset, aes(x = soil_type, y = iniSOC)) + geom_boxplot() + theme_bw()
-plot + ggtitle("initial SOC")
+plot + coord_cartesian(ylim = c(0, 3)) + ggtitle("initial SOC (%)")
+
 
 
 #dataset$yieldRounded<-round(dataset$yield, digits = -1)
@@ -100,13 +108,23 @@ plot + ggtitle("initial SOC")
 #plot_viol
 
 #yield, Nleach, Nminfert
-plot <- ggplot(dataset, aes(x = bkr, y = LAImax)) + 
+plot <- ggplot(dataset, aes(x = bkr, y = Nminfert)) + 
   #geom_boxplot(aes(fill=factor(RemovalRate)))
   geom_boxplot(aes(fill=factor(rotation)))
 plot <- plot + facet_wrap(~ crop)
 plot <- plot + theme_bw()
 plot
 
+plot <- ggplot(dataset, aes(x = crop, y = ExportResidues)) + 
+  geom_boxplot(aes(fill=factor(rotation)))
+plot <- plot + theme_bw()
+plot <- plot + ylim(NA, 10000)
+plot <- plot + ggtitle("SI")
+plot
+
+dataset$id <- factor(dataset$id)
+levels(dataset$id)[levels(dataset$id)=="41"] <- "BL"
+levels(dataset$id)[levels(dataset$id)=="52"] <- "SI"
 dataset$rotation <- factor(dataset$rotation)
 levels(dataset$rotation)
 
@@ -145,17 +163,20 @@ plot <- ggplot(bkr191_dataset, aes(x = rotation, y = deltaOC)) +
 plot <- plot + theme_bw()
 plot
 
+sample_dataset <- sample_n(dataset, 400000)
+
 #test humus balance effectivity
-dataset$KA5class <- factor(dataset$KA5class)
+sample_dataset$KA5class <- factor(sample_dataset$KA5class)
 dataset$soiltype <- factor(dataset$soiltype)
 plot <- ggplot(dataset, aes(x = rotation, y = deltaOC)) + 
-  geom_boxplot()
-  #geom_boxplot(aes(fill=factor(soiltype)))
-#plot <- plot + facet_wrap(~ bkr)
+  #geom_boxplot()
+  geom_boxplot(aes(fill=factor(id)))
+plot <- plot + facet_wrap(~ soiltype)
 plot <- plot + theme_bw()
 plot <- plot + theme(axis.text.x = element_text(angle = 90, hjust = 0))
 plot <- plot + geom_hline(yintercept = 0)
-plot <- plot + ggtitle("humbal-300")
+plot <- plot + ggtitle("SI")
+plot <- plot + ylim(NA, 300)
 plot
 
 dataset$bkr <- factor(dataset$bkr)

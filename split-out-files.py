@@ -1,16 +1,16 @@
 import os
 import csv
 
-'''
+
 basepath = os.path.dirname(os.path.abspath(__file__))
-dir_name = basepath + "/out/id22/"
-out_dir = basepath + "/out/splitted-out/"
+dir_name = basepath + "/out/id28/"
+out_dir = basepath + "/out/id28/splitted/"
 
 
 #extract_vars_cp = ["IDcell", "crop", "rotation", "yield", "Nleach", "Nminfert", "RemovalRate", "FertMethod"]
 extract_vars_cp = ["IDcell", "crop", "rotation", "yield", "LAImax", "ExportResidues"]
 extract_vars_yr = ["IDcell", "rotation", "year", "deltaOC", "KA5class", "soiltype"]
-'''
+
 
 def split(suffix, extract_vars, tag_bkr=True, calc_hi=False, pot_cp_residue=False, excludecc=False):
     for filename in os.listdir(dir_name):
@@ -96,10 +96,12 @@ def add_out_colums(col_names, col_vals, directory):
 #print("finished")
 
 
-dir_name = "C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/out-2018-04-16-EUBCE-processed/"
+#dir_name = "C:/Users/stella/Documents/GitHub/SUSTAg-NRW/out/id51/"
+dir_name = "C:/Users/stella/Desktop/split_these/41_up_to_date/"
 
 extract_vars_cp = ["IDcell", "crop", "rotation", "yield", "Nminfert", "Norgfert", "ExportResidues", "ReturnResidues", "CarryOver", "id", "bkr", "tf", "fert", "res", "cc", "pl"]
-extract_vars_yr = ["IDcell", "rotation", "Nleach", "deltaOC", "CO2emission", "N2Oem", "soiltype", "id", "bkr", "tf", "fert", "res", "cc", "pl"]
+#extract_vars_yr = ["IDcell", "year", "rotation", "Nleach", "deltaOC", "CO2emission", "N2Oem", "soiltype", "id", "bkr", "tf", "fert", "res", "cc", "pl"]
+extract_vars_yr = ["IDcell", "year", "rotation", "Nleach", "deltaOC", "soiltype", "id", "bkr", "tf", "fert", "res", "cc", "pl"]
 
 
 def split_ioanna(suffix, extract_vars, calc_res_ratio=False):
@@ -147,6 +149,6 @@ def split_ioanna(suffix, extract_vars, calc_res_ratio=False):
             print(filename + " done!")
 
 split_ioanna("_crop", extract_vars_cp, calc_res_ratio=True)
-split_ioanna("_year", extract_vars_yr)
+#split_ioanna("_year", extract_vars_yr)
 
 print("finished")
